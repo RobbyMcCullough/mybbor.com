@@ -221,7 +221,7 @@
         }
 
         .qr-code {
-            padding: 8px;
+            padding: 10px;
             background: rgba(0, 0, 0, 0.6);
             border: 1px solid rgba(0, 240, 255, 0.3);
             border-radius: 6px;
@@ -516,7 +516,7 @@
                 qr.addData(pageUrl);
                 qr.make();
                 const img = document.createElement('img');
-                img.src = qr.createDataURL(2);
+                img.src = qr.createDataURL(3);
                 img.style.filter = 'hue-rotate(160deg) saturate(2)';
                 qrContainer.appendChild(img);
             };
