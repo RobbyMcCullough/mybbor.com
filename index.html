@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MYBBOR</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #0a0a0f;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(180deg, rgba(10,10,15,0.3) 0%, rgba(10,10,15,0.95) 100%),
+                        url('img/Mybbor.jpg') center center / cover no-repeat;
+        }
+
+        .content {
+            text-align: center;
+            z-index: 10;
+            padding: 2rem;
+        }
+
+        .logo {
+            font-size: clamp(3rem, 12vw, 8rem);
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            background: linear-gradient(90deg, #00f0ff, #00ff88, #f0ff00, #ff00ff, #00f0ff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient 4s linear infinite;
+            text-shadow: 0 0 40px rgba(0, 240, 255, 0.5);
+            filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.4))
+                    drop-shadow(0 0 40px rgba(255, 0, 255, 0.3));
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes glitch-out {
+            0% {
+                opacity: 1;
+                transform: translate(0) skewX(0);
+                text-shadow: 0 0 40px rgba(0, 240, 255, 0.5);
+            }
+            5% {
+                opacity: 1;
+                transform: translate(-3px, 0) skewX(-2deg);
+                text-shadow: -3px 0 #ff00ff, 3px 0 #00f0ff;
+            }
+            10% {
+                opacity: 0;
+            }
+            15% {
+                opacity: 1;
+                transform: translate(3px, 0) skewX(2deg);
+                text-shadow: 3px 0 #ff00ff, -3px 0 #00f0ff;
+            }
+            20% {
+                opacity: 0;
+            }
+            25% {
+                opacity: 0.8;
+                transform: translate(-2px, 1px) skewX(-1deg);
+                text-shadow: -2px 0 #ff00ff, 2px 0 #00f0ff;
+            }
+            30% {
+                opacity: 0;
+            }
+            35% {
+                opacity: 0.6;
+                transform: translate(0, -2px) skewX(3deg);
+                text-shadow: 2px 0 #ff00ff, -2px 0 #00f0ff;
+            }
+            50% {
+                opacity: 0;
+                transform: translate(0) skewX(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(0) skewX(0);
+                text-shadow: none;
+            }
+        }
+
+        @keyframes glitch-in {
+            0% {
+                opacity: 0;
+                transform: translate(0) skewX(0);
+            }
+            50% {
+                opacity: 0;
+            }
+            55% {
+                opacity: 0.6;
+                transform: translate(0, 2px) skewX(-3deg);
+                text-shadow: -2px 0 #ff00ff, 2px 0 #00f0ff;
+            }
+            60% {
+                opacity: 0;
+            }
+            65% {
+                opacity: 0.8;
+                transform: translate(2px, -1px) skewX(1deg);
+                text-shadow: 2px 0 #ff00ff, -2px 0 #00f0ff;
+            }
+            70% {
+                opacity: 0;
+            }
+            75% {
+                opacity: 1;
+                transform: translate(-3px, 0) skewX(-2deg);
+                text-shadow: -3px 0 #ff00ff, 3px 0 #00f0ff;
+            }
+            80% {
+                opacity: 0;
+            }
+            85% {
+                opacity: 1;
+                transform: translate(3px, 0) skewX(2deg);
+                text-shadow: 3px 0 #ff00ff, -3px 0 #00f0ff;
+            }
+            95% {
+                opacity: 1;
+                transform: translate(0) skewX(0);
+                text-shadow: 0 0 40px rgba(0, 240, 255, 0.5);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(0) skewX(0);
+                text-shadow: 0 0 40px rgba(0, 240, 255, 0.5);
+            }
+        }
+
+        .logo.glitch-out {
+            animation: glitch-out 0.5s steps(1) forwards;
+        }
+
+        .logo.glitch-in {
+            animation: glitch-in 0.5s steps(1) forwards;
+        }
+
+        .tagline {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: #8892a0;
+            margin: 1.5rem 2rem 0;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+
+        .glow-line {
+            width: 200px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00f0ff, #ff00ff, transparent);
+            margin: 2rem auto;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scaleX(0.8); }
+            50% { opacity: 1; transform: scaleX(1); }
+        }
+
+        .social-links {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            color: #8892a0;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(136, 146, 160, 0.3);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .social-links a:hover {
+            color: #00f0ff;
+            border-color: #00f0ff;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+        }
+
+        /* QR Code */
+        .qr-container {
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .qr-code {
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            border-radius: 6px;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2),
+                        inset 0 0 20px rgba(0, 240, 255, 0.05);
+        }
+
+        .qr-code canvas {
+            display: block;
+        }
+
+        .qr-label {
+            font-size: 0.75rem;
+            color: #8892a0;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        /* Rain effect */
+        .rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .rain-drop {
+            position: absolute;
+            width: 1px;
+            height: 20px;
+            background: linear-gradient(transparent, rgba(0, 240, 255, 0.4));
+            animation: rain-fall linear infinite;
+        }
+
+        @keyframes rain-fall {
+            0% { transform: translateY(-20px); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        /* Scanline effect */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.1) 0px,
+                rgba(0, 0, 0, 0.1) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            opacity: 0.3;
+        }
+
+        /* Blog Section */
+        .blog-section {
+            background: #0a0a0f;
+            padding: 2rem 2rem 4rem;
+            margin-top: -4rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .blog-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: #00f0ff;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+            text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+        }
+
+        .blog-posts {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .blog-post-card {
+            background: rgba(20, 20, 30, 0.8);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .blog-post-card:hover {
+            border-color: #00f0ff;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .blog-post-card h3 {
+            color: #00f0ff;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-post-card .post-meta {
+            color: #8892a0;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .blog-post-card .post-excerpt {
+            color: #aab0ba;
+            line-height: 1.6;
+        }
+
+        /* Full Blog Post */
+        .blog-post-full {
+            display: none;
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(20, 20, 30, 0.9);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 8px;
+            padding: 2rem;
+        }
+
+        .blog-post-full.active {
+            display: block;
+        }
+
+        .blog-post-full .back-btn {
+            color: #00f0ff;
+            background: none;
+            border: 1px solid #00f0ff;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .blog-post-full .back-btn:hover {
+            background: rgba(0, 240, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+        }
+
+        .blog-post-full .post-content {
+            color: #c0c5ce;
+            line-height: 1.8;
+        }
+
+        .blog-post-full .post-content h1 {
+            color: #00f0ff;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+        }
+
+        .blog-post-full .post-content h2 {
+            color: #00ff88;
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+        }
+
+        .blog-post-full .post-content h3 {
+            color: #f0ff00;
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        .blog-post-full .post-content p {
+            margin-bottom: 1rem;
+        }
+
+        .blog-post-full .post-content ul,
+        .blog-post-full .post-content ol {
+            margin: 1rem 0 1rem 2rem;
+        }
+
+        .blog-post-full .post-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-post-full .post-content code {
+            background: rgba(0, 240, 255, 0.1);
+            color: #00f0ff;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .blog-post-full .post-content pre {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 6px;
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .blog-post-full .post-content pre code {
+            background: none;
+            padding: 0;
+            color: #aab0ba;
+        }
+
+        .blog-post-full .post-content a {
+            color: #ff00ff;
+            text-decoration: none;
+        }
+
+        .blog-post-full .post-content a:hover {
+            text-decoration: underline;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+        }
+
+        .blog-post-full .post-content blockquote {
+            border-left: 3px solid #ff00ff;
+            padding-left: 1rem;
+            margin: 1rem 0;
+            color: #8892a0;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="rain" id="rain"></div>
+    <div class="scanlines"></div>
+
+    <section class="hero">
+        <div class="content">
+            <div class="qr-container">
+                <div class="qr-code" id="qrcode"></div>
+                <span class="qr-label">Scan to visit</span>
+            </div>
+            <h1 class="logo">MYBBOR</h1>
+            <div class="glow-line"></div>
+            <p class="tagline">My name is Robby McCullough. My online handle is Mybbor.</p>
+            <div class="social-links">
+                <a href="https://facebook.com/mybbor" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="https://instagram.com/robbymccullough" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+                <a href="https://twitter.com/robbymccullough" target="_blank"><i class="fab fa-x-twitter"></i> Twitter</a>
+                <a href="https://github.com/mybbor" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                <a href="https://robbymccullough.com" target="_blank"><i class="fas fa-globe"></i> Website</a>
+                <a href="#" id="email-link"><i class="fas fa-envelope"></i> Email</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="blog-section">
+        <h2>Thoughts and Ramblings</h2>
+        <div class="blog-posts" id="blog-posts"></div>
+        <div class="blog-post-full" id="blog-post-full">
+            <button class="back-btn" onclick="showPostList()"><i class="fas fa-arrow-left"></i> Back to Posts</button>
+            <div class="post-content" id="post-content"></div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        // Generate rain drops
+        const rain = document.getElementById('rain');
+        const dropCount = 100;
+
+        for (let i = 0; i < dropCount; i++) {
+            const drop = document.createElement('div');
+            drop.className = 'rain-drop';
+            drop.style.left = Math.random() * 100 + '%';
+            drop.style.animationDuration = (Math.random() * 1 + 0.5) + 's';
+            drop.style.animationDelay = Math.random() * 2 + 's';
+            rain.appendChild(drop);
+        }
+
+        // QR Code Generator (using external library)
+        (function() {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js';
+            script.onload = function() {
+                const qrContainer = document.getElementById('qrcode');
+                const pageUrl = window.location.href;
+                const qr = qrcode(4, 'M');
+                qr.addData(pageUrl);
+                qr.make();
+                const img = document.createElement('img');
+                img.src = qr.createDataURL(2);
+                img.style.filter = 'hue-rotate(160deg) saturate(2)';
+                qrContainer.appendChild(img);
+            };
+            document.head.appendChild(script);
+        })();
+
+        // Obfuscated email - assembled at runtime to prevent scraping
+        (function() {
+            const e = document.getElementById('email-link');
+            const p = ['myb', 'bor', '@', 'gma', 'il.', 'com'];
+            e.addEventListener('click', function(evt) {
+                evt.preventDefault();
+                window.location.href = 'mai' + 'lto:' + p.join('');
+            });
+        })();
+
+        // Alternate logo between MYBBOR and ROBBYM with TV glitch effect
+        (function() {
+            const logo = document.querySelector('.logo');
+            const names = ['MYBBOR', 'ROBBYM'];
+            let current = 0;
+
+            setInterval(function() {
+                logo.classList.add('glitch-out');
+
+                setTimeout(function() {
+                    current = (current + 1) % names.length;
+                    logo.textContent = names[current];
+                    logo.classList.remove('glitch-out');
+                    logo.classList.add('glitch-in');
+
+                    setTimeout(function() {
+                        logo.classList.remove('glitch-in');
+                    }, 500);
+                }, 500);
+            }, 4000);
+        })();
+
+        // Blog functionality
+        (function() {
+            const postsContainer = document.getElementById('blog-posts');
+            const postFull = document.getElementById('blog-post-full');
+            const postContent = document.getElementById('post-content');
+
+            // Load post index
+            fetch('posts/index.json')
+                .then(response => response.json())
+                .then(posts => {
+                    posts.forEach(post => {
+                        const card = document.createElement('div');
+                        card.className = 'blog-post-card';
+                        card.innerHTML = `
+                            <h3>${post.title}</h3>
+                            <div class="post-meta">${post.date}</div>
+                            <p class="post-excerpt">${post.excerpt}</p>
+                        `;
+                        card.addEventListener('click', () => loadPost(post.file));
+                        postsContainer.appendChild(card);
+                    });
+                })
+                .catch(err => {
+                    postsContainer.innerHTML = '<p style="color: #8892a0; text-align: center;">No posts yet.</p>';
+                });
+
+            // Load and display a full post
+            window.loadPost = function(filename) {
+                fetch('posts/' + filename)
+                    .then(response => response.text())
+                    .then(markdown => {
+                        // Remove frontmatter
+                        const content = markdown.replace(/^---[\s\S]*?---\n*/m, '');
+                        postContent.innerHTML = marked.parse(content);
+                        postsContainer.style.display = 'none';
+                        postFull.classList.add('active');
+                        postFull.scrollIntoView({ behavior: 'smooth' });
+                    });
+            };
+
+            // Show post list
+            window.showPostList = function() {
+                postFull.classList.remove('active');
+                postsContainer.style.display = 'flex';
+            };
+        })();
+    </script>
+</body>
+</html>
