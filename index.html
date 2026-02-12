@@ -494,6 +494,33 @@
             color: #8892a0;
             font-style: italic;
         }
+
+        /* Footer */
+        .footer {
+            background: #0a0a0f;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(0, 240, 255, 0.2);
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer p {
+            color: #6a7280;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+        }
+
+        .footer a {
+            color: #8892a0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #aab0ba;
+            text-shadow: 0 0 5px rgba(170, 176, 186, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -531,8 +558,15 @@
         </div>
     </section>
 
+    <footer class="footer">
+        <p>&copy; <span id="copyright-year"></span> <a href="https://robbymccullough.com" target="_blank">Robby McCullough</a></p>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
+        // Update copyright year
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
         // Generate rain drops
         const rain = document.getElementById('rain');
         const dropCount = 100;
