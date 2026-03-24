@@ -28,12 +28,3 @@ Static HTML, vanilla CSS, vanilla JS. No frameworks, no build step.
 └── posts/                            # Markdown blog posts
 ```
 
-## Deployment
-
-Hosted on [Netlify](https://netlify.com). Push to `main` on GitHub to deploy.
-
-## Running locally
-
-```bash
-python3 -m http.server 8000
-```
