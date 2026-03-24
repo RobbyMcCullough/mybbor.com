@@ -13,12 +13,15 @@
     <meta property="og:title" content="Mybbor | Robby McCullough">
     <meta property="og:description" content="Entrepreneur, photographer, and digital nomad. Co-founder of Beaver Builder. Thoughts and ramblings on travel, business, and life.">
     <meta property="og:url" content="https://mybbor.com">
+    <meta property="og:image" content="https://mybbor.com/img/Mybbor.jpg">
+    <meta property="og:image:alt" content="Robby McCullough — Mybbor">
 
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@RobbyMcCullough">
     <meta name="twitter:title" content="Mybbor | Robby McCullough">
     <meta name="twitter:description" content="Entrepreneur, photographer, and digital nomad. Co-founder of Beaver Builder.">
+    <meta name="twitter:image" content="https://mybbor.com/img/Mybbor.jpg">
 
     <link rel="canonical" href="https://mybbor.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -328,7 +331,6 @@
         .blog-section {
             background: #0a0a0f;
             padding: 2rem 2rem 4rem;
-            margin-top: -4rem;
             position: relative;
             z-index: 10;
         }
@@ -495,6 +497,129 @@
             font-style: italic;
         }
 
+        /* Projects Section — amber flavor, distinct from cyan blog section */
+        .projects-section {
+            background: #0a0a0f;
+            padding: 3rem 2rem 3rem;
+            margin-top: -4rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .projects-section::before {
+            content: "";
+            position: absolute;
+            bottom: 0; left: 10%; right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,184,0,0.2), transparent);
+        }
+
+        .projects-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: #ffb800;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 24px rgba(255, 184, 0, 0.35);
+        }
+
+        .projects-list {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .project-card {
+            background: rgba(18, 14, 6, 0.75);
+            border: 1px solid rgba(255, 184, 0, 0.2);
+            border-radius: 10px;
+            padding: 1.75rem 2rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,184,0,0.04), transparent 50%);
+            pointer-events: none;
+        }
+
+        .project-card:hover {
+            border-color: rgba(255, 184, 0, 0.55);
+            box-shadow: 0 0 32px rgba(255, 184, 0, 0.12), inset 0 0 40px rgba(255, 184, 0, 0.03);
+            transform: translateY(-2px);
+        }
+
+        .project-icon {
+            flex-shrink: 0;
+            width: 64px;
+            height: auto;
+            opacity: 0.8;
+            filter: drop-shadow(0 0 10px rgba(255, 184, 0, 0.25));
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover .project-icon {
+            opacity: 1;
+            filter: drop-shadow(0 0 18px rgba(255, 184, 0, 0.5));
+        }
+
+        .project-info { flex: 1; min-width: 0; }
+
+        .project-card h3 {
+            color: #ffb800;
+            font-size: 1.15rem;
+            margin: 0 0 0.35rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .project-card .project-meta {
+            color: #8892a0;
+            font-size: 0.78rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 0.7rem;
+        }
+
+        .project-card p {
+            color: #aab0ba;
+            line-height: 1.6;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .project-cta {
+            display: inline-block;
+            margin-top: 0.9rem;
+            color: #ffb800;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover .project-cta {
+            opacity: 1;
+            text-shadow: 0 0 10px rgba(255,184,0,0.5);
+        }
+
+        @media (max-width: 560px) {
+            .project-card { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+            .project-icon { width: 48px; }
+        }
+
         /* Footer */
         .footer {
             background: #0a0a0f;
@@ -546,6 +671,37 @@
                 <a href="https://robbymccullough.com" target="_blank"><i class="fas fa-globe"></i> Website</a>
                 <a href="#" id="email-link"><i class="fas fa-envelope"></i> Email</a>
             </div>
+        </div>
+    </section>
+
+    <section class="projects-section">
+        <h2>Tools &amp; Projects</h2>
+        <div class="projects-list">
+            <a href="/Petaluma%20Sonoma%20Cheat%20Sheet.html" class="project-card">
+                <svg class="project-icon" viewBox="0 0 64 64" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="pi-body" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#15181f"/><stop offset="100%" stop-color="#0b0d14"/></linearGradient>
+                        <linearGradient id="pi-batt" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1c1f2a"/><stop offset="100%" stop-color="#0e1018"/></linearGradient>
+                    </defs>
+                    <path d="M42 10 C43 7 45 4 47 1" fill="none" stroke="#8892a0" stroke-width="3" stroke-linecap="round"/>
+                    <rect x="38" y="8" width="8" height="8" rx="2.5" fill="#1e2030" stroke="#28304a" stroke-width="1"/>
+                    <rect x="18" y="12" width="28" height="36" rx="6" fill="url(#pi-body)" stroke="#1e2236" stroke-width="1.5"/>
+                    <rect x="16" y="44" width="32" height="10" rx="5" fill="url(#pi-batt)" stroke="#181b26" stroke-width="1.5"/>
+                    <g stroke="#1e2535" stroke-width="1.5" stroke-linecap="round">
+                        <line x1="22" y1="18" x2="42" y2="18"/>
+                        <line x1="22" y1="22" x2="42" y2="22"/>
+                    </g>
+                    <rect x="20" y="27" width="24" height="14" rx="3" fill="#000e18" stroke="#182838" stroke-width="1"/>
+                    <text x="32" y="37" text-anchor="middle" font-family="Consolas, monospace" font-size="7" fill="#00f0ff" letter-spacing="0.5">146.52</text>
+                    <rect x="12" y="30" width="7" height="12" rx="2.5" fill="#ffb800" stroke="#cc9600" stroke-width="1"/>
+                </svg>
+                <div class="project-info">
+                    <h3>Petaluma-Sonoma Radio Guide</h3>
+                    <div class="project-meta">Ham Radio &middot; North Bay, CA &middot; Baofeng UV-5R</div>
+                    <p>Memory channel plan for Petaluma and Sonoma County. 128 channels covering local ham repeaters, ACS emergency frequencies, ISS/APRS, NOAA weather, FRS/GMRS, and marine VHF — organized for North Bay radio use.</p>
+                    <span class="project-cta">Open guide &rarr;</span>
+                </div>
+            </a>
         </div>
     </section>
 

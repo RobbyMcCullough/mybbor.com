@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#15181f"/>
+      <stop offset="100%" stop-color="#0b0d14"/>
+    </linearGradient>
+    <linearGradient id="batt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1c1f2a"/>
+      <stop offset="100%" stop-color="#0e1018"/>
+    </linearGradient>
+  </defs>
+  <!-- Antenna -->
+  <path d="M42 10 C43 7 45 4 47 1" fill="none" stroke="#5a6070" stroke-width="3" stroke-linecap="round"/>
+  <!-- Antenna base -->
+  <rect x="38" y="8" width="8" height="8" rx="2.5" fill="#1e2030" stroke="#28304a" stroke-width="1"/>
+  <!-- Radio body -->
+  <rect x="18" y="12" width="28" height="36" rx="6" fill="url(#body)" stroke="#1e2236" stroke-width="1.5"/>
+  <!-- Battery pack -->
+  <rect x="16" y="44" width="32" height="10" rx="5" fill="url(#batt)" stroke="#181b26" stroke-width="1.5"/>
+  <!-- Speaker grille lines -->
+  <g stroke="#1e2535" stroke-width="1.5" stroke-linecap="round">
+    <line x1="22" y1="18" x2="42" y2="18"/>
+    <line x1="22" y1="22" x2="42" y2="22"/>
+  </g>
+  <!-- Display screen -->
+  <rect x="20" y="27" width="24" height="14" rx="3" fill="#000e18" stroke="#182838" stroke-width="1"/>
+  <!-- Frequency text on screen -->
+  <text x="32" y="37" text-anchor="middle" font-family="Consolas, monospace" font-size="7" fill="#00f0ff" letter-spacing="0.5">146.52</text>
+  <!-- PTT button (amber, left side) -->
+  <rect x="12" y="30" width="7" height="12" rx="2.5" fill="#ffb800" stroke="#cc9600" stroke-width="1"/>
+</svg>

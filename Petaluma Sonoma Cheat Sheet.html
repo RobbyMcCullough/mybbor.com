@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Petaluma-Sonoma Ham Radio Frequency Guide | mybbor.com</title>
+  <meta name="description" content="Baofeng memory plan for Petaluma and Sonoma County. 128 channels: ham repeaters, ACS emergency, ISS/APRS, NOAA weather, FRS/GMRS, and marine VHF — organized for North Bay radio use.">
+  <meta name="keywords" content="Petaluma ham radio, Sonoma County repeaters, Baofeng UV-5R frequencies, ACS emergency radio, North Bay ham radio, FRS GMRS channels, NOAA weather radio, marine VHF, APRS">
+  <meta name="author" content="Robby McCullough">
+  <link rel="canonical" href="https://mybbor.com/Petaluma%20Sonoma%20Cheat%20Sheet.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Petaluma-Sonoma Ham Radio Frequency Guide">
+  <meta property="og:description" content="Baofeng memory plan for Petaluma and Sonoma County. 128 channels: ham repeaters, ACS emergency, ISS/APRS, NOAA weather, FRS/GMRS, and marine VHF.">
+  <meta property="og:url" content="https://mybbor.com/Petaluma%20Sonoma%20Cheat%20Sheet.html">
+  <meta property="og:site_name" content="mybbor.com">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@RobbyMcCullough">
+  <meta name="twitter:title" content="Petaluma-Sonoma Ham Radio Frequency Guide">
+  <meta name="twitter:description" content="Baofeng memory plan for Petaluma and Sonoma County. 128 channels: ham repeaters, ACS emergency, ISS/APRS, NOAA weather, FRS/GMRS, and marine VHF.">
+
+  <meta name="theme-color" content="#0a0a0f">
+  <link rel="icon" type="image/svg+xml" href="img/Petaluma%20Sonoma%20Radio%20Reference%20Icon.svg">
+  <style>
+    /* ===== MYBBOR.COM SHARED THEME — Radio Reference flavor ===== */
+    :root {
+      --bg: #0a0a0f;
+      --panel: rgba(10, 10, 18, 0.92);
+      --panel-strong: rgba(8, 8, 16, 0.96);
+      --border: rgba(0, 240, 255, 0.15);
+      --border-hi: rgba(0, 240, 255, 0.4);
+      --text: #c0c5ce;
+      --muted: #8892a0;
+      --signal: #00f0ff;   /* cyan   — primary,   matches mybbor.com */
+      --green:  #00ff88;   /* green  — secondary, matches mybbor.com */
+      --amber:  #ffb800;   /* amber  — radar phosphor, unique to this page */
+      --magenta: #ff00ff;  /* magenta — tertiary, matches mybbor.com */
+      --line: rgba(0, 240, 255, 0.12);
+      --line-soft: rgba(0, 240, 255, 0.07);
+    }
+
+    * { box-sizing: border-box }
+
+    body {
+      margin: 0;
+      font-family: Consolas, "Lucida Console", "Courier New", monospace;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 80% 100%, rgba(255,0,255,0.07) 0%, transparent 52%),
+        radial-gradient(ellipse at 20% 90%, rgba(0,240,255,0.05) 0%, transparent 47%),
+        radial-gradient(ellipse at 50% 0%, rgba(0,240,255,0.1) 0%, transparent 42%),
+        #0a0a0f;
+      overflow-x: hidden;
+    }
+
+    /* Scanlines overlay — same as mybbor.com */
+    .scanlines {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 100;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0,0,0,0.1) 0px, rgba(0,0,0,0.1) 1px,
+        transparent 1px, transparent 2px
+      );
+      opacity: 0.3;
+    }
+
+    /* Radar grid overlay */
+    body::before {
+      content: "";
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 0;
+      opacity: 0.11;
+      background-image:
+        linear-gradient(rgba(0,240,255,0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,240,255,0.12) 1px, transparent 1px);
+      background-size: 100% 34px, 34px 100%;
+      mask-image: radial-gradient(ellipse at 50% 0%, black 25%, transparent 75%);
+    }
+
+    /* Ambient cyan glow at top */
+    body::after {
+      content: "";
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 0;
+      background: radial-gradient(ellipse at 50% -10%, rgba(0,240,255,0.05) 0%, transparent 55%);
+    }
+
+    a { color: var(--green); text-underline-offset: .18em }
+    a:hover { color: var(--signal); text-shadow: 0 0 8px rgba(0,240,255,0.5) }
+
+    code {
+      font-family: inherit;
+      background: rgba(0,240,255,0.06);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: .08rem .36rem;
+      color: var(--signal);
+    }
+
+    /* ===== SITE NAV — breadcrumb back to mybbor.com ===== */
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 0 10px;
+      font-size: .78rem;
+      color: var(--muted);
+      letter-spacing: .1em;
+    }
+    .site-nav a {
+      color: var(--muted);
+      text-decoration: none;
+      border: 1px solid rgba(136,146,160,0.3);
+      border-radius: 4px;
+      padding: 4px 10px;
+      transition: all 0.3s ease;
+    }
+    .site-nav a:hover {
+      color: var(--signal);
+      border-color: var(--signal);
+      box-shadow: 0 0 10px rgba(0,240,255,0.3);
+      text-shadow: 0 0 8px rgba(0,240,255,0.4);
+    }
+    .site-nav .sep { opacity: 0.35 }
+
+    /* ===== LAYOUT ===== */
+    .wrap { max-width: 1320px; margin: 0 auto; padding: 16px 14px 34px; position: relative; z-index: 1 }
+
+    .hero, .section, .footer {
+      position: relative;
+      border: 1px solid var(--border);
+      box-shadow:
+        0 0 0 1px #000 inset,
+        0 18px 50px rgba(0,0,0,0.5),
+        0 0 60px rgba(0,240,255,0.06);
+    }
+    .hero::before, .section::before, .footer::before {
+      content: "";
+      position: absolute; inset: 0;
+      pointer-events: none;
+      background: linear-gradient(135deg, rgba(0,240,255,0.07), transparent 38%, rgba(0,240,255,0.035) 70%, transparent);
+      mix-blend-mode: screen;
+    }
+    /* Top-edge highlight on section cards */
+    .section::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 6%; right: 6%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0,240,255,0.35), transparent);
+      pointer-events: none;
+    }
+
+    .hero {
+      overflow: hidden;
+      padding: 18px;
+      border-radius: 22px;
+      background: linear-gradient(145deg, rgba(12,14,22,0.97), rgba(6,7,14,0.98));
+      box-shadow:
+        0 0 0 1px #000 inset,
+        0 24px 64px rgba(0,0,0,0.6),
+        0 0 80px rgba(0,240,255,0.03);
+    }
+    /* Radar blooms — top-right cyan, bottom-left magenta */
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 60% 40%, rgba(0,240,255,0.13) 0%, transparent 60%),
+        radial-gradient(circle at 10% 90%, rgba(255,0,255,0.07) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(320px, .95fr);
+      gap: 14px;
+      align-items: start;
+    }
+
+    /* ===== TYPOGRAPHY ===== */
+    .eyebrow, .ptitle, .tag, .stat-label {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      color: var(--signal);
+    }
+    .eyebrow { display: inline-block; margin-bottom: 8px }
+
+    h1, h2, h3 {
+      margin: 0;
+      font-family: "Arial Narrow", Arial, sans-serif;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    h1 {
+      font-size: clamp(1.3rem, 2.2vw, 2rem);
+      line-height: 1.1;
+      max-width: 24ch;
+      color: #e8edf2;
+      text-shadow: 0 0 20px rgba(0,240,255,0.12);
+    }
+    h2 { font-size: clamp(1.15rem, 2vw, 1.55rem); color: var(--signal) }
+    h3 { font-size: 1rem; color: var(--green) }
+
+    .subtitle, .section p, .card span, .notes, .stat-value, .crib-card p { color: var(--muted) }
+    .subtitle { max-width: 62ch; margin: 10px 0 14px; font-size: .94rem; line-height: 1.45 }
+
+    /* ===== CHIPS / NAV PILLS ===== */
+    .chips, .nav, .quick, .stats, .inline-codes { display: flex; flex-wrap: wrap; gap: 8px }
+
+    .chip, .nav a, .tag, .inline-codes span {
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(10, 10, 18, 0.85);
+      color: var(--text);
+      text-decoration: none;
+      font-size: .82rem;
+      letter-spacing: .04em;
+    }
+    .nav a:hover {
+      background: rgba(0,240,255,0.06);
+      border-color: rgba(0,240,255,0.45);
+      color: var(--signal);
+      box-shadow: 0 0 12px rgba(0,240,255,0.2);
+    }
+
+    /* ===== HERO SIDE PANELS ===== */
+    .hero-side { display: grid; gap: 12px }
+
+    .panel {
+      padding: 14px;
+      border-radius: 18px;
+      background: var(--panel-strong);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(0,240,255,0.2), 0 0 24px rgba(0,240,255,0.04);
+    }
+    .ptitle { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 10px }
+
+    /* Signal status indicator */
+    .lamp { font-size: .76rem; color: var(--muted) }
+    .lamp::before {
+      content: "";
+      display: inline-block;
+      width: 9px; height: 9px;
+      margin-right: 7px;
+      border-radius: 99px;
+      background: radial-gradient(circle at 40% 40%, #d4f8ff, #00f0ff 58%, #003c4a 100%);
+      box-shadow: 0 0 12px rgba(0,240,255,0.8);
+      animation: lamp-pulse 2s ease-in-out infinite;
+    }
+    @keyframes lamp-pulse {
+      0%, 100% { box-shadow: 0 0 8px rgba(0,240,255,0.6) }
+      50%       { box-shadow: 0 0 18px rgba(0,240,255,1), 0 0 32px rgba(0,240,255,0.35) }
+    }
+
+    /* ===== STATS ===== */
+    .stats { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); margin-top: 12px }
+    .stat {
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: linear-gradient(145deg, rgba(0,240,255,0.08), rgba(0,0,0,0.45));
+      min-height: 74px;
+      box-shadow: inset 0 1px 0 rgba(0,240,255,0.18);
+    }
+    .stat strong { display: block; margin-top: 5px; font-size: 1.16rem; line-height: 1; color: var(--signal) }
+    .stat-value { display: block; margin-top: 4px; font-size: .79rem; line-height: 1.3 }
+    a.stat { text-decoration: none; color: inherit; transition: border-color .2s, background .2s }
+    a.stat:hover { border-color: rgba(0,240,255,0.4); background: rgba(0,240,255,0.07) }
+    a.card { text-decoration: none; color: inherit; transition: border-color .2s, background .2s }
+    a.card:hover { border-color: rgba(0,240,255,0.4); background: rgba(0,240,255,0.07) }
+
+    /* ===== RADAR ILLUSTRATION PANEL ===== */
+    .logo {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 180px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: radial-gradient(circle at 50% 50%, rgba(0,240,255,0.04) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0.85) 100%);
+      overflow: hidden;
+    }
+    /* Radar rings */
+    .logo::before {
+      content: "";
+      position: absolute;
+      inset: -18% auto auto 50%;
+      width: 280px; height: 280px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background:
+        repeating-radial-gradient(circle, rgba(0,240,255,0.1) 0 2px, transparent 2px 28px),
+        linear-gradient(90deg, transparent 49.4%, rgba(0,240,255,0.3) 50%, transparent 50.6%),
+        linear-gradient(transparent 49.4%, rgba(0,240,255,0.2) 50%, transparent 50.6%);
+      opacity: .55;
+    }
+    /* Animated radar sweep */
+    .logo::after {
+      content: "";
+      position: absolute;
+      left: 50%; top: 50%;
+      width: 140px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--signal), transparent);
+      transform-origin: left center;
+      box-shadow: 0 0 14px var(--signal);
+      animation: radar-sweep 5s linear infinite;
+    }
+    @keyframes radar-sweep {
+      from { transform: translate(-10px, -1px) rotate(0deg) }
+      to   { transform: translate(-10px, -1px) rotate(360deg) }
+    }
+    .logo svg { position: relative; width: min(100%,340px); height: auto; filter: drop-shadow(0 10px 18px rgba(0,0,0,0.6)) }
+
+    /* ===== QUICK CARDS ===== */
+    .quick { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px }
+    .card {
+      padding: 10px 11px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, rgba(0,240,255,0.09), rgba(0,0,0,0.5));
+      border: 1px solid var(--border);
+      box-shadow: inset 0 1px 0 rgba(0,240,255,0.18);
+    }
+    .card strong { display: block; color: var(--signal); font-size: 1rem; margin-bottom: 3px }
+
+    /* ===== TOPBAR ===== */
+    .topbar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; margin: 12px 0 10px }
+    .nav { gap: 8px }
+    .deck { display: grid; gap: 14px }
+
+    /* ===== SECTION CARDS ===== */
+    .section {
+      overflow: hidden;
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(10,12,20,0.96), rgba(6,7,14,0.98));
+    }
+    .head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 10px;
+      padding: 14px 16px 0;
+    }
+    .head p { margin: .35rem 0 0; font-size: .86rem; line-height: 1.35; max-width: 72ch }
+
+    .tag {
+      background: rgba(0,240,255,0.05);
+      border-color: rgba(0,240,255,0.28);
+      color: var(--signal);
+    }
+
+    /* ===== TABLES ===== */
+    .table-wrap { overflow-x: auto; padding: 10px 10px 8px }
+    table { width: 100%; min-width: 900px; border-collapse: collapse; background: rgba(0,0,0,0.22); font-size: .88rem }
+    thead th {
+      position: sticky; top: 0;
+      background: linear-gradient(180deg, rgba(0,8,16,0.98), rgba(0,6,14,0.98));
+      color: var(--signal);
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+    th, td { padding: 9px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line-soft); line-height: 1.28 }
+    tbody tr:nth-child(even) { background: rgba(0,240,255,0.02) }
+    tbody tr:hover { background: rgba(0,240,255,0.055) }
+
+    /* Memory number — amber, like an old phosphor radar contact */
+    .mem { font-weight: 700; color: var(--amber); white-space: nowrap }
+
+    /* Label with cyan signal dot */
+    .label { font-weight: 700; white-space: nowrap; color: var(--text) }
+    .label::before {
+      content: "";
+      display: inline-block;
+      width: 6px; height: 6px;
+      margin-right: 7px;
+      border-radius: 99px;
+      background: var(--signal);
+      box-shadow: 0 0 8px rgba(0,240,255,0.7);
+    }
+
+    /* ===== NOTES / CRIB ===== */
+    .notes { padding: 2px 16px 16px; font-size: .84rem; line-height: 1.4 }
+    .crib-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 14px; padding: 10px 10px 14px }
+    .crib-card {
+      padding: 12px;
+      border-radius: 16px;
+      background: linear-gradient(145deg, rgba(0,240,255,0.07), rgba(0,0,0,0.5));
+      border: 1px solid rgba(0,240,255,0.2);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: inset 0 1px 0 rgba(0,240,255,0.2), 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .crib-card p { color: var(--muted) }
+    .mini-table { width: 100%; min-width: 0; font-size: .84rem }
+    .mini-table th, .mini-table td { padding: 7px 8px }
+    .mini-table thead th { position: static }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(6,7,14,0.92);
+      font-size: .86rem;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+    .footer a { color: var(--muted) }
+    .footer a:hover { color: var(--signal) }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 960px) { .hero-grid { grid-template-columns: 1fr } .stats { grid-template-columns: repeat(2,minmax(0,1fr)) } }
+    @media (max-width: 720px) { .wrap { padding: 12px 10px 28px } .hero,.section,.footer { border-radius: 18px } .hero { padding: 14px } .head { padding: 12px 12px 0 } .table-wrap { padding: 8px 8px 6px } .quick,.stats,.crib-grid { grid-template-columns: 1fr 1fr } .subtitle { font-size: .88rem } }
+    @media (max-width: 520px) { .quick,.stats,.crib-grid { grid-template-columns: 1fr } .chip,.nav a,.tag { width: 100%; justify-content: center } .nav { width: 100% } }
+  </style>
+</head>
+<body>
+  <div class="scanlines"></div>
+  <div class="wrap">
+    <div class="site-nav">
+      <a href="/">&#8592; mybbor.com</a>
+      <span class="sep">/</span>
+      <span>North Bay Radio Reference</span>
+    </div>
+    <header class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">North Bay Radio Reference</div>
+          <h1>Petaluma Sonoma Radio Reference</h1>
+          <p class="subtitle">A field guide for the current <a href="data/Petaluma%20Sonoma%20County.csv" download><code>Petaluma Sonoma County.csv</code></a> memory plan. This layout now tracks the Lexus-style organization: local ham and travel repeaters first, emergency and countywide channels next, then the utility banks for FRS, GMRS, and SEA.</p>
+          <div class="chips">
+            <a href="#general" class="chip">0-4 General + NOAA</a>
+            <a href="#local" class="chip">10-40 Ham + Travel</a>
+            <a href="#interop" class="chip">41-48 Emergency</a>
+            <a href="#services" class="chip">49-127 Utility Banks</a>
+          </div>
+          <div class="stats">
+            <a href="#local" class="stat"><span class="stat-label">Local</span><strong>Sonoma</strong><span class="stat-value">ACS, repeaters, and simplex first</span></a>
+            <a href="#local" class="stat"><span class="stat-label">Travel</span><strong>Bay Area</strong><span class="stat-value">Southbound commuter machines</span></a>
+            <a href="#iss" class="stat"><span class="stat-label">Space</span><strong>ISS</strong><span class="stat-value">Voice, packet, and repeater</span></a>
+            <a href="#services" class="stat"><span class="stat-label">Back Half</span><strong>FRS / GMRS / SEA</strong><span class="stat-value">Organized like the car radio</span></a>
+          </div>
+        </div>
+        <div class="hero-side">
+          <div class="panel">
+            <div class="ptitle"><span>Station Mark</span><span class="lamp">Signal nominal</span></div>
+            <div class="logo"><svg viewBox="0 0 420 240" aria-hidden="true">
+              <defs>
+                <linearGradient id="bdGr" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#15181f"/><stop offset="100%" stop-color="#0b0d14"/></linearGradient>
+                <linearGradient id="btGr" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1c1f2a"/><stop offset="100%" stop-color="#0e1018"/></linearGradient>
+                <radialGradient id="scrGl" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#00f0ff" stop-opacity="0.14"/><stop offset="100%" stop-color="#00f0ff" stop-opacity="0"/></radialGradient>
+              </defs>
+              <!-- Ambient radar rings (right side) -->
+              <g opacity="0.1" stroke="#00f0ff" fill="none">
+                <circle cx="330" cy="120" r="42" stroke-width="1"/><circle cx="330" cy="120" r="74" stroke-width="1"/><circle cx="330" cy="120" r="106" stroke-width="1"/>
+                <line x1="330" y1="52" x2="330" y2="188" stroke-width="0.5"/><line x1="262" y1="120" x2="398" y2="120" stroke-width="0.5"/>
+              </g>
+              <!-- Antenna whip -->
+              <path d="M239 24 C241 17 245 9 249 2" fill="none" stroke="#5a6070" stroke-width="5" stroke-linecap="round"/>
+              <!-- Antenna base housing -->
+              <rect x="232" y="17" width="14" height="15" rx="4" fill="#1e2030" stroke="#28304a" stroke-width="1.5"/>
+              <!-- Radio body -->
+              <rect x="163" y="26" width="88" height="164" rx="13" fill="url(#bdGr)" stroke="#1e2236" stroke-width="2"/>
+              <!-- Battery pack -->
+              <rect x="159" y="184" width="96" height="30" rx="10" fill="url(#btGr)" stroke="#181b26" stroke-width="2"/>
+              <line x1="177" y1="191" x2="177" y2="208" stroke="#22263a" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="237" y1="191" x2="237" y2="208" stroke="#22263a" stroke-width="1.5" stroke-linecap="round"/>
+              <!-- Volume knob (top-left) -->
+              <circle cx="178" cy="43" r="12" fill="#0d0f16" stroke="#1e2236" stroke-width="1.5"/>
+              <circle cx="178" cy="43" r="7.5" fill="#181b26"/>
+              <line x1="178" y1="35" x2="178" y2="39" stroke="#8892a0" stroke-width="2" stroke-linecap="round"/>
+              <!-- Speaker grille -->
+              <rect x="166" y="59" width="88" height="28" rx="4" fill="#0c0f16"/>
+              <g stroke="#1e2535" stroke-width="2" stroke-linecap="round">
+                <line x1="176" y1="65" x2="246" y2="65"/><line x1="176" y1="71" x2="246" y2="71"/>
+                <line x1="176" y1="77" x2="246" y2="77"/><line x1="176" y1="83" x2="246" y2="83"/>
+              </g>
+              <!-- Display bezel -->
+              <rect x="168" y="91" width="78" height="50" rx="6" fill="#080e18" stroke="#182838" stroke-width="1.5"/>
+              <!-- Screen -->
+              <rect x="170" y="93" width="74" height="46" rx="4" fill="#000e18"/>
+              <rect x="170" y="93" width="74" height="46" rx="4" fill="url(#scrGl)"/>
+              <!-- Frequency -->
+              <text x="207" y="113" text-anchor="middle" font-family="Consolas,monospace" font-size="15" fill="#00f0ff" letter-spacing="2">146.520</text>
+              <!-- Band label -->
+              <text x="207" y="129" text-anchor="middle" font-family="Consolas,monospace" font-size="9" fill="#00ff88" letter-spacing="2.5">2M  CALL</text>
+              <!-- PTT button (amber, left side — the most important button on a Baofeng) -->
+              <rect x="154" y="108" width="11" height="34" rx="4" fill="#ffb800" stroke="#cc9600" stroke-width="1"/>
+              <!-- Function buttons (MONI / A·B / BAND) -->
+              <g fill="#181b24" stroke="#22263a" stroke-width="1">
+                <rect x="169" y="149" width="20" height="13" rx="3.5"/><rect x="195" y="149" width="20" height="13" rx="3.5"/><rect x="221" y="149" width="20" height="13" rx="3.5"/>
+              </g>
+              <g font-family="Consolas,monospace" font-size="7" fill="#4a5065" text-anchor="middle">
+                <text x="179" y="158">MONI</text><text x="205" y="158">A/B</text><text x="231" y="158">BAND</text>
+              </g>
+              <!-- Keypad row 1 -->
+              <g fill="#141720" stroke="#1c202e" stroke-width="1">
+                <rect x="169" y="167" width="20" height="12" rx="3"/><rect x="195" y="167" width="20" height="12" rx="3"/><rect x="221" y="167" width="20" height="12" rx="3"/>
+              </g>
+              <!-- Keypad row 2 -->
+              <g fill="#141720" stroke="#1c202e" stroke-width="1">
+                <rect x="169" y="178" width="20" height="12" rx="3"/><rect x="195" y="178" width="20" height="12" rx="3"/><rect x="221" y="178" width="20" height="12" rx="3"/>
+              </g>
+              <!-- Page label -->
+              <text x="207" y="230" text-anchor="middle" font-family="Arial Narrow,Arial,sans-serif" font-size="12" fill="#8892a0" letter-spacing="3">RADIO REFERENCE</text>
+            </svg></div>
+          </div>
+          <div class="panel">
+            <div class="ptitle"><span>Quick Scan</span><span>North Bay deck</span></div>
+            <div class="quick">
+              <a href="#general" class="card"><strong>146.520</strong><span>2m calling</span></a>
+              <a href="#general" class="card"><strong>162.475</strong><span>NOAA North Bay</span></a>
+              <a href="#local" class="card"><strong>146.910</strong><span>Petaluma ACS</span></a>
+              <a href="#iss" class="card"><strong>437.800</strong><span>ISS repeater downlink</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="topbar">
+      <nav class="nav" aria-label="Section navigation">
+        <a href="#general">General + Weather</a><a href="#local">Ham + Travel</a><a href="#iss">ISS + APRS</a><a href="#interop">Emergency</a><a href="#services">MURS / FRS / GMRS / SEA</a><a href="#crib">Crib Notes</a><a href="#refs">References</a>
+      </nav>
+      <a href="data/Petaluma%20Sonoma%20County.csv" download class="chip" style="text-decoration:none;cursor:pointer">&#8595; Download CSV</a>
+      <div class="chip">Updated March 22, 2026</div>
+    </div>
+    <main class="deck">
+      <section class="section" id="general">
+        <div class="head">
+          <div>
+            <h2>General + Weather</h2>
+            <p>The front of the radio stays simple: national calling, then the NOAA weather channels you are most likely to use around the North Bay.</p>
+          </div>
+          <div class="tag">Memories 0-4</div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Mem</th><th>Label</th><th>Frequency</th><th>Mode</th><th>Purpose</th></tr></thead>
+            <tbody>
+              <tr><td class="mem">0</td><td class="label">2M CALL</td><td>146.520</td><td>FM</td><td>National 2 meter simplex calling channel.</td></tr>
+              <tr><td class="mem">1</td><td class="label">70CM CA</td><td>446.000</td><td>FM</td><td>National 70 centimeter simplex calling channel.</td></tr>
+              <tr><td class="mem">2</td><td class="label">WX NBay</td><td>162.475</td><td>FM</td><td>Best North Bay NOAA weather channel.</td></tr>
+              <tr><td class="mem">3</td><td class="label">WX SFBA</td><td>162.400</td><td>FM</td><td>San Francisco Bay Area NOAA weather backup.</td></tr>
+              <tr><td class="mem">4</td><td class="label">WX South</td><td>162.550</td><td>FM</td><td>Southern Bay Area weather backup.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="local">
+        <div class="head">
+          <div>
+            <h2>Ham + Travel</h2>
+            <p>This block handles daily Sonoma use first, then layers in Bay Area travel repeaters that are handy heading toward San Francisco, Oakland, and the Peninsula.</p>
+          </div>
+          <div class="tag">Memories 10-27, 36-40</div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Mem</th><th>Label</th><th>Frequency</th><th>Access</th><th>What It Is</th></tr></thead>
+            <tbody>
+              <tr><td class="mem">10</td><td class="label">SOCO ACS</td><td>146.730</td><td>-0.600 / 88.5</td><td>Sonoma County ACS repeater.</td></tr>
+              <tr><td class="mem">11</td><td class="label">PET ACS</td><td>146.910</td><td>-0.600 / 88.5</td><td>Petaluma area ACS repeater.</td></tr>
+              <tr><td class="mem">12</td><td class="label">CEN ACS</td><td>145.350</td><td>-0.600 / 88.5</td><td>Central Sonoma ACS repeater.</td></tr>
+              <tr><td class="mem">13</td><td class="label">SON VLY</td><td>146.205</td><td>+0.600 / 88.5</td><td>Sonoma Valley machine.</td></tr>
+              <tr><td class="mem">14</td><td class="label">COAST</td><td>147.825</td><td>-0.600 / 103.5</td><td>Sonoma Coast repeater.</td></tr>
+              <tr><td class="mem">15</td><td class="label">BODEGA</td><td>147.975</td><td>-0.600 / 88.5</td><td>Bodega area repeater.</td></tr>
+              <tr><td class="mem">16</td><td class="label">RUS RVR</td><td>145.190</td><td>-0.600 / 88.5</td><td>Russian River area repeater.</td></tr>
+              <tr><td class="mem">17</td><td class="label">SCRA VHF</td><td>147.315</td><td>+0.600 / 88.5</td><td>Sonoma County Radio Amateurs VHF.</td></tr>
+              <tr><td class="mem">18</td><td class="label">SCRA UHF</td><td>441.375</td><td>+5.000 / 88.5</td><td>Sonoma County Radio Amateurs UHF.</td></tr>
+              <tr><td class="mem">19</td><td class="label">BOD ALT</td><td>146.670</td><td>-0.600 / 88.5</td><td>Alternate local VHF repeater.</td></tr>
+              <tr><td class="mem">20</td><td class="label">N CO SIM</td><td>146.460</td><td>Simplex</td><td>North County simplex.</td></tr>
+              <tr><td class="mem">21</td><td class="label">SOCO TAC</td><td>146.550</td><td>Simplex</td><td>County tactical/simplex use.</td></tr>
+              <tr><td class="mem">22</td><td class="label">PTMA RS</td><td>147.495</td><td>Simplex</td><td>Petaluma-area rally/simplex channel.</td></tr>
+              <tr><td class="mem">23</td><td class="label">SOCO RS</td><td>147.405</td><td>Simplex</td><td>Sonoma-area simplex/rally channel.</td></tr>
+              <tr><td class="mem">24</td><td class="label">PKT 1200</td><td>144.910</td><td>Simplex</td><td>1200 baud packet reference.</td></tr>
+              <tr><td class="mem">25</td><td class="label">N6NFI</td><td>145.230</td><td>-0.600 / 100.0</td><td>Palo Alto / southbound Bay travel repeater.</td></tr>
+              <tr><td class="mem">26</td><td class="label">WW6BAY</td><td>145.390</td><td>-0.600 / 100.0</td><td>Bay-Net VHF linked system.</td></tr>
+              <tr><td class="mem">27</td><td class="label">WW6BAY</td><td>443.225</td><td>+5.000 / 100.0</td><td>Bay-Net UHF linked system.</td></tr>
+              <tr><td class="mem">36</td><td class="label">K6FB</td><td>145.450</td><td>-0.600 / 100.0</td><td>Las Cumbres wide-area Bay repeater.</td></tr>
+              <tr><td class="mem">37</td><td class="label">K6FB</td><td>442.575</td><td>+5.000 / 100.0</td><td>Linked UHF side of the K6FB system.</td></tr>
+              <tr><td class="mem">38</td><td class="label">LPRC</td><td>146.640</td><td>-0.600 / 162.2</td><td>Loma Prieta coverage machine.</td></tr>
+              <tr><td class="mem">39</td><td class="label">CARLA SF</td><td>442.075</td><td>+5.000 / 100.0</td><td>CARLA San Francisco node.</td></tr>
+              <tr><td class="mem">40</td><td class="label">CARLA OAK</td><td>146.850</td><td>-0.600 / 103.5</td><td>CARLA East Bay / Oakland travel machine.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="iss">
+        <div class="head">
+          <div>
+            <h2>ISS + APRS</h2>
+            <p>These are the fun channels: ISS voice and packet references, the current downlink repeater memory, and standard APRS.</p>
+          </div>
+          <div class="tag">Memories 32-35</div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Mem</th><th>Label</th><th>Frequency</th><th>Mode</th><th>Use</th></tr></thead>
+            <tbody>
+              <tr><td class="mem">32</td><td class="label">ISS VCE</td><td>145.800</td><td>FM</td><td>ISS voice and SSTV downlink reference.</td></tr>
+              <tr><td class="mem">33</td><td class="label">ISS PKT</td><td>145.825</td><td>FM</td><td>ISS packet / APRS digipeater reference.</td></tr>
+              <tr><td class="mem">34</td><td class="label">ISS RPT</td><td>437.800</td><td>FM</td><td>Current ISS repeater downlink memory.</td></tr>
+              <tr><td class="mem">35</td><td class="label">APRS</td><td>144.390</td><td>FM</td><td>North American APRS national frequency.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="interop">
+        <div class="head">
+          <div>
+            <h2>Emergency + Countywide</h2>
+            <p>The middle block is set up for practical monitoring: interoperability references first, then the fire and EMS channels that are more likely to stay active in Sonoma County.</p>
+          </div>
+          <div class="tag">Memories 28-31, 41-48</div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Mem</th><th>Label</th><th>Frequency</th><th>Mode</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td class="mem">28</td><td class="label">CALCORD</td><td>156.0750</td><td>FM</td><td>California hospital and public safety coordination reference.</td></tr>
+              <tr><td class="mem">29</td><td class="label">VFIRE21</td><td>154.2800</td><td>FM</td><td>Common VHF fire mutual-aid channel.</td></tr>
+              <tr><td class="mem">30</td><td class="label">VCALL10</td><td>155.7525</td><td>FM</td><td>VHF interoperability calling channel.</td></tr>
+              <tr><td class="mem">31</td><td class="label">CLEMARS</td><td>154.9200</td><td>FM</td><td>Mutual-aid law / interop reference memory.</td></tr>
+              <tr><td class="mem">41</td><td class="label">REDCOM</td><td>154.3100</td><td>NFM</td><td>Sonoma County fire and EMS dispatch.</td></tr>
+              <tr><td class="mem">42</td><td class="label">CTL 2</td><td>155.2650</td><td>NFM</td><td>Incident command / west county fire activity.</td></tr>
+              <tr><td class="mem">43</td><td class="label">COAST BLU</td><td>154.1525</td><td>NFM</td><td>Zone and command-mobile style coast channel.</td></tr>
+              <tr><td class="mem">44</td><td class="label">CDF CMD6</td><td>151.2500</td><td>NFM</td><td>CAL FIRE command channel reference.</td></tr>
+              <tr><td class="mem">45</td><td class="label">MEDCOM</td><td>155.1000</td><td>NFM</td><td>Medical coordination channel.</td></tr>
+              <tr><td class="mem">46</td><td class="label">CTL 4</td><td>154.1750</td><td>NFM</td><td>Additional control / tactical fire use.</td></tr>
+              <tr><td class="mem">47</td><td class="label">VIC 6</td><td>155.3775</td><td>NFM</td><td>Interoperability / medical mutual aid reference.</td></tr>
+              <tr><td class="mem">48</td><td class="label">SAR COM</td><td>155.1600</td><td>FM</td><td>Search and rescue coordination reference.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="services">
+        <div class="head">
+          <div>
+            <h2>MURS / FRS / GMRS / SEA</h2>
+            <p>The back half is a utility deck with grouped service banks: FRS, GMRS, and marine VHF organized for quick scanning.</p>
+          </div>
+          <div class="tag">Memories 49-127</div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Range</th><th>Bank</th><th>Coverage</th><th>Why It Is There</th></tr></thead>
+            <tbody>
+              <tr><td class="mem">49-70</td><td class="label">FRS 1-22</td><td>462 / 467 MHz</td><td>Full Family Radio Service block for simple receive or shared family/event reference.</td></tr>
+              <tr><td class="mem">71-92</td><td class="label">GMRS 1-22</td><td>462 / 467 MHz</td><td>Simplex and shared GMRS channel bank matching the Lexus-style export.</td></tr>
+              <tr><td class="mem">93-100</td><td class="label">GMRS RPTR</td><td>462 MHz +5</td><td>Extra GMRS repeater-pair memories: 55, 57, 60, 62, 65, 67, 70, 72.</td></tr>
+              <tr><td class="mem">101-127</td><td class="label">SEA 01-27</td><td>Marine VHF</td><td>Full SEA bank for marina, coastal, and Bay monitoring. Channel 16 stays especially useful.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="notes">The current CSV does not have a separate MURS bank, so this utility section now starts directly with the full FRS block and then moves into GMRS and SEA.</div>
+      </section>
+
+      <section class="section" id="crib">
+        <div class="head">
+          <div>
+            <h2>Crib Notes</h2>
+            <p>Quick reminders for the channels that are easy to forget or especially fun to revisit.</p>
+          </div>
+          <div class="tag">Field Notes</div>
+        </div>
+        <div class="crib-grid">
+          <div class="crib-card">
+            <h3>Best Everyday Memories</h3>
+            <table class="mini-table">
+              <thead><tr><th>Memory</th><th>Why</th></tr></thead>
+              <tbody>
+                <tr><td>2 / 3 / 4</td><td>Fast weather sanity check anywhere in the Bay Area.</td></tr>
+                <tr><td>10 / 11 / 12</td><td>Primary Sonoma ACS coverage.</td></tr>
+                <tr><td>17 / 18</td><td>SCRA repeaters stay useful for local club traffic.</td></tr>
+                <tr><td>25 / 26 / 36 / 38</td><td>Best Bay travel bank when heading south.</td></tr>
+                <tr><td>41</td><td>REDCOM is the most likely emergency channel to stay interesting.</td></tr>
+                <tr><td>34</td><td>ISS repeater downlink for pass listening.</td></tr>
+                <tr><td>116</td><td>SEA 16 for marine distress and hailing.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="crib-card">
+            <h3>Good SDR Crossovers</h3>
+            <p>The handheld file and the SDR setup complement each other well.</p>
+            <div class="inline-codes">
+              <span>122.700 AM Petaluma CTAF</span>
+              <span>120.675 AM Gnoss AWOS</span>
+              <span>120.550 AM STS ATIS</span>
+              <span>162.475 FM NOAA</span>
+            </div>
+            <p>The Baofeng keeps the practical VHF/UHF deck with you. The SDR handles the fun receive-only stuff the handheld is not meant for, especially aviation AM.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="refs">
+        <div class="head">
+          <div>
+            <h2>References</h2>
+            <p>Primary sources and repeaters used to build the current layout.</p>
+          </div>
+          <div class="tag">Research Links</div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Source</th><th>What To Use It For</th><th>Link</th></tr></thead>
+            <tbody>
+              <tr><td class="label">South Sonoma County ACS</td><td>Local repeater and ACS context.</td><td><a href="https://southcountyacs.org/">southcountyacs.org</a></td></tr>
+              <tr><td class="label">Sonoma County ACS</td><td>County auxiliary communications references.</td><td><a href="https://sonomacounty.gov/administrative-support-and-fiscal-services/emergency-management/programs/auxiliary-communications-service">sonomacounty.gov ACS</a></td></tr>
+              <tr><td class="label">SCRA</td><td>Sonoma County Radio Amateurs repeaters.</td><td><a href="https://sonomacountyradioamateurs.com/wp/repeaters/">SCRA repeaters</a></td></tr>
+              <tr><td class="label">RepeaterBook</td><td>Cross-check frequencies and access tones.</td><td><a href="https://www.repeaterbook.com/repeaters/index.php?state_id=06">RepeaterBook California</a></td></tr>
+              <tr><td class="label">SBARA</td><td>South Bay and Peninsula travel repeaters.</td><td><a href="https://sbara.org/repeaters.php">sbara.org</a></td></tr>
+              <tr><td class="label">Bay-Net</td><td>Linked Bay Area travel repeaters.</td><td><a href="https://www.bay-net.org/repeaters.html">bay-net.org</a></td></tr>
+              <tr><td class="label">CARLA</td><td>Bay Area linked machine references.</td><td><a href="https://www.carlaradio.net/thesystem/">carlaradio.net</a></td></tr>
+              <tr><td class="label">ARISS</td><td>Current ISS status and frequencies.</td><td><a href="https://www.ariss.org/current-status-of-iss-stations.html">ariss.org</a></td></tr>
+              <tr><td class="label">NOAA Weather Radio</td><td>Official weather radio frequency references.</td><td><a href="https://www.weather.gov/marine/wxradio">weather.gov</a></td></tr>
+              <tr><td class="label">USCG Marine VHF</td><td>Marine channel reference and watchstanding context.</td><td><a href="https://www.weather.gov/marine/uscg_broadcasts">USCG broadcasts</a></td></tr>
+              <tr><td class="label">Coastal Hills Radio</td><td>Sonoma County fire and emergency monitoring notes.</td><td><a href="https://coastalhillsradio.net/scanner-guide/scanner-frequencies/">coastalhillsradio.net</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>This guide travels with <a href="data/Petaluma%20Sonoma%20County.csv" download><code>Petaluma Sonoma County.csv</code></a>. Keep the CSV and this page aligned when reprogramming the radio.</p>
+      <p style="margin-top:10px">&copy; <span id="copyright-year"></span> <a href="/">mybbor.com</a> &mdash; <a href="https://robbymccullough.com" target="_blank">Robby McCullough</a></p>
+    </footer>
+  </div>
+  <script>document.getElementById('copyright-year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
