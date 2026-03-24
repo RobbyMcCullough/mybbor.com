@@ -81,4 +81,4 @@ Then open http://localhost:8000
 
 ## Deployment
 
-Static site - deploy to any web host by uploading files directly.
+Hosted on Netlify. Push to `main` on GitHub to deploy live.
