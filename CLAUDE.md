@@ -12,7 +12,7 @@ Personal landing page with contact links, QR code, blog, and tools/projects sect
 
 ```
 ├── index.html                          # Main landing page
-├── Petaluma Sonoma Cheat Sheet.html    # Ham radio frequency guide
+├── petaluma-sonoma-ham-radio.html      # Ham radio frequency guide
 ├── img/
 │   ├── Mybbor.jpg                      # Hero background image
 │   └── Petaluma Sonoma Radio Reference Icon.svg  # Radio guide favicon (Baofeng handheld)
@@ -31,7 +31,7 @@ Personal landing page with contact links, QR code, blog, and tools/projects sect
 - Blog section (loads posts dynamically from `posts/index.json` via fetch)
 - To add a project card: add an `<a class="project-card">` entry in the `.projects-list` div
 
-### Petaluma Sonoma Cheat Sheet.html — Ham Radio Frequency Guide
+### petaluma-sonoma-ham-radio.html — Ham Radio Frequency Guide
 - Baofeng UV-5R memory channel plan for Petaluma and Sonoma County, CA
 - 128 channels: ham repeaters, ACS emergency, ISS/APRS, NOAA weather, FRS/GMRS, marine VHF
 - Data lives in `data/Petaluma Sonoma County.csv` (CHIRP-compatible export)
