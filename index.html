@@ -358,9 +358,21 @@
             background: rgba(20, 20, 30, 0.8);
             border: 1px solid rgba(0, 240, 255, 0.2);
             border-radius: 8px;
-            padding: 1.5rem;
+            overflow: hidden;
             cursor: pointer;
             transition: all 0.3s ease;
+        }
+
+        .blog-post-card .card-body {
+            padding: 1.5rem;
+        }
+
+        .blog-post-card .post-featured-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            object-position: center 20%;
+            display: block;
         }
 
         .blog-post-card:hover {
@@ -423,6 +435,12 @@
         .blog-post-full .post-content {
             color: #c0c5ce;
             line-height: 1.8;
+        }
+
+        .blog-post-full .post-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
         }
 
         .blog-post-full .post-content h1 {
@@ -491,11 +509,63 @@
         }
 
         .blog-post-full .post-content blockquote {
-            border-left: 3px solid #ff00ff;
-            padding-left: 1rem;
-            margin: 1rem 0;
-            color: #8892a0;
+            border-left: 2px solid rgba(0, 255, 136, 0.5);
+            padding: 0.4rem 1rem;
+            margin: 0.75rem 0 0.75rem;
             font-style: italic;
+            font-size: 1.1rem;
+            font-weight: 400;
+            position: relative;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.05), transparent 80%);
+            border-radius: 0 4px 4px 0;
+            overflow: hidden;
+        }
+
+        .blog-post-full .post-content blockquote::before {
+            content: '\201C';
+            position: absolute;
+            right: 0.25rem;
+            top: -0.5rem;
+            font-size: 6rem;
+            font-style: normal;
+            color: #0a0a0f;
+            line-height: 1;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .blog-post-full .post-content blockquote p {
+            margin-bottom: 0;
+            background: linear-gradient(90deg, #00ff88 60%, #00d4aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .blog-post-full .post-content .callout {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ff00ff;
+            text-align: left;
+            margin: 0.75rem 0 0.75rem;
+            padding: 0.75rem 1.5rem;
+            border-left: 2px solid rgba(255, 0, 255, 0.5);
+            border-radius: 0 4px 4px 0;
+            background: linear-gradient(135deg, rgba(255, 0, 255, 0.05), transparent 80%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-post-full .post-content .callout::before {
+            content: '\201C';
+            position: absolute;
+            right: 0.25rem;
+            top: -0.5rem;
+            font-size: 6rem;
+            font-style: normal;
+            color: #0a0a0f;
+            line-height: 1;
+            pointer-events: none;
         }
 
         /* Projects Section — amber flavor, distinct from cyan blog section */
@@ -813,6 +883,7 @@
             const postsContainer = document.getElementById('blog-posts');
             const postFull = document.getElementById('blog-post-full');
             const postContent = document.getElementById('post-content');
+            const projectsSection = document.querySelector('.projects-section');
 
             // Load post index
             fetch('posts/index.json')
@@ -822,11 +893,14 @@
                         const card = document.createElement('div');
                         card.className = 'blog-post-card';
                         card.innerHTML = `
-                            <h3>${post.title}</h3>
-                            <div class="post-meta">${post.date}</div>
-                            <p class="post-excerpt">${post.excerpt}</p>
+                            ${post.image ? `<img class="post-featured-image" src="${post.image}" alt="${post.title}">` : ''}
+                            <div class="card-body">
+                                <h3>${post.title}</h3>
+                                <div class="post-meta">${post.date}</div>
+                                <p class="post-excerpt">${post.excerpt}</p>
+                            </div>
                         `;
-                        card.addEventListener('click', () => loadPost(post.file));
+                        card.addEventListener('click', () => loadPost(post.file, post.image, true, post.slug));
                         postsContainer.appendChild(card);
                     });
                 })
@@ -835,24 +909,54 @@
                 });
 
             // Load and display a full post
-            window.loadPost = function(filename) {
+            window.loadPost = function(filename, image, pushState = true, slug = filename) {
                 fetch('posts/' + filename)
                     .then(response => response.text())
                     .then(markdown => {
-                        // Remove frontmatter
                         const content = markdown.replace(/^---[\s\S]*?---\n*/m, '');
-                        postContent.innerHTML = marked.parse(content);
+                        const featuredImg = image ? `<img src="${image}" alt="" style="width:100%;height:auto;border-radius:6px;margin-bottom:1.5rem;">` : '';
+                        postContent.innerHTML = featuredImg + marked.parse(content);
                         postsContainer.style.display = 'none';
+                        projectsSection.style.display = 'none';
                         postFull.classList.add('active');
                         postFull.scrollIntoView({ behavior: 'smooth' });
+                        if (pushState) {
+                            history.pushState({ filename, image, slug }, '', '?post=' + encodeURIComponent(slug));
+                        }
                     });
             };
 
             // Show post list
-            window.showPostList = function() {
+            window.showPostList = function(pushState = true) {
                 postFull.classList.remove('active');
                 postsContainer.style.display = 'flex';
+                projectsSection.style.display = '';
+                postsContainer.scrollIntoView({ behavior: 'smooth' });
+                if (pushState) {
+                    history.pushState(null, '', location.pathname);
+                }
             };
+
+            // Handle browser back/forward
+            window.addEventListener('popstate', function(e) {
+                if (e.state && e.state.filename) {
+                    loadPost(e.state.filename, e.state.image, false, e.state.slug);
+                } else {
+                    showPostList(false);
+                }
+            });
+
+            // Load post from URL on page load
+            const params = new URLSearchParams(location.search);
+            const postParam = params.get('post');
+            if (postParam) {
+                fetch('posts/index.json')
+                    .then(r => r.json())
+                    .then(posts => {
+                        const match = posts.find(p => p.slug === postParam || p.file === postParam);
+                        if (match) loadPost(match.file, match.image, false, match.slug);
+                    });
+            }
         })();
     </script>
 </body>

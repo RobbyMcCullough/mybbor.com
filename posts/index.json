@@ -1,18 +1,22 @@
 [
     {
         "file": "2026-03-25-check-out-what-my-openclaw-bot-thinks-of-me.md",
-        "title": "Check out what my OpenClaw bot thinks of me",
+        "slug": "side-quest-cathedral",
+        "title": "Side-quest Cathedral",
         "date": "2026-03-25",
+        "image": "/img/openclaw-garage.jpg",
         "excerpt": "I had my OpenClaw bot look at a photo of me in my garage and tell me what the space seemed to say about me. The result: systems, side quests, healthy masculinity, and strong garage goblin energy."
     },
     {
         "file": "2026-03-23-i-just-wanted-a-ham-radio-cheat-sheet.md",
+        "slug": "i-just-wanted-a-ham-radio-cheat-sheet",
         "title": "I Just Wanted a Ham Radio Cheat Sheet",
         "date": "2026-03-23",
         "excerpt": "I had a CSV file with some radio frequencies. I wanted to put it on the internet. Four hours later I had a cyberpunk command center with animated radar sweeps and a favicon I iterated on three times because the M looked wispy."
     },
     {
         "file": "2025-02-04-is-wordpress-cooked.md",
+        "slug": "is-wordpress-cooked",
         "title": "Is WordPress Cooked?",
         "date": "2025-02-04",
         "excerpt": "This is my first Claude Code experiment. A vibe-coded personal landing page and blog, built entirely through conversation."
