@@ -9,6 +9,8 @@ tags: [openclaw, ai, photography, personal]
 
 I had my OpenClaw bot look at a photo of me in my garage and tell me what the space seemed to say about me.
 
+![Garage photo](/img/openclaw-bot-thinks-of-me-garage.webp)
+
 This was the read.
 
 ## You’re not a collector of hobbies so much as a builder of capability
