@@ -908,11 +908,40 @@
                     postsContainer.innerHTML = '<p style="color: #8892a0; text-align: center;">No posts yet.</p>';
                 });
 
+            // Update OG/Twitter meta tags dynamically
+            function setPageMeta(title, description, image, url) {
+                const abs = image ? 'https://mybbor.com' + image : null;
+                document.title = title + ' — mybbor.com';
+                document.querySelector('meta[property="og:title"]').setAttribute('content', title);
+                document.querySelector('meta[property="og:description"]').setAttribute('content', description);
+                document.querySelector('meta[property="og:url"]').setAttribute('content', url);
+                document.querySelector('meta[name="twitter:title"]').setAttribute('content', title);
+                document.querySelector('meta[name="twitter:description"]').setAttribute('content', description);
+                if (abs) {
+                    document.querySelector('meta[property="og:image"]').setAttribute('content', abs);
+                    document.querySelector('meta[name="twitter:image"]').setAttribute('content', abs);
+                }
+            }
+
+            function resetPageMeta() {
+                document.title = 'Mybbor | Robby McCullough - Entrepreneur, Photographer, Digital Nomad';
+                document.querySelector('meta[property="og:title"]').setAttribute('content', 'Mybbor | Robby McCullough');
+                document.querySelector('meta[property="og:description"]').setAttribute('content', 'Entrepreneur, photographer, and digital nomad. Co-founder of Beaver Builder.');
+                document.querySelector('meta[property="og:url"]').setAttribute('content', 'https://mybbor.com');
+                document.querySelector('meta[property="og:image"]').setAttribute('content', 'https://mybbor.com/img/Mybbor.jpg');
+                document.querySelector('meta[name="twitter:title"]').setAttribute('content', 'Mybbor | Robby McCullough');
+                document.querySelector('meta[name="twitter:description"]').setAttribute('content', 'Entrepreneur, photographer, and digital nomad. Co-founder of Beaver Builder.');
+                document.querySelector('meta[name="twitter:image"]').setAttribute('content', 'https://mybbor.com/img/Mybbor.jpg');
+            }
+
             // Load and display a full post
-            window.loadPost = function(filename, image, pushState = true, slug = filename) {
+            window.loadPost = function(filename, image, pushState = true, slug = filename, excerpt = '') {
                 fetch('posts/' + filename)
                     .then(response => response.text())
                     .then(markdown => {
+                        // Extract title from frontmatter
+                        const titleMatch = markdown.match(/^title:\s*(.+)$/m);
+                        const postTitle = titleMatch ? titleMatch[1].trim() : 'Post';
                         const content = markdown.replace(/^---[\s\S]*?---\n*/m, '');
                         const featuredImg = image ? `<img src="${image}" alt="" style="width:100%;height:auto;border-radius:6px;margin-bottom:1.5rem;">` : '';
                         postContent.innerHTML = featuredImg + marked.parse(content);
@@ -920,8 +949,10 @@
                         projectsSection.style.display = 'none';
                         postFull.classList.add('active');
                         postFull.scrollIntoView({ behavior: 'smooth' });
+                        const postUrl = 'https://mybbor.com/posts/' + slug;
+                        setPageMeta(postTitle, excerpt, image, postUrl);
                         if (pushState) {
-                            history.pushState({ filename, image, slug }, '', '?post=' + encodeURIComponent(slug));
+                            history.pushState({ filename, image, slug, excerpt }, '', '/posts/' + slug);
                         }
                     });
             };
@@ -931,30 +962,31 @@
                 postFull.classList.remove('active');
                 postsContainer.style.display = 'flex';
                 projectsSection.style.display = '';
+                resetPageMeta();
                 postsContainer.scrollIntoView({ behavior: 'smooth' });
                 if (pushState) {
-                    history.pushState(null, '', location.pathname);
+                    history.pushState(null, '', '/');
                 }
             };
 
             // Handle browser back/forward
             window.addEventListener('popstate', function(e) {
                 if (e.state && e.state.filename) {
-                    loadPost(e.state.filename, e.state.image, false, e.state.slug);
+                    loadPost(e.state.filename, e.state.image, false, e.state.slug, e.state.excerpt);
                 } else {
                     showPostList(false);
                 }
             });
 
-            // Load post from URL on page load
-            const params = new URLSearchParams(location.search);
-            const postParam = params.get('post');
+            // Load post from URL on page load (/posts/slug or ?post=slug)
+            const pathMatch = location.pathname.match(/^\/posts\/(.+)$/);
+            const postParam = pathMatch ? pathMatch[1] : new URLSearchParams(location.search).get('post');
             if (postParam) {
                 fetch('posts/index.json')
                     .then(r => r.json())
                     .then(posts => {
                         const match = posts.find(p => p.slug === postParam || p.file === postParam);
-                        if (match) loadPost(match.file, match.image, false, match.slug);
+                        if (match) loadPost(match.file, match.image, false, match.slug, match.excerpt);
                     });
             }
         })();
