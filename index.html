@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mybbor | Robby McCullough - Entrepreneur, Photographer, Digital Nomad</title>
+    <title>Mybbor | Robby McCullough — Entrepreneur & Photographer</title>
     <meta name="description" content="Hi, I'm Robby. Mybbor is my long time gaming handle — this site is a manifestation of my 90s hacker movie alter ego. Co-founder of Beaver Builder and photographer.">
     <meta name="keywords" content="Robby McCullough, Mybbor, Beaver Builder, WordPress, photographer, digital nomad, entrepreneur, travel">
     <meta name="author" content="Robby McCullough">
@@ -25,6 +25,35 @@
 
     <link rel="canonical" href="https://mybbor.com">
     <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://mybbor.com/#robby",
+          "name": "Robby McCullough",
+          "alternateName": "Mybbor",
+          "url": "https://mybbor.com",
+          "image": "https://mybbor.com/img/Mybbor.jpg",
+          "jobTitle": "Entrepreneur, Photographer",
+          "description": "Co-founder of Beaver Builder, photographer, and digital nomad.",
+          "sameAs": [
+            "https://twitter.com/RobbyMcCullough",
+            "https://github.com/RobbyMcCullough",
+            "https://robbymccullough.com"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://mybbor.com/#website",
+          "url": "https://mybbor.com",
+          "name": "Mybbor",
+          "author": { "@id": "https://mybbor.com/#robby" }
+        }
+      ]
+    }
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         * {
@@ -943,7 +972,7 @@
                         const titleMatch = markdown.match(/^title:\s*(.+)$/m);
                         const postTitle = titleMatch ? titleMatch[1].trim() : 'Post';
                         const content = markdown.replace(/^---[\s\S]*?---\n*/m, '');
-                        const featuredImg = image ? `<img src="${image}" alt="" style="width:100%;height:auto;border-radius:6px;margin-bottom:1.5rem;">` : '';
+                        const featuredImg = image ? `<img src="${image}" alt="${postTitle}" style="width:100%;height:auto;border-radius:6px;margin-bottom:1.5rem;">` : '';
                         postContent.innerHTML = featuredImg + marked.parse(content);
                         postsContainer.style.display = 'none';
                         projectsSection.style.display = 'none';
