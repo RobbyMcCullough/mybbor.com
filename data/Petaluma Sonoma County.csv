@@ -4,6 +4,7 @@ Location,Name,Frequency,Duplex,Offset,Tone,rToneFreq,cToneFreq,DtcsCode,DtcsPola
 2,WX NBay,162.475,,0,,88.5,88.5,23,NN,FM,5,S,,,,,,
 3,WX SFBA,162.4,,0,,88.5,88.5,23,NN,FM,5,S,,,,,,
 4,WX South,162.55,,0,,88.5,88.5,23,NN,FM,5,S,,,,,,
+5,N6ICW,147.195,+,0.6,Tone,123,88.5,23,NN,FM,5,,Mt Vaca / Sacramento Valley,,,,
 10,SOCO ACS,146.73,-,0.6,Tone,88.5,88.5,23,NN,FM,5,,,,,,
 11,PET ACS,146.91,-,0.6,Tone,88.5,88.5,23,NN,FM,5,,,,,,
 12,CEN ACS,145.35,-,0.6,Tone,88.5,88.5,23,NN,FM,5,,,,,,
