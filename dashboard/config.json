@@ -68,7 +68,7 @@
      900000],
 
     ["NORTH BAY AIRSPACE",
-     "iframe|https://globe.adsbexchange.com/?lat=38.235&lon=-122.639&zoom=9&showFlags=false&hideSidebar=true&hideButtons=true",
+     "iframe|https://www.flightradar24.com/38.235,-122.639/9",
      60000],
 
     ["EARTHQUAKES — WESTERN US",
