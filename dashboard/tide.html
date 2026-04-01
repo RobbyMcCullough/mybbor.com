@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tides — Point Reyes</title>
+  <style>
+    html, body {
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
+      background: #0a0a0f;
+      color: #fff;
+      font-family: "Victor Mono", monospace;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    #header {
+      padding: 5px 8px 2px;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: rgba(0,240,255,0.55);
+      flex-shrink: 0;
+    }
+    #chart {
+      flex: 1;
+      padding: 0 8px 4px;
+    }
+    svg { width: 100%; height: 100%; display: block; }
+  </style>
+</head>
+<body>
+  <div id="header">TIDES · POINT REYES (9415020) · MLLW · TODAY + TOMORROW</div>
+  <div id="chart"><svg id="svg"></svg></div>
+
+  <script>
+    const STATION = '9415020';
+    const REFRESH  = 3600000;
+
+    function fmtDate(d) {
+      return d.getFullYear() +
+        String(d.getMonth() + 1).padStart(2, '0') +
+        String(d.getDate()).padStart(2, '0');
+    }
+
+    async function load() {
+      const today    = new Date();
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+
+      const url = `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter` +
+        `?begin_date=${fmtDate(today)}&end_date=${fmtDate(tomorrow)}` +
+        `&station=${STATION}&product=predictions&datum=MLLW` +
+        `&time_zone=lst/ldt&interval=hilo&units=english` +
+        `&application=web_services&format=json`;
+
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        if (!data.predictions) throw new Error('no data');
+        render(data.predictions);
+      } catch (e) {
+        document.getElementById('svg').innerHTML =
+          `<text x="50%" y="50%" fill="#ff4444" text-anchor="middle" font-family="monospace" font-size="12">Unable to load tide data</text>`;
+      }
+    }
+
+    function render(preds) {
+      const svg  = document.getElementById('svg');
+      const W    = svg.clientWidth  || 560;
+      const H    = svg.clientHeight || 160;
+      const PAD  = { top: 28, right: 12, bottom: 32, left: 12 };
+      const chartW = W - PAD.left - PAD.right;
+      const chartH = H - PAD.top  - PAD.bottom;
+
+      const heights = preds.map(p => parseFloat(p.v));
+      const minH    = Math.min(...heights);
+      const maxH    = Math.max(...heights);
+      const range   = (maxH - minH) || 1;
+      const n       = preds.length;
+      const barW    = chartW / (n * 1.6);
+      const gap     = chartW / n;
+
+      let els = '';
+
+      // Baseline
+      const baseY = PAD.top + chartH;
+      els += `<line x1="${PAD.left}" y1="${baseY}" x2="${W - PAD.right}" y2="${baseY}" stroke="rgba(0,240,255,0.15)" stroke-width="1"/>`;
+
+      preds.forEach((p, i) => {
+        const h    = parseFloat(p.v);
+        const norm = (h - minH) / range;
+        const barH = norm * chartH * 0.85 + chartH * 0.1;
+        const x    = PAD.left + i * gap + (gap - barW) / 2;
+        const y    = PAD.top + chartH - barH;
+
+        const isHigh = p.type === 'H';
+        const fill   = isHigh ? '#00f0ff' : '#ff6b35';
+        const timeStr = p.t.split(' ')[1];   // HH:MM
+        const htStr  = h.toFixed(1) + 'ft';
+
+        els += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${barH.toFixed(1)}" fill="${fill}" opacity="0.75" rx="2"/>`;
+        els += `<text x="${(x + barW / 2).toFixed(1)}" y="${(y - 5).toFixed(1)}" text-anchor="middle" fill="${fill}" font-size="11" font-family="monospace">${htStr}</text>`;
+        els += `<text x="${(x + barW / 2).toFixed(1)}" y="${(baseY + 12).toFixed(1)}" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="9" font-family="monospace">${timeStr}</text>`;
+        els += `<text x="${(x + barW / 2).toFixed(1)}" y="${(baseY + 23).toFixed(1)}" text-anchor="middle" fill="${fill}" font-size="8" font-family="monospace">${isHigh ? 'HI' : 'LO'}</text>`;
+      });
+
+      svg.innerHTML = els;
+    }
+
+    load();
+    setInterval(load, REFRESH);
+    window.addEventListener('resize', load);
+  </script>
+</body>
+</html>

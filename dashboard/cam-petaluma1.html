@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Petaluma 1 — ALERTCalifornia</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      font-family: monospace;
+    }
+    #cam {
+      max-width: 100%;
+      max-height: 100vh;
+      object-fit: contain;
+      display: block;
+    }
+    #status {
+      position: fixed;
+      bottom: 6px;
+      left: 8px;
+      color: #00ff88;
+      font-size: 11px;
+      background: rgba(0,0,0,0.65);
+      padding: 3px 8px;
+      border-radius: 3px;
+      letter-spacing: 0.05em;
+    }
+    #error {
+      color: #ff4444;
+      font-size: 13px;
+      display: none;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <img id="cam" alt="Petaluma 2 Fire Watch Camera — ALERTCalifornia">
+  <div id="status">PETALUMA 1 — loading…</div>
+  <div id="error">Unable to load camera feed.<br>Check connection or visit <a href="https://ops.alertcalifornia.org/cam-console/1754" target="_blank" style="color:#00f0ff">ops.alertcalifornia.org</a></div>
+
+  <script>
+    const JSON_URL = 'https://cameras.alertcalifornia.org/public-camera-data/Axis-Petaluma2/10sec/15-min.json';
+    const IMG_BASE = 'https://cameras.alertcalifornia.org/public-camera-data/Axis-Petaluma2/10sec/';
+    const REFRESH_MS = 15000;
+
+    const camEl    = document.getElementById('cam');
+    const statusEl = document.getElementById('status');
+    const errorEl  = document.getElementById('error');
+
+    async function refresh() {
+      try {
+        const res = await fetch(JSON_URL + '?_=' + Date.now());
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+
+        // frames is an array of filenames
+        const frames = Array.isArray(data.frames) ? data.frames : Object.keys(data).filter(k => k.endsWith('.jpg'));
+        if (!frames.length) throw new Error('no frames');
+
+        const latest = frames[frames.length - 1];
+        camEl.src = IMG_BASE + latest;
+        camEl.style.display = 'block';
+        errorEl.style.display = 'none';
+
+        const ts = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        statusEl.textContent = 'PETALUMA 1  ·  ALERTCalifornia  ·  ' + ts;
+      } catch (e) {
+        console.error('Camera refresh failed:', e);
+        // If image already loaded once, keep showing it — just update status
+        if (!camEl.src || camEl.src === window.location.href) {
+          camEl.style.display = 'none';
+          errorEl.style.display = 'block';
+        }
+        statusEl.textContent = 'PETALUMA 1  ·  retrying…';
+      }
+    }
+
+    refresh();
+    setInterval(refresh, REFRESH_MS);
+  </script>
+</body>
+</html>

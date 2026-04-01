@@ -1,0 +1,98 @@
+{
+  "disableSetup": true,
+  "disableLdCfg": true,
+  "topBarCenterText": "KN6KVS — North Bay Ham Dashboard",
+
+  "layout_cols": 4,
+  "layout_rows": 4,
+  "defaultOrder": {"box0":0,"box1":11,"box2":6,"box3":3,"box4":2,"box5":5,"box6":9,"box7":1,"box8":10,"box9":4,"box10":8,"box11":12,"box12":19,"box13":13,"box14":7,"box15":15},
+
+  "aURL": [
+    ["f3de21",  "APRS MAP",     "https://aprs.fi/?lat=38.2353&lng=-122.6387&z=11&mt=m",                                                                                                                          "1"      ],
+    ["f3de21",  "REPEATERS",    "https://www.repeaterbook.com/repeaters/location_search.php?state_id=06&type=city&loc=Petaluma",                                                                                   "1"      ],
+    ["ff6600",  "FIRE WATCH",   "https://ops.alertcalifornia.org/cam-console/1754",                                                                                                                                  "1"      ],
+    ["ff6600",  "CALTRANS 101", "https://cwwp2.dot.ca.gov/vm/loc/d4/tve90us101atsr116.htm",                                                                                                                          "1"      ],
+    ["2196F3",  "ARRL",         "https://www.arrl.org/news",                                                                                                                                                      "1"      ],
+    ["2196F3",  "CONTEST CAL",  "https://www.contestcalendar.com/fivewkcal.html",                                                                                                                                 "1"      ],
+    ["2196F3",  "SPACE WX",     "https://www.spaceweatherlive.com/",                                                                                                                                               "1", "R" ],
+    ["2196F3",  "LIGHTNING",    "https://map.blitzortung.org/#8/38.235/-122.639",                                                                                                                                  "1", "R" ],
+    ["2196F3",  "NWS RADAR",    "https://radar.weather.gov/station/KMUX/standard",                                                                                                                                 "1", "R" ],
+    ["2196F3",  "NWS FORECAST", "https://forecast.weather.gov/MapClick.php?CityName=Petaluma&state=CA&site=MTR&textField1=38.2327&textField2=-122.6367",                                                           "1", "R" ],
+    ["2196F3",  "WINDY",        "https://www.windy.com/?38.235,-122.639,9",                                                                                                                                        "1", "R" ],
+    ["2196F3",  "TIME.IS",      "https://time.is/",                                                                                                                                                                "1", "R" ]
+  ],
+
+  "aIMG": [
+
+    ["LOCAL RADAR (KMUX)",
+     "invert|https://radar.weather.gov/ridge/standard/KMUX_loop.gif",
+     30000],
+
+    ["PETALUMA — FIRE WATCH",
+     "iframe|/dashboard/cam-petaluma1.html",
+     30000],
+
+    ["HF PROPAGATION",
+     "https://www.hamqsl.com/solar101vhf.php",
+     20000],
+
+    [["GOES-18 GEOCOLOR", "GOES-18 SANDWICH"],
+     ["https://cdn.star.nesdis.noaa.gov/GOES18/ABI/SECTOR/psw/GEOCOLOR/GOES18-PSW-GEOCOLOR-600x600.gif",
+      "https://cdn.star.nesdis.noaa.gov/GOES18/ABI/SECTOR/psw/Sandwich/GOES18-PSW-Sandwich-600x600.gif"],
+     60000],
+
+    ["LIGHTNING — WEST COAST",
+     "https://images.lightningmaps.org/blitzortung/america/index.php?animation=usa",
+     30000],
+
+    ["ISS POSITION",
+     "https://www.heavens-above.com/orbitdisplay.aspx?icon=iss&width=600&height=300&mode=M&satid=25544",
+     10000],
+
+    ["APRS — NORTH BAY",
+     "iframe|/dashboard/aprs-north-bay.html",
+     60000],
+
+    ["RADAR — CONUS",
+     "https://radar.weather.gov/ridge/standard/CONUS-LARGE_loop.gif",
+     60000],
+
+    [["US-101 AT SR-116", "US-101 KASTANIA RD", "US-101 N PETALUMA BLVD"],
+     ["https://cwwp2.dot.ca.gov/data/d4/cctv/image/tve90us101atsr116/tve90us101atsr116.jpg",
+      "https://cwwp2.dot.ca.gov/data/d4/cctv/image/tv173us101kastaniaroad/tv173us101kastaniaroad.jpg",
+      "https://cwwp2.dot.ca.gov/data/d4/cctv/image/tv144us101northofpetalumablvd/tv144us101northofpetalumablvd.jpg"],
+     20000],
+
+    ["CLEAR DARK SKY — ROHNERT PARK",
+     "https://www.cleardarksky.com/c/SonomaStCAcsk.gif",
+     900000],
+
+    ["NORTH BAY AIRSPACE",
+     "iframe|https://globe.adsbexchange.com/?lat=38.235&lon=-122.639&zoom=9&showFlags=false&hideSidebar=true&hideButtons=true",
+     60000],
+
+    ["EARTHQUAKES — WESTERN US",
+     "iframe|/dashboard/earthquake.html",
+     300000],
+
+    ["CALFIRE — SONOMA INCIDENTS",
+     "iframe|/dashboard/calfire.html",
+     600000],
+
+    ["SF BAY — MARINE TRAFFIC (AIS)",
+     "iframe|/dashboard/marine.html",
+     60000],
+
+    [["AURORA FORECAST", "KP INDEX — 3 DAY"],
+     ["https://services.swpc.noaa.gov/images/aurora-forecast-northern-hemisphere.jpg",
+      "https://services.swpc.noaa.gov/images/geospace/geospace_3_day.png"],
+     30000],
+
+    ["WINDY — NORTH BAY",
+     "iframe|https://embed.windy.com/embed2.html?lat=38.235&lon=-122.639&zoom=9&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1",
+     300000]
+
+  ],
+
+  "aRSS": []
+}

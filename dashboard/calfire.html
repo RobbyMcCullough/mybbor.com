@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CAL FIRE — Active Incidents</title>
+  <style>
+    html, body {
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
+      background: #0a0a0f;
+      color: #fff;
+      font-family: "Victor Mono", monospace;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    #header {
+      padding: 5px 8px 3px;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: rgba(255, 100, 0, 0.7);
+      flex-shrink: 0;
+      border-bottom: 1px solid rgba(255,100,0,0.15);
+    }
+    #list {
+      flex: 1;
+      overflow: hidden;
+      padding: 4px 0;
+    }
+    .incident {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 0 8px;
+      padding: 3px 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      align-items: baseline;
+    }
+    .incident:hover { background: rgba(255,100,0,0.07); }
+    .name {
+      font-size: 10px;
+      color: rgba(255,255,255,0.9);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: 0.03em;
+    }
+    .acres {
+      font-size: 9px;
+      color: rgba(255, 160, 60, 0.9);
+      text-align: right;
+      white-space: nowrap;
+    }
+    .pct {
+      font-size: 9px;
+      min-width: 32px;
+      text-align: right;
+      white-space: nowrap;
+    }
+    .contained-full  { color: #00ff88; }
+    .contained-high  { color: #aaff44; }
+    .contained-mid   { color: #ffdd00; }
+    .contained-low   { color: #ff8800; }
+    .contained-none  { color: #ff4444; }
+    #empty {
+      padding: 20px 8px;
+      font-size: 11px;
+      color: rgba(0,240,255,0.5);
+    }
+    #status {
+      padding: 3px 8px;
+      font-size: 8px;
+      color: rgba(255,255,255,0.25);
+      flex-shrink: 0;
+      letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+  <div id="header">🔥 CAL FIRE — ACTIVE INCIDENTS (NIFC)</div>
+  <div id="list"></div>
+  <div id="status"></div>
+
+  <script>
+    // NIFC Active Fires — California only, sorted by acreage
+    const URL = 'https://services3.arcgis.com/T4QMspbfLg3qTGWY/arcgis/rest/services/Active_Fires/FeatureServer/0/query' +
+      '?where=POOState+%3D+%27US-CA%27' +
+      '&outFields=IncidentName,GISAcres,PercentContained,ModifiedOnDateTime,POOCounty' +
+      '&orderByFields=GISAcres+DESC' +
+      '&resultRecordCount=30' +
+      '&f=json';
+
+    const REFRESH = 600000; // 10 min
+
+    function containedClass(pct) {
+      if (pct >= 100) return 'contained-full';
+      if (pct >= 75)  return 'contained-high';
+      if (pct >= 40)  return 'contained-mid';
+      if (pct >  0)   return 'contained-low';
+      return 'contained-none';
+    }
+
+    function fmtAcres(a) {
+      if (!a || a < 0) return '—';
+      if (a >= 1000) return (a / 1000).toFixed(1) + 'k ac';
+      return Math.round(a) + ' ac';
+    }
+
+    async function load() {
+      const list   = document.getElementById('list');
+      const status = document.getElementById('status');
+      try {
+        const res  = await fetch(URL);
+        const data = await res.json();
+        const feats = (data.features || []).filter(f => f.attributes.GISAcres > 0);
+
+        if (feats.length === 0) {
+          list.innerHTML = '<div id="empty">No active CAL FIRE incidents reported.</div>';
+          status.textContent = `Updated ${new Date().toLocaleTimeString()}`;
+          return;
+        }
+
+        list.innerHTML = feats.map(f => {
+          const a   = f.attributes;
+          const pct = a.PercentContained ?? 0;
+          const cls = containedClass(pct);
+          return `<div class="incident">
+            <span class="name">${(a.IncidentName || 'Unknown').toUpperCase()}${a.POOCounty ? ' · ' + a.POOCounty.toUpperCase() + ' CO' : ''}</span>
+            <span class="acres">${fmtAcres(a.GISAcres)}</span>
+            <span class="pct ${cls}">${pct}%</span>
+          </div>`;
+        }).join('');
+
+        status.textContent = `${feats.length} incidents · updated ${new Date().toLocaleTimeString()}`;
+      } catch (e) {
+        list.innerHTML = '<div id="empty" style="color:#ff4444">Unable to load incident data</div>';
+      }
+    }
+
+    load();
+    setInterval(load, REFRESH);
+  </script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>APRS — North Bay</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; background: #0a0a0f; overflow: hidden; }
+    #map { height: 100%; width: 100%; }
+    /* Dark invert on OSM tiles */
+    .leaflet-tile-pane { filter: invert(1) hue-rotate(200deg) brightness(0.75) contrast(1.05) saturate(0.6); }
+    .leaflet-control-attribution { display: none; }
+    #status {
+      position: absolute; bottom: 4px; left: 8px; z-index: 1000;
+      font: 8px "Victor Mono", monospace;
+      color: rgba(0,240,255,0.4);
+      pointer-events: none;
+    }
+    #notice {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      z-index: 1000; text-align: center;
+      font: 10px "Victor Mono", monospace;
+      color: rgba(0,240,255,0.6);
+      background: rgba(10,10,15,0.85);
+      border: 1px solid rgba(0,240,255,0.2);
+      padding: 12px 16px;
+      border-radius: 4px;
+      line-height: 1.8;
+    }
+    #notice a { color: #00f0ff; }
+    .aprs-label {
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+    .aprs-popup .leaflet-popup-content-wrapper {
+      background: rgba(10,10,20,0.92);
+      border: 1px solid rgba(0,240,255,0.3);
+      border-radius: 3px;
+      color: #ccc;
+      font: 9px "Victor Mono", monospace;
+      box-shadow: 0 0 8px rgba(0,240,255,0.15);
+    }
+    .aprs-popup .leaflet-popup-tip { background: rgba(10,10,20,0.92); }
+    .aprs-popup .leaflet-popup-close-button { color: rgba(0,240,255,0.5) !important; font-size: 14px !important; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div id="status">APRS · NORTH BAY</div>
+  <div id="notice" style="display:none"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // Get a FREE API key at https://aprs.fi/account/create (takes ~1 min)
+    // Then paste it between the quotes below and save the file.
+    const APRS_API_KEY = '226706.eQcgRiAZdErX7lGc';
+
+    const LAT = 38.2353, LON = -122.6387, DIST_KM = 80;
+    const REFRESH = 60000;
+
+    const map = L.map('map', {
+      center: [LAT, LON], zoom: 10,
+      zoomControl: false, attributionControl: false
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18
+    }).addTo(map);
+
+    // Petaluma star marker
+    L.marker([LAT, LON], {
+      icon: L.divIcon({
+        html: '<span style="color:#ffb800;font-size:13px;text-shadow:0 0 6px #ffb800;">★</span>',
+        iconAnchor: [7, 9], className: 'aprs-label'
+      })
+    }).addTo(map);
+
+    const markers = {};
+
+    function ageColor(ageMin) {
+      if (ageMin <  15) return '#00f0ff';
+      if (ageMin <  60) return '#00ff88';
+      if (ageMin < 240) return '#ffb800';
+      return 'rgba(255,255,255,0.35)';
+    }
+
+    // aprs.fi blocks direct fetch() (no CORS headers). Route through corsproxy.io.
+    async function loadAPRS() {
+      if (!APRS_API_KEY) {
+        document.getElementById('notice').style.display = 'block';
+        document.getElementById('notice').innerHTML =
+          'APRS live data requires a free API key.<br>' +
+          '<a href="https://aprs.fi/account/create" target="_blank">Register at aprs.fi ↗</a><br>' +
+          'Then set APRS_API_KEY in<br>dashboard/aprs-north-bay.html';
+        return;
+      }
+      document.getElementById('notice').style.display = 'none';
+
+      const apiUrl = `https://api.aprs.fi/api/get?what=loc&name=*&lat=${LAT}&lng=${LON}&dist=${DIST_KM}` +
+                     `&apikey=${APRS_API_KEY}&format=json`;
+      const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(apiUrl)}`;
+
+      try {
+        const res  = await fetch(proxyUrl);
+        const data = await res.json();
+
+        if (data.result !== 'ok' || !data.entries) {
+          document.getElementById('status').textContent = 'APRS: ' + (data.description || 'no data');
+          return;
+        }
+
+        const now  = Date.now() / 1000;
+        const seen = new Set();
+
+        data.entries.forEach(e => {
+          if (!e.lat || !e.lng) return;
+          const ageMin = (now - parseInt(e.lasttime)) / 60;
+          const color  = ageColor(ageMin);
+          const latlng = [parseFloat(e.lat), parseFloat(e.lng)];
+          seen.add(e.name);
+
+          const popupHtml =
+            `<b style="color:#00f0ff">${e.name}</b><br>${Math.round(ageMin)}m ago` +
+            (e.comment ? `<br><span style="color:#aaa">${e.comment}</span>` : '') +
+            (e.speed ? `<br>${e.speed} km/h` : '');
+
+          if (markers[e.name]) {
+            markers[e.name].setLatLng(latlng);
+            markers[e.name].setPopupContent(popupHtml);
+          } else {
+            const icon = L.divIcon({
+              html: `<div style="color:${color};font:bold 9px monospace;line-height:1;text-shadow:0 0 3px #000;cursor:pointer;">` +
+                    `▲<div style="font-size:7px;white-space:nowrap;margin-top:1px">${e.name}</div></div>`,
+              iconAnchor: [6, 8], className: 'aprs-label'
+            });
+            markers[e.name] = L.marker(latlng, { icon })
+              .bindPopup(popupHtml, {
+                className: 'aprs-popup',
+                maxWidth: 200,
+                autoPan: false
+              })
+              .addTo(map);
+          }
+        });
+
+        Object.keys(markers).forEach(k => {
+          if (!seen.has(k)) { map.removeLayer(markers[k]); delete markers[k]; }
+        });
+
+        document.getElementById('status').textContent =
+          `${data.entries.length} stations · ${DIST_KM}km radius · updated ${new Date().toLocaleTimeString()}`;
+      } catch (err) {
+        document.getElementById('status').textContent = 'APRS: ' + err.message;
+      }
+    }
+
+    loadAPRS();
+    setInterval(loadAPRS, REFRESH);
+  </script>
+</body>
+</html>

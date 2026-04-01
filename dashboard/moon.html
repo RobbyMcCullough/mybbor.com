@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moon Phase — NASA SVS</title>
+  <style>
+    html, body {
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
+      background: #000;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Victor Mono", monospace;
+    }
+    #moon {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+      border-radius: 50%;
+    }
+    #info {
+      position: fixed;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.85);
+      font-size: 11px;
+      background: rgba(0,0,0,0.55);
+      padding: 3px 10px;
+      border-radius: 3px;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+      text-align: center;
+    }
+    #error {
+      color: #ff4444;
+      font-size: 12px;
+      text-align: center;
+      padding: 20px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <img id="moon" alt="Moon phase">
+  <div id="info">loading…</div>
+  <div id="error">Unable to load moon data</div>
+
+  <script>
+    const REFRESH_MS = 3600000; // 1 hour
+
+    function phaseName(age) {
+      if (age < 1.85)  return 'New Moon';
+      if (age < 7.38)  return 'Waxing Crescent';
+      if (age < 9.22)  return 'First Quarter';
+      if (age < 14.77) return 'Waxing Gibbous';
+      if (age < 16.61) return 'Full Moon';
+      if (age < 22.15) return 'Waning Gibbous';
+      if (age < 23.99) return 'Last Quarter';
+      if (age < 29.53) return 'Waning Crescent';
+      return 'New Moon';
+    }
+
+    async function load() {
+      try {
+        const now = new Date();
+        const iso = now.toISOString().slice(0, 16); // YYYY-MM-DDTHH:MM
+        const res = await fetch(`https://svs.gsfc.nasa.gov/api/dialamoon/${iso}`);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+
+        document.getElementById('moon').src = data.image.url;
+        document.getElementById('moon').style.display = 'block';
+        document.getElementById('error').style.display = 'none';
+
+        const illum = Math.round(data.phase);
+        const age   = parseFloat(data.age).toFixed(1);
+        const name  = phaseName(parseFloat(data.age));
+        document.getElementById('info').textContent =
+          `${name}  ·  ${illum}% illuminated  ·  day ${age}`;
+      } catch (e) {
+        console.error('Moon load failed:', e);
+        document.getElementById('error').style.display = 'block';
+        document.getElementById('info').textContent = 'retrying…';
+      }
+    }
+
+    load();
+    setInterval(load, REFRESH_MS);
+  </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SF Bay Marine Traffic</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+  <style>
+    html, body, #map {
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
+      background: #0a0a0f;
+    }
+    /* Hide Leaflet attribution to save space */
+    .leaflet-control-attribution {
+      font-size: 9px;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script>
+    // SF Bay centered on San Pablo Bay / Golden Gate approach
+    const map = L.map('map', {
+      center: [37.82, -122.48],
+      zoom: 10,
+      zoomControl: true,
+      attributionControl: true
+    });
+
+    // Base: OpenStreetMap (dark-friendly nautical charts via OpenSeaMap)
+    const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 17,
+      attribution: '© OSM contributors'
+    });
+
+    // OpenSeaMap overlay (buoys, depth contours, shipping lanes)
+    const seamap = L.tileLayer('https://tiles.openseamap.org/seamark/{z}/{x}/{y}.png', {
+      maxZoom: 17,
+      attribution: '© OpenSeaMap'
+    });
+
+    // AIS vessel layer via AISHub (free, no key needed for tiles)
+    // Fallback: use OpenSeaMap AIS tiles which pull from AISHub
+    const ais = L.tileLayer('https://t1.openseamap.org/ais/{z}/{x}/{y}.png', {
+      maxZoom: 17,
+      opacity: 1,
+      attribution: '© OpenSeaMap AIS'
+    });
+
+    osm.addTo(map);
+    seamap.addTo(map);
+    ais.addTo(map);
+
+    // Label
+    const label = L.control({position: 'bottomleft'});
+    label.onAdd = () => {
+      const d = document.createElement('div');
+      d.style.cssText = 'background:rgba(10,10,15,0.75);color:#00f0ff;font-family:monospace;font-size:11px;padding:4px 8px;border:1px solid rgba(0,240,255,0.2);border-radius:3px;';
+      d.textContent = 'SF BAY — AIS VESSEL TRAFFIC';
+      return d;
+    };
+    label.addTo(map);
+  </script>
+</body>
+</html>

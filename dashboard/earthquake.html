@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Earthquakes — Western US</title>
+  <style>
+    html, body {
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
+      background: #0a0a0f;
+      overflow: hidden;
+    }
+    svg { display: block; width: 100%; height: 100%; }
+  </style>
+</head>
+<body>
+  <svg id="map"></svg>
+
+  <script>
+    // Geographic bounds — Western US
+    const LAT0 = 31.5, LAT1 = 49.5;
+    const LON0 = -125,  LON1 = -112;
+    const REFRESH = 300000; // 5 min
+
+    function project(lat, lon, W, H) {
+      const x = (lon - LON0) / (LON1 - LON0) * W;
+      const y = (1 - (lat - LAT0) / (LAT1 - LAT0)) * H;
+      return [x, y];
+    }
+
+    // Rough simplified state outlines as polylines [lat, lon]
+    const STATES = {
+      CA: [[42,-124],[41.99,-120],[39,-120],[38.5,-119.7],[37.5,-119.5],[35,-114.6],[34.9,-114.5],[32.5,-117.1],[32.5,-118],[34,-120.5],[36,-122],[37.8,-122.5],[38.5,-123],[39.8,-124],[42,-124]],
+      OR: [[42,-124],[46,-124],[46.2,-123.5],[46.2,-121],[45.7,-116.7],[44,-117],[42,-117],[42,-124]],
+      WA: [[46,-124],[48.5,-124.7],[49,-117],[46.5,-117],[46,-124]],
+      NV: [[42,-120],[42,-114],[37,-114],[36,-114],[35,-114.6],[37.5,-119.5],[38.5,-119.7],[39,-120],[42,-120]],
+      AZ: [[37,-114],[37,-109],[31.3,-109],[31.3,-111],[31.3,-114.8],[34.9,-114.5],[35,-114.6],[37,-114]],
+    };
+
+    function stateOutlines(W, H) {
+      return Object.entries(STATES).map(([, pts]) => {
+        const d = pts.map(([la, lo], i) => {
+          const [x, y] = project(la, lo, W, H);
+          return `${i === 0 ? 'M' : 'L'}${x.toFixed(1)},${y.toFixed(1)}`;
+        }).join(' ') + 'Z';
+        return `<path d="${d}" fill="rgba(30,40,60,0.6)" stroke="rgba(0,240,255,0.15)" stroke-width="0.8"/>`;
+      }).join('');
+    }
+
+    async function load() {
+      const svg = document.getElementById('map');
+      const W   = svg.clientWidth  || 580;
+      const H   = svg.clientHeight || 320;
+
+      try {
+        const res  = await fetch('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson');
+        const data = await res.json();
+
+        const quakes = data.features.filter(f => {
+          const [lo, la] = f.geometry.coordinates;
+          return la >= LAT0 && la <= LAT1 && lo >= LON0 && lo <= LON1;
+        });
+
+        const now = Date.now();
+        let dots = '';
+        // Draw largest last so they appear on top
+        quakes.sort((a, b) => a.properties.mag - b.properties.mag).forEach(f => {
+          const [lo, la] = f.geometry.coordinates;
+          const mag      = parseFloat(f.properties.mag) || 0;
+          const [x, y]   = project(la, lo, W, H);
+          const r        = Math.max(2.5, mag * 2.8);
+          const ageH     = (now - f.properties.time) / 3600000;
+          const opacity  = Math.max(0.25, 1 - ageH / 28);
+          const color    = mag >= 5 ? '#ff2222' : mag >= 4 ? '#ff8800' : mag >= 3 ? '#ffdd00' : '#00f0ff';
+          const place    = (f.properties.place || '').replace(/'/g, '&apos;');
+          const ts       = new Date(f.properties.time).toLocaleString();
+          dots += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" fill="${color}" fill-opacity="${opacity.toFixed(2)}" stroke="rgba(0,0,0,0.4)" stroke-width="0.5"><title>M${mag} · ${place} · ${ts}</title></circle>`;
+        });
+
+        // Reference markers
+        const refs = [
+          [38.23, -122.64, '★', '#ffb800', 'PETALUMA'],
+          [37.77, -122.42, '·', 'rgba(255,255,255,0.4)', 'SF'],
+          [34.05, -118.24, '·', 'rgba(255,255,255,0.4)', 'LA'],
+          [45.52, -122.68, '·', 'rgba(255,255,255,0.4)', 'PDX'],
+        ];
+        let markers = '';
+        refs.forEach(([la, lo, sym, col, lbl]) => {
+          const [x, y] = project(la, lo, W, H);
+          markers += `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" fill="${col}" font-size="${sym === '★' ? 13 : 8}" text-anchor="middle" dominant-baseline="middle">${sym}</text>`;
+          markers += `<text x="${x.toFixed(1)}" y="${(y + 10).toFixed(1)}" fill="${col}" font-size="7" text-anchor="middle" font-family="monospace">${lbl}</text>`;
+        });
+
+        // Legend
+        const legend = [
+          ['#00f0ff', 'M2.5–3'], ['#ffdd00', 'M3–4'], ['#ff8800', 'M4–5'], ['#ff2222', 'M5+']
+        ].map(([c, lbl], i) =>
+          `<circle cx="${(8 + i * 60).toFixed(0)}" cy="${(H - 8).toFixed(0)}" r="4" fill="${c}" fill-opacity="0.8"/>` +
+          `<text x="${(15 + i * 60).toFixed(0)}" y="${(H - 4).toFixed(0)}" fill="${c}" font-size="8" font-family="monospace">${lbl}</text>`
+        ).join('');
+
+        const status = `<text x="${W - 4}" y="12" text-anchor="end" fill="rgba(0,240,255,0.45)" font-size="8" font-family="monospace">USGS M2.5+ · PAST 24H · ${quakes.length} EVENTS</text>`;
+
+        svg.innerHTML = `
+          <rect width="${W}" height="${H}" fill="#0a0a0f"/>
+          ${stateOutlines(W, H)}
+          ${dots}
+          ${markers}
+          ${legend}
+          ${status}`;
+
+      } catch (e) {
+        svg.innerHTML = `<text x="50%" y="50%" fill="#ff4444" text-anchor="middle" font-family="monospace" font-size="12">Unable to load earthquake data</text>`;
+      }
+    }
+
+    load();
+    setInterval(load, REFRESH);
+    window.addEventListener('resize', () => { load(); });
+  </script>
+</body>
+</html>
