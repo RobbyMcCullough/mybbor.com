@@ -33,6 +33,7 @@ function generatePage(post, data, contentHtml) {
   <meta name="author" content="Robby McCullough">
   <link rel="canonical" href="${url}">
   <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+  <script defer data-domain="mybbor.com" src="https://analytics.robbymccullough.com/js/script.js"></script>
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Mybbor">
