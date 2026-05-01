@@ -2,4 +2,4 @@
 *.swp
 *.swo
 *.yaml
-*.yml
+node_modules/
