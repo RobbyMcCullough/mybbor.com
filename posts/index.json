@@ -1,8 +1,8 @@
 [
     {
-        "file": "2026-05-01-i-built-my-own-web-server.md",
-        "slug": "i-built-my-own-web-server",
-        "title": "I Built My Own Web Server and Named It After a Galaxy",
+        "file": "2026-05-01-netlify-alternative-caddy-digitalocean.md",
+        "slug": "netlify-alternative-caddy-digitalocean",
+        "title": "A $12 Netlify Alternative: Caddy, DigitalOcean, and One Shell Script",
         "date": "2026-05-01",
         "image": "/img/andromeda-server.jpg",
         "excerpt": "I hit Netlify's free tier cap and decided to spin up a $12/mo DigitalOcean server running Caddy. A few hours with Claude Code later, I had a fully automated deployment pipeline, a script that migrates any site in one command, and a server named Andromeda."
