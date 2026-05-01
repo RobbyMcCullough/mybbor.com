@@ -35,15 +35,40 @@ function generatePage(post, data, contentHtml) {
   <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
 
   <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Mybbor">
   <meta property="og:title" content="${title}">
   <meta property="og:description" content="${description}">
   <meta property="og:url" content="${url}">
   <meta property="og:image" content="${image}">
+  <meta property="article:author" content="https://mybbor.com">
+  <meta property="article:published_time" content="${data.date || post.date}T00:00:00Z">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@RobbyMcCullough">
+  <meta name="twitter:creator" content="@RobbyMcCullough">
   <meta name="twitter:title" content="${title}">
   <meta name="twitter:description" content="${description}">
   <meta name="twitter:image" content="${image}">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "${title.replace(/"/g, '\\"')}",
+    "description": "${description.replace(/"/g, '\\"')}",
+    "image": "${image}",
+    "url": "${url}",
+    "datePublished": "${data.date || post.date}",
+    "author": {
+      "@type": "Person",
+      "name": "Robby McCullough",
+      "url": "https://mybbor.com"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Robby McCullough",
+      "url": "https://mybbor.com"
+    }
+  }
+  </script>
 
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
