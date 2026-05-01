@@ -3,3 +3,4 @@
 *.swo
 *.yaml
 node_modules/
+data/Petaluma Sonoma County.csv
