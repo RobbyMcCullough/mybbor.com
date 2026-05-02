@@ -138,7 +138,7 @@ function generatePage(post, data, contentHtml) {
       font-size: 0.92rem;
       font-style: italic;
       line-height: 1.5;
-      margin-bottom: 2.75rem;
+      margin-bottom: 2rem;
     }
 
     .post-content h1 {
