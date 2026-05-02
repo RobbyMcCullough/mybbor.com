@@ -11,7 +11,7 @@ I've been hosting my websites on various webhosts for years, and I recently star
 
 I thought it would be a fun project to set up a server on DigitalOcean. It's been many, many years, but I used to use Ubuntu as my daily driving operating system, and I hosted my own web server out of my house for a long time. When I started getting into WordPress, my focus shifted more toward WordPress and front-end development, and my days of tinkering with servers came to an end. 
 
-Now with the help of my trusted technical adviser, Claude, I decided to spin up an inexpensive  DigitalOcean server where I could host all of my sites.
+Now with the help of my trusted technical adviser (credit to [@katiekeithbarn2](https://x.com/KatieKeithBarn2) the trusted advisor line ;)), Claude, I decided to spin up an inexpensive  DigitalOcean server where I could host all of my sites.
 
 $12 a month, [DigitalOcean](https://www.digitalocean.com/), Ubuntu 24.04, a web server called [Caddy](https://caddyserver.com/). And then I spent a few hours with [Claude Code](https://claude.ai/code) turning it into something I'm genuinely proud of.
 
@@ -28,11 +28,13 @@ mysite.com, www.mysite.com {
 
 That's the whole thing. Caddy handles the cert. You point DNS at it and walk away.
 
-I named the server Andromeda. My dad used to name his computers after Star Trek spaceships so I thought doing something galactic and sci-fi would be a nice tribute. I'm a bit of an astronomy geek and if I add more servers down the line, I have plenty more galaxy names to pick from. 
+My dad used to name his computers after Star Trek spaceships, so I thought doing something galactic and sci-fi would be a nice tribute. I named the server Andromeda.
 
 ## The Automation
 
 The part I'm most happy about is a script called `add-site.sh`. You give it a domain and a GitHub repo and it does everything: clones the repo onto the server, updates the Caddyfile, sets the GitHub secrets, creates the Actions deploy workflow, and flips the DNS in Cloudflare. One command. A new site is live in about thirty seconds.
+
+The only downside I can think of is that my annual domain renewal bill is about to explode. Being able to prototype a website,. host it, and point a domain with a few spoken commands feels like I'm living in the future.
 
 ## The Moment It Clicked
 
@@ -44,7 +46,7 @@ I've got a few more sites to migrate. Then I want to set up self-hosted analytic
 
 ## Try It Yourself
 
-If you want to replicate this setup, here's a starting prompt you can paste into [Claude Code](https://claude.ai/code) or any AI coding assistant. It won't be a perfect fit out of the box — you'll need to adapt it to your domain registrar, GitHub username, and server preferences — but it'll get you most of the way there.
+If you want to replicate this setup, here's a starting prompt you can paste into your agent of choice. It won't be a perfect fit out of the box — you'll need to adapt it to your domain registrar, GitHub username, and server preferences — but it'll get you most of the way there.
 
 > *Note: This is a starting point, not a complete recipe. Expect to iterate, answer questions, and make decisions along the way. That's half the fun.*
 
