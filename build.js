@@ -17,11 +17,27 @@ function parseFrontmatter(content) {
   return { data, body: match[2] };
 }
 
+function formatDate(dateString) {
+  const date = new Date(`${dateString}T00:00:00`);
+  if (Number.isNaN(date.getTime())) return dateString;
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}
+
 function generatePage(post, data, contentHtml) {
   const title = data.title || post.title;
   const description = post.excerpt || '';
   const image = post.image ? `https://mybbor.com${post.image}` : 'https://mybbor.com/img/Mybbor.jpg';
   const url = `https://mybbor.com/posts/${post.slug}/`;
+  const postDate = data.date || post.date;
+  const displayDate = formatDate(postDate);
+  const contentWithDate = contentHtml.replace(
+    /(<h1[^>]*>[\s\S]*?<\/h1>)/,
+    `$1\n      <p class="post-date">Published ${displayDate}</p>`
+  );
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -117,19 +133,19 @@ function generatePage(post, data, contentHtml) {
       display: block;
     }
 
-    .post-meta {
+    .post-content .post-date {
       color: #8892a0;
-      font-size: 0.8rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 2.5rem;
+      font-size: 0.92rem;
+      font-style: italic;
+      line-height: 1.5;
+      margin-bottom: 2.75rem;
     }
 
     .post-content h1 {
       color: #00f0ff;
       font-size: clamp(1.6rem, 4vw, 2.2rem);
-      line-height: 1.2;
-      margin-bottom: 0.5rem;
+      line-height: 1.08;
+      margin-bottom: 0.9rem;
       text-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
     }
 
@@ -232,9 +248,8 @@ function generatePage(post, data, contentHtml) {
   <article class="post-wrap">
     ${post.image ? `<img class="featured-image" src="${post.image}" alt="${title}">` : ''}
     <div class="post-content">
-      ${contentHtml}
+      ${contentWithDate}
     </div>
-    <div class="post-meta">${data.date || post.date}</div>
 
     <footer class="post-footer">
       <a href="/#blog-posts">← All posts</a>
