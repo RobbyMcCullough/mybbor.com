@@ -11,13 +11,13 @@ I've been hosting my websites on various webhosts for years, and I recently star
 
 I thought it would be a fun project to set up a server on DigitalOcean. It's been many, many years, but I used to use Ubuntu as my daily driving operating system, and I hosted my own web server out of my house for a long time. When I started getting into WordPress, my focus shifted more toward WordPress and front-end development, and my days of tinkering with servers came to an end. 
 
-Now with the help of my trusted technical adviser (credit to [@katiekeithbarn2](https://x.com/KatieKeithBarn2) the trusted advisor line ;)), Claude, I decided to spin up an inexpensive  DigitalOcean server where I could host all of my sites.
+Now with the help of my trusted technical adviser (credit to [@katiekeithbarn2](https://x.com/KatieKeithBarn2) the trusted advisor line 😉), Claude, I decided to spin up an inexpensive  DigitalOcean server where I could host all of my sites.
 
 $12 a month, [DigitalOcean](https://www.digitalocean.com/), Ubuntu 24.04, a web server called [Caddy](https://caddyserver.com/). And then I spent a few hours with [Claude Code](https://claude.ai/code) turning it into something I'm genuinely proud of.
 
 ## The Server
 
-Caddy was the right call. It auto-provisions TLS certificates via [Let's Encrypt](https://letsencrypt.org/), handles HTTP/2 out of the box, and the config syntax is clean enough that I actually understand what it says. Adding a new site looks like this:
+Caddy seems to be the right call. It auto-provisions TLS certificates via [Let's Encrypt](https://letsencrypt.org/), handles HTTP/2 out of the box, and the config syntax is clean enough that I actually understand what it says. Adding a new site looks like this:
 
 ```
 mysite.com, www.mysite.com {
@@ -34,7 +34,7 @@ My dad used to name his computers after Star Trek spaceships, so I thought doing
 
 The part I'm most happy about is a script called `add-site.sh`. You give it a domain and a GitHub repo and it does everything: clones the repo onto the server, updates the Caddyfile, sets the GitHub secrets, creates the Actions deploy workflow, and flips the DNS in Cloudflare. One command. A new site is live in about thirty seconds.
 
-The only downside I can think of is that my annual domain renewal bill is about to explode. Being able to prototype a website,. host it, and point a domain with a few spoken commands feels like I'm living in the future.
+The only downside I can think of is that my annual domain renewal bill is about to explode. Being able to prototype a website, host it, and point a domain with a few spoken commands feels like I'm living in the future.
 
 ## The Moment It Clicked
 
@@ -73,4 +73,4 @@ Start by asking me for any details you need (server IP, GitHub username, domains
 
 ---
 
-*[petalumaphotography.com](https://petalumaphotography.com) and [mybbor.com](https://mybbor.com) are both live on Andromeda now. [aprilfifteenth.com](https://aprilfifteenth.com) will be up shortly.*
+*[petalumaphotography.com](https://petalumaphotography.com), [mybbor.com](https://mybbor.com), and [475th.com](https://475th.com) are both live on Andromeda now. [aprilfifteenth.com](https://aprilfifteenth.com) will be up shortly.*
