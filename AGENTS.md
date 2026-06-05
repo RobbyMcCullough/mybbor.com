@@ -30,9 +30,9 @@ Personal landing page with contact links, QR code, blog, and tools/projects sect
 
 ### `index.html`
 
-- Main landing page with hero, QR code, social links, tools/projects, and blog.
-- Blog data loads from `posts/index.json`.
-- To add a project card, add an `<a class="project-card">` entry in the `.projects-list` div.
+- Landing page: a cyberpunk masthead (centered anchor nav + animated glitch logo) over a background photo, fading into editorial About / Projects / AI-Assisted Writing sections; QR code in the footer.
+- Blog list loads from `posts/index.json`; each card links to its standalone page at `/posts/<slug>/`.
+- To add a project card, add an `<a class="project-quick">` entry in the `.project-grid` div.
 
 ### `petaluma-sonoma-ham-radio.html`
 
@@ -66,11 +66,15 @@ Personal landing page with contact links, QR code, blog, and tools/projects sect
 
 ## Design Conventions
 
-- Shared dark background: `#0a0a0f`.
-- Core accents: cyan `#00f0ff`, green `#00ff88`, magenta `#ff00ff`, and amber `#ffb800`.
-- CRT scanlines overlay is fixed with high z-index.
-- Cards and panels commonly use glass/frosted effects with `backdrop-filter: blur`.
-- Preserve the existing cyberpunk/neon landing-page style and radar/command-center radio-guide style unless the task explicitly changes direction.
+"Cyberpunk-editorial" hybrid (June 2026 redesign):
+
+- Ground: warm near-black ink `#15171B`; text: paper-white `#F2F0E9`; metadata: slate `#9AA3B2`.
+- Single flat accent: chartreuse `#C3E940` (links, tags, node dots, dividers). Avoid glowing gradient headings, neon-on-everything, and glass/frosted body panels — that "AI slop" look is what the redesign moved away from.
+- Type: Archivo (display/headings), Schibsted Grotesk (body), Spline Sans Mono (metadata/labels).
+- Neon is intentional, not a default: the homepage and radio hero keep a cyberpunk treatment (background photo, animated MYBBOR↔ROBBYM glitch logo, radar sweep) that fades into a calm editorial body below.
+- Reusable accent: the animated `.glow-line` under the masthead and each section head.
+- Respect `prefers-reduced-motion` (it gates the glitch, rain, radar, and flicker animations).
+- The radio guide keeps its radar/command-center character; the dashboard keeps its tile layout — both on the new ink/paper/chartreuse system.
 
 ## Development
 
@@ -91,7 +95,12 @@ node build.js
 
 ## Deployment
 
-Hosted on Netlify. Push to `main` on GitHub to deploy live.
+Hosted on a self-managed Caddy server (DigitalOcean, "Andromeda"), served from `/var/www/mybbor.com`. **Not Netlify** — that was migrated away in May 2026.
+
+Pushing to `main` triggers `.github/workflows/deploy.yml`, which SSHes into the server and runs `git pull origin main && npm ci --production && node build.js`.
+
+- The generated post pages (`posts/<slug>/index.html`) are **build artifacts**: gitignored and produced on the server by `build.js`. Do **not** commit them — doing so makes the server's `git pull` abort on untracked-file conflicts.
+- Caddy serves `index.html` as a catch-all for unknown paths. A repo `_redirects` file is inert here; URL redirects belong in the server's Caddyfile.
 
 ## Workflow Notes
 
