@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" preserveAspectRatio="xMidYMid slice" role="img" aria-label="robb.ee placeholder">
+  <rect width="600" height="380" fill="#10131a"/>
+  <g fill="none" stroke="#C3E940" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity="0.92">
+    <!-- antennae -->
+    <path d="M280 96 L300 150"/>
+    <path d="M320 96 L300 150"/>
+    <!-- wings -->
+    <ellipse cx="240" cy="170" rx="46" ry="32"/>
+    <ellipse cx="360" cy="170" rx="46" ry="32"/>
+    <!-- body -->
+    <ellipse cx="300" cy="208" rx="56" ry="78"/>
+    <!-- stripes -->
+    <path d="M248 192 H352"/>
+    <path d="M250 232 H350"/>
+  </g>
+  <text x="300" y="346" text-anchor="middle" font-family="ui-monospace, monospace" font-size="22" fill="#C3E940" letter-spacing="5">robb.ee</text>
+</svg>

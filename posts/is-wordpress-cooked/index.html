@@ -1,53 +1,12 @@
-#!/usr/bin/env node
-const fs = require('fs');
-const path = require('path');
-const { marked } = require('marked');
-
-function parseFrontmatter(content) {
-  const match = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-  if (!match) return { data: {}, body: content };
-  const data = {};
-  match[1].split('\n').forEach(line => {
-    const colonIdx = line.indexOf(':');
-    if (colonIdx === -1) return;
-    const key = line.slice(0, colonIdx).trim();
-    const val = line.slice(colonIdx + 1).trim().replace(/^["']|["']$/g, '');
-    if (key) data[key] = val;
-  });
-  return { data, body: match[2] };
-}
-
-function formatDate(dateString) {
-  const date = new Date(`${dateString}T00:00:00`);
-  if (Number.isNaN(date.getTime())) return dateString;
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-}
-
-function generatePage(post, data, contentHtml) {
-  const title = data.title || post.title;
-  const description = post.excerpt || '';
-  const image = post.image ? `https://mybbor.com${post.image}` : 'https://mybbor.com/img/Mybbor.jpg';
-  const url = `https://mybbor.com/posts/${post.slug}/`;
-  const postDate = data.date || post.date;
-  const displayDate = formatDate(postDate);
-  const contentWithDate = contentHtml.replace(
-    /(<h1[^>]*>[\s\S]*?<\/h1>)/,
-    `$1\n      <p class="post-date">Published ${displayDate}</p>`
-  );
-
-  return `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${title} — mybbor.com</title>
-  <meta name="description" content="${description}">
+  <title>Is WordPress Cooked? — mybbor.com</title>
+  <meta name="description" content="This is my first Claude Code experiment. A vibe-coded personal landing page and blog, built entirely through conversation.">
   <meta name="author" content="Robby McCullough">
-  <link rel="canonical" href="${url}">
+  <link rel="canonical" href="https://mybbor.com/posts/is-wordpress-cooked/">
   <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,27 +15,27 @@ function generatePage(post, data, contentHtml) {
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Mybbor">
-  <meta property="og:title" content="${title}">
-  <meta property="og:description" content="${description}">
-  <meta property="og:url" content="${url}">
-  <meta property="og:image" content="${image}">
+  <meta property="og:title" content="Is WordPress Cooked?">
+  <meta property="og:description" content="This is my first Claude Code experiment. A vibe-coded personal landing page and blog, built entirely through conversation.">
+  <meta property="og:url" content="https://mybbor.com/posts/is-wordpress-cooked/">
+  <meta property="og:image" content="https://mybbor.com/img/is-wordpress-cooked.jpg">
   <meta property="article:author" content="https://mybbor.com">
-  <meta property="article:published_time" content="${data.date || post.date}T00:00:00Z">
+  <meta property="article:published_time" content="2025-02-04T00:00:00Z">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@RobbyMcCullough">
   <meta name="twitter:creator" content="@RobbyMcCullough">
-  <meta name="twitter:title" content="${title}">
-  <meta name="twitter:description" content="${description}">
-  <meta name="twitter:image" content="${image}">
+  <meta name="twitter:title" content="Is WordPress Cooked?">
+  <meta name="twitter:description" content="This is my first Claude Code experiment. A vibe-coded personal landing page and blog, built entirely through conversation.">
+  <meta name="twitter:image" content="https://mybbor.com/img/is-wordpress-cooked.jpg">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": "${title.replace(/"/g, '\\"')}",
-    "description": "${description.replace(/"/g, '\\"')}",
-    "image": "${image}",
-    "url": "${url}",
-    "datePublished": "${data.date || post.date}",
+    "headline": "Is WordPress Cooked?",
+    "description": "This is my first Claude Code experiment. A vibe-coded personal landing page and blog, built entirely through conversation.",
+    "image": "https://mybbor.com/img/is-wordpress-cooked.jpg",
+    "url": "https://mybbor.com/posts/is-wordpress-cooked/",
+    "datePublished": "2025-02-04",
     "author": {
       "@type": "Person",
       "name": "Robby McCullough",
@@ -180,9 +139,31 @@ function generatePage(post, data, contentHtml) {
 
   <main class="post-wrap">
     <a class="back-link" href="/#writing">← All writing</a>
-    ${post.image ? `<img class="featured-image" src="${post.image}" alt="${title}">` : ''}
+    <img class="featured-image" src="/img/is-wordpress-cooked.jpg" alt="Is WordPress Cooked?">
     <article class="post-content">
-      ${contentWithDate}
+      <h1>Is WordPress Cooked?</h1>
+      <p class="post-date">Published February 4, 2025</p>
+<p>This is my first Claude Code experiment. It&#39;s a vibe-coded personal landing page and blog, all based off of a cyberpunk-style image that I generated using Nanobanana.</p>
+<p>Admittedly, the page is relatively simple, but I was able to create it all by talking at my computer. It took me the better part of an afternoon, but some of that was configuring my GitHub account, getting SSH keys added, and familiarizing myself with some of the old web tools I haven&#39;t touched in a while.</p>
+<h2>The Process</h2>
+<p>The entire site was built through conversation. I described what I wanted, and Claude Code wrote the HTML, CSS, and JavaScript. When something didn&#39;t look right, I just said so, and it got fixed. No manual coding required.</p>
+<p>Some highlights of what we built together:</p>
+<ul>
+<li>A cyberpunk-themed landing page with animated gradient text</li>
+<li>A TV-style glitch animation that alternates between &quot;MYBBOR&quot; and &quot;ROBBYM&quot;</li>
+<li>Social media links with Font Awesome icons</li>
+<li>A QR code generator so I can show people this site from my phone</li>
+<li>A markdown-based blog system (you&#39;re reading it now)</li>
+<li>Rain and scanline effects for that retro CRT aesthetic</li>
+</ul>
+<h2>What This Means for WordPress</h2>
+<p>As someone who co-founded a WordPress page builder, I&#39;ve been thinking a lot about what AI-assisted development means for the future of the platform.</p>
+<p>When you can describe a website and have it built in an afternoon through conversation, what happens to the traditional CMS? What happens to page builders? What happens to themes and plugins?</p>
+<p>I don&#39;t have all the answers yet, but I&#39;m definitely paying attention.</p>
+<h2>What&#39;s Next</h2>
+<p>This is just the beginning. I&#39;m planning to keep experimenting with Claude Code and documenting what I learn along the way. If you&#39;re interested in AI-assisted development, stay tuned.</p>
+<p>And if you&#39;re wondering whether WordPress is cooked... well, that&#39;s a conversation worth having.</p>
+
     </article>
 
     <footer class="post-footer">
@@ -233,24 +214,4 @@ function generatePage(post, data, contentHtml) {
     })();
   </script>
 </body>
-</html>`;
-}
-
-const posts = JSON.parse(fs.readFileSync('posts/index.json', 'utf8'));
-
-for (const post of posts) {
-  const filePath = path.join('posts', post.file);
-  if (!fs.existsSync(filePath)) {
-    console.warn(`Skipping ${post.file} — file not found`);
-    continue;
-  }
-  const raw = fs.readFileSync(filePath, 'utf8');
-  const { data, body } = parseFrontmatter(raw);
-  const contentHtml = marked.parse(body);
-  const outDir = path.join('posts', post.slug);
-  fs.mkdirSync(outDir, { recursive: true });
-  fs.writeFileSync(path.join(outDir, 'index.html'), generatePage(post, data, contentHtml));
-  console.log(`Built: /posts/${post.slug}/`);
-}
-
-console.log(`Done — ${posts.length} posts built.`);
+</html>

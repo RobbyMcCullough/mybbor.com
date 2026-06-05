@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Ham dashboard placeholder">
+  <rect width="600" height="380" fill="#10131a"/>
+  <g fill="#161a22">
+    <rect x="30"  y="30"  width="124" height="96" rx="8" stroke="#00f0ff" stroke-opacity="0.5" stroke-width="1.5"/>
+    <rect x="170" y="30"  width="124" height="96" rx="8" stroke="#00ff88" stroke-opacity="0.5" stroke-width="1.5"/>
+    <rect x="310" y="30"  width="124" height="96" rx="8" stroke="#ffb800" stroke-opacity="0.5" stroke-width="1.5"/>
+    <rect x="450" y="30"  width="120" height="96" rx="8" stroke="#ff00ff" stroke-opacity="0.45" stroke-width="1.5"/>
+    <rect x="30"  y="142" width="124" height="96" rx="8" stroke="#ffb800" stroke-opacity="0.45" stroke-width="1.5"/>
+    <rect x="170" y="142" width="124" height="96" rx="8" stroke="#00f0ff" stroke-opacity="0.5" stroke-width="1.5"/>
+    <rect x="310" y="142" width="124" height="96" rx="8" stroke="#00ff88" stroke-opacity="0.45" stroke-width="1.5"/>
+    <rect x="450" y="142" width="120" height="96" rx="8" stroke="#00f0ff" stroke-opacity="0.4" stroke-width="1.5"/>
+    <rect x="30"  y="254" width="124" height="96" rx="8" stroke="#ff00ff" stroke-opacity="0.45" stroke-width="1.5"/>
+    <rect x="170" y="254" width="124" height="96" rx="8" stroke="#ffb800" stroke-opacity="0.45" stroke-width="1.5"/>
+    <rect x="310" y="254" width="124" height="96" rx="8" stroke="#00f0ff" stroke-opacity="0.5" stroke-width="1.5"/>
+    <rect x="450" y="254" width="120" height="96" rx="8" stroke="#00ff88" stroke-opacity="0.45" stroke-width="1.5"/>
+  </g>
+</svg>

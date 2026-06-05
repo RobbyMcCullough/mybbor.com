@@ -1,5 +1,13 @@
 [
     {
+        "file": "2026-06-05-redesigning-mybbor.md",
+        "slug": "redesigning-mybbor",
+        "title": "It Was Cool Until It Was Everywhere: Redesigning Mybbor.com",
+        "date": "2026-06-05",
+        "image": "/img/redesign-hero.jpg",
+        "excerpt": "I gave mybbor.com a redesign with Claude Code: kept the cyberpunk glitch hero, gave everything else a calm editorial treatment, and reframed the whole site as an AI lab. Slide through the before and after."
+    },
+    {
         "file": "2026-05-01-netlify-alternative-caddy-digitalocean.md",
         "slug": "netlify-alternative-caddy-digitalocean",
         "title": "A $12 Netlify Alternative: Caddy, DigitalOcean, and One Shell Script",

@@ -1,53 +1,12 @@
-#!/usr/bin/env node
-const fs = require('fs');
-const path = require('path');
-const { marked } = require('marked');
-
-function parseFrontmatter(content) {
-  const match = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-  if (!match) return { data: {}, body: content };
-  const data = {};
-  match[1].split('\n').forEach(line => {
-    const colonIdx = line.indexOf(':');
-    if (colonIdx === -1) return;
-    const key = line.slice(0, colonIdx).trim();
-    const val = line.slice(colonIdx + 1).trim().replace(/^["']|["']$/g, '');
-    if (key) data[key] = val;
-  });
-  return { data, body: match[2] };
-}
-
-function formatDate(dateString) {
-  const date = new Date(`${dateString}T00:00:00`);
-  if (Number.isNaN(date.getTime())) return dateString;
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-}
-
-function generatePage(post, data, contentHtml) {
-  const title = data.title || post.title;
-  const description = post.excerpt || '';
-  const image = post.image ? `https://mybbor.com${post.image}` : 'https://mybbor.com/img/Mybbor.jpg';
-  const url = `https://mybbor.com/posts/${post.slug}/`;
-  const postDate = data.date || post.date;
-  const displayDate = formatDate(postDate);
-  const contentWithDate = contentHtml.replace(
-    /(<h1[^>]*>[\s\S]*?<\/h1>)/,
-    `$1\n      <p class="post-date">Published ${displayDate}</p>`
-  );
-
-  return `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${title} — mybbor.com</title>
-  <meta name="description" content="${description}">
+  <title>A $12 Netlify Alternative: Caddy, DigitalOcean, and One Shell Script — mybbor.com</title>
+  <meta name="description" content="I hit Netlify's free tier cap and decided to spin up a $12/mo DigitalOcean server running Caddy. A few hours with Claude Code later, I had a fully automated deployment pipeline, a script that migrates any site in one command, and a server named Andromeda.">
   <meta name="author" content="Robby McCullough">
-  <link rel="canonical" href="${url}">
+  <link rel="canonical" href="https://mybbor.com/posts/netlify-alternative-caddy-digitalocean/">
   <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,27 +15,27 @@ function generatePage(post, data, contentHtml) {
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Mybbor">
-  <meta property="og:title" content="${title}">
-  <meta property="og:description" content="${description}">
-  <meta property="og:url" content="${url}">
-  <meta property="og:image" content="${image}">
+  <meta property="og:title" content="A $12 Netlify Alternative: Caddy, DigitalOcean, and One Shell Script">
+  <meta property="og:description" content="I hit Netlify's free tier cap and decided to spin up a $12/mo DigitalOcean server running Caddy. A few hours with Claude Code later, I had a fully automated deployment pipeline, a script that migrates any site in one command, and a server named Andromeda.">
+  <meta property="og:url" content="https://mybbor.com/posts/netlify-alternative-caddy-digitalocean/">
+  <meta property="og:image" content="https://mybbor.com/img/andromeda-server.jpg">
   <meta property="article:author" content="https://mybbor.com">
-  <meta property="article:published_time" content="${data.date || post.date}T00:00:00Z">
+  <meta property="article:published_time" content="2026-05-01T00:00:00Z">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@RobbyMcCullough">
   <meta name="twitter:creator" content="@RobbyMcCullough">
-  <meta name="twitter:title" content="${title}">
-  <meta name="twitter:description" content="${description}">
-  <meta name="twitter:image" content="${image}">
+  <meta name="twitter:title" content="A $12 Netlify Alternative: Caddy, DigitalOcean, and One Shell Script">
+  <meta name="twitter:description" content="I hit Netlify's free tier cap and decided to spin up a $12/mo DigitalOcean server running Caddy. A few hours with Claude Code later, I had a fully automated deployment pipeline, a script that migrates any site in one command, and a server named Andromeda.">
+  <meta name="twitter:image" content="https://mybbor.com/img/andromeda-server.jpg">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": "${title.replace(/"/g, '\\"')}",
-    "description": "${description.replace(/"/g, '\\"')}",
-    "image": "${image}",
-    "url": "${url}",
-    "datePublished": "${data.date || post.date}",
+    "headline": "A $12 Netlify Alternative: Caddy, DigitalOcean, and One Shell Script",
+    "description": "I hit Netlify's free tier cap and decided to spin up a $12/mo DigitalOcean server running Caddy. A few hours with Claude Code later, I had a fully automated deployment pipeline, a script that migrates any site in one command, and a server named Andromeda.",
+    "image": "https://mybbor.com/img/andromeda-server.jpg",
+    "url": "https://mybbor.com/posts/netlify-alternative-caddy-digitalocean/",
+    "datePublished": "2026-05-01",
     "author": {
       "@type": "Person",
       "name": "Robby McCullough",
@@ -180,9 +139,56 @@ function generatePage(post, data, contentHtml) {
 
   <main class="post-wrap">
     <a class="back-link" href="/#writing">← All writing</a>
-    ${post.image ? `<img class="featured-image" src="${post.image}" alt="${title}">` : ''}
+    <img class="featured-image" src="/img/andromeda-server.jpg" alt="A $12 Netlify Alternative: Caddy, DigitalOcean, and One Shell Script">
     <article class="post-content">
-      ${contentWithDate}
+      <h1>A $12 Netlify Alternative: Caddy, DigitalOcean, and One Shell Script</h1>
+      <p class="post-date">Published May 1, 2026</p>
+<p>I&#39;ve been hosting my websites on various webhosts for years, and I recently started using Netlify to quickly host some of my vibe coded projects. I love the experience of Netlify and I&#39;m having a blast building and using static HTML again. It&#39;s just so fast and agile when combined with an agentic workflow. That said I was making a bunch of tweaks to a site and I quickly hit the cap on Netlify&#39;s free tier. I upgraded to the $5/month tier but in classic &quot;Robby move&quot; I decided, why not rebuild the whole thing from scratch and pay more lol.</p>
+<p>I thought it would be a fun project to set up a server on DigitalOcean. It&#39;s been many, many years, but I used to use Ubuntu as my daily driving operating system, and I hosted my own web server out of my house for a long time. When I started getting into WordPress, my focus shifted more toward WordPress and front-end development, and my days of tinkering with servers came to an end. </p>
+<p>Now with the help of my trusted technical adviser (credit to <a href="https://x.com/KatieKeithBarn2">@katiekeithbarn2</a> the trusted advisor line 😉), Claude, I decided to spin up an inexpensive  DigitalOcean server where I could host all of my sites.</p>
+<p>$12 a month, <a href="https://www.digitalocean.com/">DigitalOcean</a>, Ubuntu 24.04, a web server called <a href="https://caddyserver.com/">Caddy</a>. And then I spent a few hours with <a href="https://claude.ai/code">Claude Code</a> turning it into something I&#39;m genuinely proud of.</p>
+<h2>The Server</h2>
+<p>Caddy seems to be the right call. It auto-provisions TLS certificates via <a href="https://letsencrypt.org/">Let&#39;s Encrypt</a>, handles HTTP/2 out of the box, and the config syntax is clean enough that I actually understand what it says. Adding a new site looks like this:</p>
+<pre><code>mysite.com, www.mysite.com {
+    root * /var/www/mysite.com
+    file_server
+}
+</code></pre>
+<p>That&#39;s the whole thing. Caddy handles the cert. You point DNS at it and walk away.</p>
+<p>My dad used to name his computers after Star Trek spaceships, so I thought doing something galactic and sci-fi would be a nice tribute. I named the server Andromeda.</p>
+<h2>The Automation</h2>
+<p>The part I&#39;m most happy about is a script called <code>add-site.sh</code>. You give it a domain and a GitHub repo and it does everything: clones the repo onto the server, updates the Caddyfile, sets the GitHub secrets, creates the Actions deploy workflow, and flips the DNS in Cloudflare. One command. A new site is live in about thirty seconds.</p>
+<p>The only downside I can think of is that my annual domain renewal bill is about to explode. Being able to prototype a website, host it, and point a domain with a few spoken commands feels like I&#39;m living in the future.</p>
+<h2>The Moment It Clicked</h2>
+<p>When I ran <code>curl -sI https://mybbor.com</code> and saw <code>server: Caddy</code> come back, I did a little fist pump. That&#39;s my server. Those are my files. That response came from a $12 machine I configured myself, with a TLS cert that will auto-renew forever.</p>
+<p>This kind of setup used to be a multi-day project with a lot of Stack Overflow and a lot of broken configs. Doing it with agentic AI assistance, it was an afternoon and a bike ride.</p>
+<p>I&#39;ve got a few more sites to migrate. Then I want to set up self-hosted analytics. The server&#39;s sitting there ready.</p>
+<h2>Try It Yourself</h2>
+<p>If you want to replicate this setup, here&#39;s a starting prompt you can paste into your agent of choice. It won&#39;t be a perfect fit out of the box — you&#39;ll need to adapt it to your domain registrar, GitHub username, and server preferences — but it&#39;ll get you most of the way there.</p>
+<blockquote>
+<p><em>Note: This is a starting point, not a complete recipe. Expect to iterate, answer questions, and make decisions along the way. That&#39;s half the fun.</em></p>
+</blockquote>
+<hr>
+<pre><code>I want to set up a self-hosted web server for my static HTML sites. Here&#39;s what I&#39;m working with:
+
+- My sites are static HTML, stored locally and pushed to GitHub
+- I want to host them on a DigitalOcean droplet running Caddy as the web server
+- I want automatic deployment via GitHub Actions: push to main → site updates live
+- I&#39;m using Cloudflare for DNS (grey cloud / DNS-only mode so Caddy handles TLS)
+- I want a reusable script that can add new sites with one command
+
+Please walk me through the full setup end to end:
+1. Creating and hardening the DigitalOcean droplet (Ubuntu, deploy user, UFW firewall)
+2. Installing and configuring Caddy
+3. Setting up GitHub Actions deployment (SSH key, secrets, workflow file)
+4. Configuring DNS in Cloudflare
+5. Building an add-site.sh script that automates steps 2–4 for each new site
+
+Start by asking me for any details you need (server IP, GitHub username, domains, etc.), then let&#39;s go step by step.
+</code></pre>
+<hr>
+<p><em><a href="https://petalumaphotography.com">petalumaphotography.com</a>, <a href="https://mybbor.com">mybbor.com</a>, and <a href="https://475th.com">475th.com</a> are both live on Andromeda now. <a href="https://aprilfifteenth.com">aprilfifteenth.com</a> will be up shortly.</em></p>
+
     </article>
 
     <footer class="post-footer">
@@ -233,24 +239,4 @@ function generatePage(post, data, contentHtml) {
     })();
   </script>
 </body>
-</html>`;
-}
-
-const posts = JSON.parse(fs.readFileSync('posts/index.json', 'utf8'));
-
-for (const post of posts) {
-  const filePath = path.join('posts', post.file);
-  if (!fs.existsSync(filePath)) {
-    console.warn(`Skipping ${post.file} — file not found`);
-    continue;
-  }
-  const raw = fs.readFileSync(filePath, 'utf8');
-  const { data, body } = parseFrontmatter(raw);
-  const contentHtml = marked.parse(body);
-  const outDir = path.join('posts', post.slug);
-  fs.mkdirSync(outDir, { recursive: true });
-  fs.writeFileSync(path.join(outDir, 'index.html'), generatePage(post, data, contentHtml));
-  console.log(`Built: /posts/${post.slug}/`);
-}
-
-console.log(`Done — ${posts.length} posts built.`);
+</html>

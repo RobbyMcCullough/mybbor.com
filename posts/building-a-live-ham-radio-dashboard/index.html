@@ -1,53 +1,12 @@
-#!/usr/bin/env node
-const fs = require('fs');
-const path = require('path');
-const { marked } = require('marked');
-
-function parseFrontmatter(content) {
-  const match = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-  if (!match) return { data: {}, body: content };
-  const data = {};
-  match[1].split('\n').forEach(line => {
-    const colonIdx = line.indexOf(':');
-    if (colonIdx === -1) return;
-    const key = line.slice(0, colonIdx).trim();
-    const val = line.slice(colonIdx + 1).trim().replace(/^["']|["']$/g, '');
-    if (key) data[key] = val;
-  });
-  return { data, body: match[2] };
-}
-
-function formatDate(dateString) {
-  const date = new Date(`${dateString}T00:00:00`);
-  if (Number.isNaN(date.getTime())) return dateString;
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-}
-
-function generatePage(post, data, contentHtml) {
-  const title = data.title || post.title;
-  const description = post.excerpt || '';
-  const image = post.image ? `https://mybbor.com${post.image}` : 'https://mybbor.com/img/Mybbor.jpg';
-  const url = `https://mybbor.com/posts/${post.slug}/`;
-  const postDate = data.date || post.date;
-  const displayDate = formatDate(postDate);
-  const contentWithDate = contentHtml.replace(
-    /(<h1[^>]*>[\s\S]*?<\/h1>)/,
-    `$1\n      <p class="post-date">Published ${displayDate}</p>`
-  );
-
-  return `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${title} — mybbor.com</title>
-  <meta name="description" content="${description}">
+  <title>Building a Live Ham Radio Situational Awareness Dashboard — mybbor.com</title>
+  <meta name="description" content="I wanted a single-page mission control display I could throw up on a TV and leave running. Sixteen auto-refreshing tiles, a custom APRS map, a SVG moon phase in the header, drag-and-drop layout persistence, and a WebGL surprise when I plugged in the LG.">
   <meta name="author" content="Robby McCullough">
-  <link rel="canonical" href="${url}">
+  <link rel="canonical" href="https://mybbor.com/posts/building-a-live-ham-radio-dashboard/">
   <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,27 +15,27 @@ function generatePage(post, data, contentHtml) {
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Mybbor">
-  <meta property="og:title" content="${title}">
-  <meta property="og:description" content="${description}">
-  <meta property="og:url" content="${url}">
-  <meta property="og:image" content="${image}">
+  <meta property="og:title" content="Building a Live Ham Radio Situational Awareness Dashboard">
+  <meta property="og:description" content="I wanted a single-page mission control display I could throw up on a TV and leave running. Sixteen auto-refreshing tiles, a custom APRS map, a SVG moon phase in the header, drag-and-drop layout persistence, and a WebGL surprise when I plugged in the LG.">
+  <meta property="og:url" content="https://mybbor.com/posts/building-a-live-ham-radio-dashboard/">
+  <meta property="og:image" content="https://mybbor.com/img/ham-dashboard-featured.jpg">
   <meta property="article:author" content="https://mybbor.com">
-  <meta property="article:published_time" content="${data.date || post.date}T00:00:00Z">
+  <meta property="article:published_time" content="2026-04-01T00:00:00Z">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@RobbyMcCullough">
   <meta name="twitter:creator" content="@RobbyMcCullough">
-  <meta name="twitter:title" content="${title}">
-  <meta name="twitter:description" content="${description}">
-  <meta name="twitter:image" content="${image}">
+  <meta name="twitter:title" content="Building a Live Ham Radio Situational Awareness Dashboard">
+  <meta name="twitter:description" content="I wanted a single-page mission control display I could throw up on a TV and leave running. Sixteen auto-refreshing tiles, a custom APRS map, a SVG moon phase in the header, drag-and-drop layout persistence, and a WebGL surprise when I plugged in the LG.">
+  <meta name="twitter:image" content="https://mybbor.com/img/ham-dashboard-featured.jpg">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": "${title.replace(/"/g, '\\"')}",
-    "description": "${description.replace(/"/g, '\\"')}",
-    "image": "${image}",
-    "url": "${url}",
-    "datePublished": "${data.date || post.date}",
+    "headline": "Building a Live Ham Radio Situational Awareness Dashboard",
+    "description": "I wanted a single-page mission control display I could throw up on a TV and leave running. Sixteen auto-refreshing tiles, a custom APRS map, a SVG moon phase in the header, drag-and-drop layout persistence, and a WebGL surprise when I plugged in the LG.",
+    "image": "https://mybbor.com/img/ham-dashboard-featured.jpg",
+    "url": "https://mybbor.com/posts/building-a-live-ham-radio-dashboard/",
+    "datePublished": "2026-04-01",
     "author": {
       "@type": "Person",
       "name": "Robby McCullough",
@@ -180,9 +139,31 @@ function generatePage(post, data, contentHtml) {
 
   <main class="post-wrap">
     <a class="back-link" href="/#writing">← All writing</a>
-    ${post.image ? `<img class="featured-image" src="${post.image}" alt="${title}">` : ''}
+    <img class="featured-image" src="/img/ham-dashboard-featured.jpg" alt="Building a Live Ham Radio Situational Awareness Dashboard">
     <article class="post-content">
-      ${contentWithDate}
+      <h1>Building a Live Ham Radio Situational Awareness Dashboard</h1>
+      <p class="post-date">Published April 1, 2026</p>
+<p>The specific thing I wanted was a screen I could leave on in the background that showed me what was happening outside without me having to go find it. Local radar. Fire cameras. What&#39;s on 101. Whether there&#39;s a ship moving through the Bay. What the Kp index is doing. All of it, cycling on its own, no interaction required.</p>
+<p>Ham radio people call this situational awareness. I call it wanting to know if Petaluma is on fire before I hear the sirens.</p>
+<p>So I built it. It&#39;s at <a href="/ham-dashboard.html">mybbor.com/ham-dashboard.html</a> and it runs on a TV in my house.</p>
+<hr>
+<h2>How it works</h2>
+<p>I started with an open-source framework called <strong>hamdash</strong> (VA3HDL), which handles the grid layout, tile rotation, and config loading. You give it a <code>config.json</code> with a list of image URLs and iframe sources, it arranges them in a grid and auto-refreshes on a timer. Clean starting point.</p>
+<p>The grid started as 4×5 — 20 tiles. Spent the first hour cutting things that didn&#39;t actually work: FT8 propagation was a broken embed, tides had a dead data source, solar conditions was redundant. Ended up at <strong>4×4, 16 tiles</strong>. GOES-18 satellite imagery, KMUX radar loop, AlertCalifornia fire camera, ISS position, APRS stations, CalFire incidents, SF Bay marine traffic, highway cameras, aurora forecast, space weather. Everything auto-refreshing. Nothing requiring a click.</p>
+<hr>
+<h2>The parts that fought back</h2>
+<p><strong>APRS.</strong> I wanted live station positions within 80km of Petaluma plotted on a dark Leaflet map. The aprs.fi API blocks direct browser fetch calls — no CORS headers — so I routed it through corsproxy.io. Got it working, then hit a wall: the API kept returning <code>&quot;loc query: no search term specified&quot;</code> no matter what coordinates I passed. Turns out their <code>what=loc</code> endpoint requires a <code>name=</code> parameter. Geographic radius queries aren&#39;t enough on their own. Adding <code>name=*</code> as a wildcard fixed it. That one took a while to find.</p>
+<p><strong>Drag and drop.</strong> The framework lets you rearrange tiles, which is great. But image tiles couldn&#39;t be dragged — the browser&#39;s native image-drag was intercepting the mousedown before the drag handler could fire. The fix was keeping a transparent overlay div visible on image tiles, same as iframes. Also had a flickering drag-highlight bug caused by <code>dragleave</code> firing when the cursor moved over child elements. Needed a <code>relatedTarget</code> check to filter those out. Small stuff, but it took a few passes.</p>
+<p><strong>The moon.</strong> Dropped the moon phase tile from the grid to save space, but still wanted the data in the header. Wrote a small SVG renderer that draws the lit portion using two arcs — one for the limb, one for the terminator. The arc sweep directions have to be right for all four phase cases or the shapes cancel each other out under the SVG fill rules. Found this out when a full moon rendered as a dark circle. <code>fill-rule=&quot;evenodd&quot;</code> plus careful sweep flags fixed it.</p>
+<p><strong>The TV.</strong> Plugged the dashboard into an LG TV and the flight traffic tile just spun. Turned out the tile was using a 3D globe renderer that requires WebGL, and the LG&#39;s browser doesn&#39;t have it. Tried switching to Flightradar24 — they block iframe embedding entirely. So do Radarbox and Planefinder. Ended up back on ADS-B Exchange, which at least works on every normal browser. The TV is a known limitation for now.</p>
+<hr>
+<h2>What I&#39;d tell myself at the start</h2>
+<p>Check iframe embedding headers before you build around a data source. One <code>curl -sI &lt;url&gt; | grep -i x-frame</code> would have saved me the Flightradar24 detour. Same with CORS — know upfront whether you&#39;ll need a proxy, because it changes how you structure the fetch logic.</p>
+<p>And test on the actual display. The WebGL thing was invisible in Chrome on a laptop.</p>
+<p>The dashboard is live. It does the thing I wanted it to do. Now I just have to find a flight tracker that lets you embed it.</p>
+<hr>
+<p><em>KN6KVS — Petaluma, CA</em></p>
+
     </article>
 
     <footer class="post-footer">
@@ -233,24 +214,4 @@ function generatePage(post, data, contentHtml) {
     })();
   </script>
 </body>
-</html>`;
-}
-
-const posts = JSON.parse(fs.readFileSync('posts/index.json', 'utf8'));
-
-for (const post of posts) {
-  const filePath = path.join('posts', post.file);
-  if (!fs.existsSync(filePath)) {
-    console.warn(`Skipping ${post.file} — file not found`);
-    continue;
-  }
-  const raw = fs.readFileSync(filePath, 'utf8');
-  const { data, body } = parseFrontmatter(raw);
-  const contentHtml = marked.parse(body);
-  const outDir = path.join('posts', post.slug);
-  fs.mkdirSync(outDir, { recursive: true });
-  fs.writeFileSync(path.join(outDir, 'index.html'), generatePage(post, data, contentHtml));
-  console.log(`Built: /posts/${post.slug}/`);
-}
-
-console.log(`Done — ${posts.length} posts built.`);
+</html>

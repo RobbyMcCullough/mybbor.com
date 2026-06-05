@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mybbor | Robby McCullough — Entrepreneur & Photographer</title>
-    <meta name="description" content="Hi, I'm Robby. Mybbor is my long time gaming handle — this site is a manifestation of my 90s hacker movie alter ego. Co-founder of Beaver Builder and photographer.">
-    <meta name="keywords" content="Robby McCullough, Mybbor, Beaver Builder, WordPress, photographer, digital nomad, entrepreneur, travel">
+    <title>Mybbor | AI Projects and Experiments by Robby McCullough</title>
+    <meta name="description" content="Mybbor is Robby McCullough's AI lab: AI-assisted projects, ham radio tools, and vibe-coded experiments. Co-founder of Beaver Builder, building in the open.">
+    <meta name="keywords" content="Robby McCullough, Mybbor, AI-assisted projects, Claude Code, vibe coding, ham radio, Beaver Builder, maker, side projects">
     <meta name="author" content="Robby McCullough">
 
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Mybbor | Robby McCullough">
-    <meta property="og:description" content="Entrepreneur, photographer, and digital nomad. Co-founder of Beaver Builder. Thoughts and ramblings on travel, business, and life.">
+    <meta property="og:title" content="Mybbor | Robby McCullough's AI Lab">
+    <meta property="og:description" content="AI-assisted projects, ham radio tools, and vibe-coded experiments from Robby McCullough, co-founder of Beaver Builder. The experimental side of mybbor.com.">
     <meta property="og:url" content="https://mybbor.com">
     <meta property="og:image" content="https://mybbor.com/img/Mybbor.jpg">
     <meta property="og:image:alt" content="Robby McCullough — Mybbor">
@@ -19,8 +19,8 @@
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@RobbyMcCullough">
-    <meta name="twitter:title" content="Mybbor | Robby McCullough">
-    <meta name="twitter:description" content="Entrepreneur, photographer, and digital nomad. Co-founder of Beaver Builder.">
+    <meta name="twitter:title" content="Mybbor | Robby McCullough's AI Lab">
+    <meta name="twitter:description" content="AI-assisted projects, ham radio tools, and vibe-coded experiments. Co-founder of Beaver Builder.">
     <meta name="twitter:image" content="https://mybbor.com/img/Mybbor.jpg">
 
     <link rel="canonical" href="https://mybbor.com">
@@ -37,8 +37,9 @@
           "alternateName": "Mybbor",
           "url": "https://mybbor.com",
           "image": "https://mybbor.com/img/Mybbor.jpg",
-          "jobTitle": "Entrepreneur, Photographer",
-          "description": "Co-founder of Beaver Builder, photographer, and digital nomad.",
+          "jobTitle": "Entrepreneur and Software Maker",
+          "description": "Co-founder of Beaver Builder. Builds AI-assisted projects, ham radio tools, and vibe-coded experiments at mybbor.com.",
+          "knowsAbout": ["AI-assisted development", "Claude Code", "WordPress", "Amateur radio", "Web development"],
           "sameAs": [
             "https://twitter.com/RobbyMcCullough",
             "https://github.com/RobbyMcCullough",
@@ -50,33 +51,88 @@
           "@id": "https://mybbor.com/#website",
           "url": "https://mybbor.com",
           "name": "Mybbor",
+          "description": "The AI lab of Robby McCullough: AI-assisted projects, ham radio tools, and vibe-coded experiments.",
           "author": { "@id": "https://mybbor.com/#robby" }
         }
       ]
     }
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800;900&family=Schibsted+Grotesk:wght@400;500;700&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* ============================================================
+           HYBRID ART DIRECTION
+           Hero  — cyberpunk/neon (parallax photo + glitch logo).
+           Body  — "product changelog" archetype from Art Direction
+                   Daily #028: warm ink, paper-white, single flat
+                   chartreuse accent, timeline rail.
+           The hero's neon gradient fades into --ink so the page
+           transitions from neon header into the calm changelog.
+           ============================================================ */
+        :root {
+            --ink: #15171B;          /* warm near-black ground */
+            --ink-raised: #1b1e23;   /* hover / panel surface */
+            --paper: #F2F0E9;        /* warm paper-white text */
+            --slate: #9AA3B2;        /* metadata */
+            --chartreuse: #C3E940;   /* body accent (echoes the logo's green/yellow) */
+            --cyan: #00f0ff;
+            --magenta: #ff00ff;
+            --line: rgba(242, 240, 233, 0.10);
+            --line-strong: rgba(242, 240, 233, 0.20);
+            --radius: 6px;
+            --display: 'Archivo', system-ui, sans-serif;
+            --body: 'Schibsted Grotesk', system-ui, sans-serif;
+            --mono: 'Spline Sans Mono', ui-monospace, monospace;
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
         body {
             min-height: 100vh;
-            background: #0a0a0f;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--ink);
+            color: var(--paper);
+            font-family: var(--body);
+            font-size: 19px;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
             position: relative;
         }
 
-        .hero {
-            min-height: 100vh;
+        a { color: var(--chartreuse); text-decoration: none; }
+        ::selection { background: var(--chartreuse); color: var(--ink); }
+
+        .wrap { width: 100%; max-width: 880px; margin: 0 auto; padding: 0 1.5rem; }
+
+        /* ---------- Hero nav — centered, over the background image ---------- */
+        .hero-nav {
             display: flex;
-            flex-direction: column;
             justify-content: center;
-            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 1.45rem;
+        }
+        .hero-nav a {
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            letter-spacing: 0.04em;
+            color: var(--paper);
+            text-decoration: none;
+            padding: 0.4rem 0.75rem;
+            border-radius: var(--radius);
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+            transition: color 0.2s ease, background 0.2s ease;
+        }
+        .hero-nav a:hover,
+        .hero-nav a:focus-visible { color: var(--chartreuse); background: rgba(10, 12, 18, 0.5); outline: none; }
+
+        /* ============================================================
+           HERO — neon / cyberpunk (carried over from the original)
+           ============================================================ */
+        .hero {
             position: relative;
             overflow: hidden;
         }
@@ -92,236 +148,22 @@
             will-change: transform;
         }
 
+        /* fade the photo down into the changelog ground colour */
         .hero::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(180deg, rgba(10,10,15,0.2) 0%, rgba(10,10,15,0.7) 60%, rgba(10,10,15,1) 100%);
+            inset: 0;
+            background: linear-gradient(180deg, rgba(21,23,27,0.2) 0%, rgba(21,23,27,0.7) 60%, var(--ink) 100%);
             z-index: 1;
             pointer-events: none;
         }
 
-        .content {
-            text-align: center;
-            z-index: 10;
-            padding: 2rem;
-        }
-
-        .logo {
-            font-size: clamp(3rem, 12vw, 8rem);
-            font-weight: 900;
-            letter-spacing: 0.1em;
-            background: linear-gradient(90deg, #00f0ff, #00ff88, #f0ff00, #ff00ff, #00f0ff);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradient 4s linear infinite;
-            text-shadow: 0 0 40px rgba(0, 240, 255, 0.5);
-            filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.4))
-                    drop-shadow(0 0 40px rgba(255, 0, 255, 0.3));
-        }
-
-        @keyframes gradient {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
-        }
-
-        @keyframes glitch-out {
-            0% {
-                opacity: 1;
-                transform: translate(0) skewX(0);
-                text-shadow: 0 0 40px rgba(0, 240, 255, 0.5);
-            }
-            5% {
-                opacity: 1;
-                transform: translate(-3px, 0) skewX(-2deg);
-                text-shadow: -3px 0 #ff00ff, 3px 0 #00f0ff;
-            }
-            10% {
-                opacity: 0;
-            }
-            15% {
-                opacity: 1;
-                transform: translate(3px, 0) skewX(2deg);
-                text-shadow: 3px 0 #ff00ff, -3px 0 #00f0ff;
-            }
-            20% {
-                opacity: 0;
-            }
-            25% {
-                opacity: 0.8;
-                transform: translate(-2px, 1px) skewX(-1deg);
-                text-shadow: -2px 0 #ff00ff, 2px 0 #00f0ff;
-            }
-            30% {
-                opacity: 0;
-            }
-            35% {
-                opacity: 0.6;
-                transform: translate(0, -2px) skewX(3deg);
-                text-shadow: 2px 0 #ff00ff, -2px 0 #00f0ff;
-            }
-            50% {
-                opacity: 0;
-                transform: translate(0) skewX(0);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(0) skewX(0);
-                text-shadow: none;
-            }
-        }
-
-        @keyframes glitch-in {
-            0% {
-                opacity: 0;
-                transform: translate(0) skewX(0);
-            }
-            50% {
-                opacity: 0;
-            }
-            55% {
-                opacity: 0.6;
-                transform: translate(0, 2px) skewX(-3deg);
-                text-shadow: -2px 0 #ff00ff, 2px 0 #00f0ff;
-            }
-            60% {
-                opacity: 0;
-            }
-            65% {
-                opacity: 0.8;
-                transform: translate(2px, -1px) skewX(1deg);
-                text-shadow: 2px 0 #ff00ff, -2px 0 #00f0ff;
-            }
-            70% {
-                opacity: 0;
-            }
-            75% {
-                opacity: 1;
-                transform: translate(-3px, 0) skewX(-2deg);
-                text-shadow: -3px 0 #ff00ff, 3px 0 #00f0ff;
-            }
-            80% {
-                opacity: 0;
-            }
-            85% {
-                opacity: 1;
-                transform: translate(3px, 0) skewX(2deg);
-                text-shadow: 3px 0 #ff00ff, -3px 0 #00f0ff;
-            }
-            95% {
-                opacity: 1;
-                transform: translate(0) skewX(0);
-                text-shadow: 0 0 40px rgba(0, 240, 255, 0.5);
-            }
-            100% {
-                opacity: 1;
-                transform: translate(0) skewX(0);
-                text-shadow: 0 0 40px rgba(0, 240, 255, 0.5);
-            }
-        }
-
-        .logo.glitch-out {
-            animation: glitch-out 0.5s steps(1) forwards;
-        }
-
-        .logo.glitch-in {
-            animation: glitch-in 0.5s steps(1) forwards;
-        }
-
-        .tagline {
-            font-size: clamp(1rem, 3vw, 1.5rem);
-            color: #8892a0;
-            margin: 1.5rem 2rem 0;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-        }
-
-        .glow-line {
-            width: 200px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #00f0ff, #ff00ff, transparent);
-            margin: 2rem auto;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; transform: scaleX(0.8); }
-            50% { opacity: 1; transform: scaleX(1); }
-        }
-
-        .social-links {
-            display: flex;
-            gap: 2rem;
-            margin-top: 2rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .social-links a {
-            color: #8892a0;
-            text-decoration: none;
-            font-size: 0.9rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            padding: 0.5rem 1rem;
-            border: 1px solid rgba(136, 146, 160, 0.3);
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .social-links a:hover {
-            color: #00f0ff;
-            border-color: #00f0ff;
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
-            text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
-        }
-
-        /* QR Code */
-        .qr-container {
-            margin-bottom: 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .qr-code {
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(0, 240, 255, 0.3);
-            border-radius: 6px;
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2),
-                        inset 0 0 20px rgba(0, 240, 255, 0.05);
-        }
-
-        .qr-code canvas {
-            display: block;
-        }
-
-        .qr-label {
-            font-size: 0.75rem;
-            color: #8892a0;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-        }
-
-        /* Rain effect */
+        /* rain + scanlines scoped to the hero so the body stays crisp */
         .rain {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: absolute;
+            inset: 0;
             pointer-events: none;
-            z-index: 1;
+            z-index: 2;
         }
 
         .rain-drop {
@@ -339,538 +181,451 @@
             100% { transform: translateY(100vh); opacity: 0; }
         }
 
-        /* Scanline effect */
-        .scanlines {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 100;
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(0, 0, 0, 0.1) 0px,
-                rgba(0, 0, 0, 0.1) 1px,
-                transparent 1px,
-                transparent 2px
-            );
-            opacity: 0.3;
-        }
-
-        /* Blog Section */
-        .blog-section {
-            background: #0a0a0f;
-            padding: 2rem 2rem 4rem;
-            position: relative;
-            z-index: 10;
-        }
-
-        .blog-section h2 {
-            text-align: center;
-            font-size: 2rem;
-            color: #00f0ff;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            margin-bottom: 3rem;
-            text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
-        }
-
-        .blog-posts {
-            max-width: 800px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .blog-post-card {
-            background: rgba(20, 20, 30, 0.8);
-            border: 1px solid rgba(0, 240, 255, 0.2);
-            border-radius: 8px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .blog-post-card .card-body {
-            padding: 1.5rem;
-        }
-
-        .blog-post-card .post-featured-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            object-position: center 20%;
-            display: block;
-        }
-
-        .blog-post-card:hover {
-            border-color: #00f0ff;
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .blog-post-card h3 {
-            color: #00f0ff;
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .blog-post-card .post-meta {
-            color: #8892a0;
-            font-size: 0.8rem;
-            letter-spacing: 0.1em;
-            margin-bottom: 1rem;
-        }
-
-        .blog-post-card .post-excerpt {
-            color: #aab0ba;
-            line-height: 1.6;
-        }
-
-        /* Full Blog Post */
-        .blog-post-full {
-            display: none;
-            max-width: 800px;
-            margin: 0 auto;
-            background: rgba(20, 20, 30, 0.9);
-            border: 1px solid rgba(0, 240, 255, 0.2);
-            border-radius: 8px;
-            padding: 2rem;
-        }
-
-        .blog-post-full.active {
-            display: block;
-        }
-
-        .blog-post-full .back-btn {
-            color: #00f0ff;
-            background: none;
-            border: 1px solid #00f0ff;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            letter-spacing: 0.1em;
-            margin-bottom: 2rem;
-            transition: all 0.3s ease;
-        }
-
-        .blog-post-full .back-btn:hover {
-            background: rgba(0, 240, 255, 0.1);
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
-        }
-
-        .blog-post-full .post-content {
-            color: #c0c5ce;
-            line-height: 1.8;
-        }
-
-        .blog-post-full .post-content img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 6px;
-        }
-
-        .blog-post-full .post-content h1 {
-            color: #00f0ff;
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
-        }
-
-        .blog-post-full .post-content h2 {
-            color: #00ff88;
-            font-size: 1.5rem;
-            margin: 2rem 0 1rem;
-        }
-
-        .blog-post-full .post-content h3 {
-            color: #f0ff00;
-            font-size: 1.2rem;
-            margin: 1.5rem 0 0.75rem;
-        }
-
-        .blog-post-full .post-content p {
-            margin-bottom: 1rem;
-        }
-
-        .blog-post-full .post-content ul,
-        .blog-post-full .post-content ol {
-            margin: 1rem 0 1rem 2rem;
-        }
-
-        .blog-post-full .post-content li {
-            margin-bottom: 0.5rem;
-        }
-
-        .blog-post-full .post-content code {
-            background: rgba(0, 240, 255, 0.1);
-            color: #00f0ff;
-            padding: 0.2rem 0.4rem;
-            border-radius: 3px;
-            font-family: 'Courier New', monospace;
-        }
-
-        .blog-post-full .post-content pre {
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(0, 240, 255, 0.2);
-            border-radius: 6px;
-            padding: 1rem;
-            overflow-x: auto;
-            margin: 1rem 0;
-        }
-
-        .blog-post-full .post-content pre code {
-            background: none;
-            padding: 0;
-            color: #aab0ba;
-        }
-
-        .blog-post-full .post-content a {
-            color: #ff00ff;
-            text-decoration: none;
-        }
-
-        .blog-post-full .post-content a:hover {
-            text-decoration: underline;
-            text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
-        }
-
-        .blog-post-full .post-content blockquote {
-            border-left: 2px solid rgba(0, 255, 136, 0.5);
-            padding: 0.4rem 1rem;
-            margin: 0.75rem 0 0.75rem;
-            font-style: italic;
-            font-size: 1.1rem;
-            font-weight: 400;
-            position: relative;
-            background: linear-gradient(135deg, rgba(0, 255, 136, 0.05), transparent 80%);
-            border-radius: 0 4px 4px 0;
-            overflow: hidden;
-        }
-
-        .blog-post-full .post-content blockquote::before {
-            content: '\201C';
-            position: absolute;
-            right: 0.25rem;
-            top: -0.5rem;
-            font-size: 6rem;
-            font-style: normal;
-            color: #0a0a0f;
-            line-height: 1;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .blog-post-full .post-content blockquote p {
-            margin-bottom: 0;
-            background: linear-gradient(90deg, #00ff88 60%, #00d4aa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .blog-post-full .post-content .callout {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #ff00ff;
-            text-align: left;
-            margin: 0.75rem 0 0.75rem;
-            padding: 0.75rem 1.5rem;
-            border-left: 2px solid rgba(255, 0, 255, 0.5);
-            border-radius: 0 4px 4px 0;
-            background: linear-gradient(135deg, rgba(255, 0, 255, 0.05), transparent 80%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .blog-post-full .post-content .callout::before {
-            content: '\201C';
-            position: absolute;
-            right: 0.25rem;
-            top: -0.5rem;
-            font-size: 6rem;
-            font-style: normal;
-            color: #0a0a0f;
-            line-height: 1;
-            pointer-events: none;
-        }
-
-        /* Projects Section — amber flavor, distinct from cyan blog section */
-        .projects-section {
-            background: #0a0a0f;
-            padding: 3rem 2rem 3rem;
-            margin-top: -4rem;
-            position: relative;
-            z-index: 10;
-        }
-
-        .projects-section::before {
-            content: "";
-            position: absolute;
-            bottom: 0; left: 10%; right: 10%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,184,0,0.2), transparent);
-        }
-
-        .projects-section h2 {
-            text-align: center;
-            font-size: 2rem;
-            color: #ffb800;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            margin-bottom: 2rem;
-            text-shadow: 0 0 24px rgba(255, 184, 0, 0.35);
-        }
-
-        .projects-list {
-            max-width: 900px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-        }
-
-        .project-card {
-            background: rgba(18, 14, 6, 0.75);
-            border: 1px solid rgba(255, 184, 0, 0.2);
-            border-radius: 10px;
-            padding: 1.75rem 2rem;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-card::before {
+        /* CRT scanlines scoped to the wordmark; rides the glitch transform */
+        .logo::after {
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(255,184,0,0.04), transparent 50%);
             pointer-events: none;
+            background: repeating-linear-gradient(0deg, rgba(0,0,0,0.32) 0px, rgba(0,0,0,0.32) 1px, transparent 1px, transparent 4px);
+            opacity: 0.38;
+            animation: crt-flicker 4s steps(40) infinite;
         }
 
-        .project-card:hover {
-            border-color: rgba(255, 184, 0, 0.55);
-            box-shadow: 0 0 32px rgba(255, 184, 0, 0.12), inset 0 0 40px rgba(255, 184, 0, 0.03);
-            transform: translateY(-2px);
+        @keyframes crt-flicker {
+            0%, 100% { opacity: 0.38; }
+            48% { opacity: 0.34; }
+            50% { opacity: 0.24; }
+            52% { opacity: 0.34; }
         }
 
-        .project-icon {
-            flex-shrink: 0;
-            width: 64px;
-            height: auto;
-            opacity: 0.8;
-            filter: drop-shadow(0 0 10px rgba(255, 184, 0, 0.25));
-            transition: all 0.3s ease;
-        }
-
-        .project-card:hover .project-icon {
-            opacity: 1;
-            filter: drop-shadow(0 0 18px rgba(255, 184, 0, 0.5));
-        }
-
-        .project-info { flex: 1; min-width: 0; }
-
-        .project-card h3 {
-            color: #ffb800;
-            font-size: 1.15rem;
-            margin: 0 0 0.35rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-        }
-
-        .project-card .project-meta {
-            color: #8892a0;
-            font-size: 0.78rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            margin-bottom: 0.7rem;
-        }
-
-        .project-card p {
-            color: #aab0ba;
-            line-height: 1.6;
-            font-size: 0.9rem;
-            margin: 0;
-        }
-
-        .project-cta {
-            display: inline-block;
-            margin-top: 0.9rem;
-            color: #ffb800;
-            font-size: 0.8rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            opacity: 0.7;
-            transition: all 0.3s ease;
-        }
-
-        .project-card:hover .project-cta {
-            opacity: 1;
-            text-shadow: 0 0 10px rgba(255,184,0,0.5);
-        }
-
-        @media (max-width: 560px) {
-            .project-card { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
-            .project-icon { width: 48px; }
-        }
-
-        /* Footer */
-        .footer {
-            background: #0a0a0f;
-            padding: 2rem;
-            text-align: center;
-            border-top: 1px solid rgba(0, 240, 255, 0.2);
+        .hero-content {
             position: relative;
             z-index: 10;
+            text-align: center;
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 1.75rem 1.5rem 3.25rem;
         }
 
-        .footer p {
-            color: #6a7280;
-            font-size: 0.9rem;
-            letter-spacing: 0.1em;
+        .logo {
+            position: relative;
+            display: inline-block;
+            font-family: var(--display);
+            font-size: clamp(3rem, 10vw, 6.5rem);
+            font-weight: 900;
+            letter-spacing: 0.04em;
+            background: linear-gradient(90deg, #00f0ff, #00ff88, #f0ff00, #ff00ff, #00f0ff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient 4s linear infinite;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.4)) drop-shadow(0 0 40px rgba(255, 0, 255, 0.3));
         }
 
-        .footer a {
-            color: #8892a0;
+        @keyframes gradient {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes glitch-out {
+            0%   { opacity: 1; transform: translate(0) skewX(0); }
+            5%   { opacity: 1; transform: translate(-3px, 0) skewX(-2deg); text-shadow: -3px 0 #ff00ff, 3px 0 #00f0ff; }
+            10%  { opacity: 0; }
+            15%  { opacity: 1; transform: translate(3px, 0) skewX(2deg); text-shadow: 3px 0 #ff00ff, -3px 0 #00f0ff; }
+            20%  { opacity: 0; }
+            25%  { opacity: 0.8; transform: translate(-2px, 1px) skewX(-1deg); text-shadow: -2px 0 #ff00ff, 2px 0 #00f0ff; }
+            30%  { opacity: 0; }
+            35%  { opacity: 0.6; transform: translate(0, -2px) skewX(3deg); text-shadow: 2px 0 #ff00ff, -2px 0 #00f0ff; }
+            50%  { opacity: 0; transform: translate(0) skewX(0); }
+            100% { opacity: 0; transform: translate(0) skewX(0); text-shadow: none; }
+        }
+
+        @keyframes glitch-in {
+            0%   { opacity: 0; transform: translate(0) skewX(0); }
+            50%  { opacity: 0; }
+            55%  { opacity: 0.6; transform: translate(0, 2px) skewX(-3deg); text-shadow: -2px 0 #ff00ff, 2px 0 #00f0ff; }
+            60%  { opacity: 0; }
+            65%  { opacity: 0.8; transform: translate(2px, -1px) skewX(1deg); text-shadow: 2px 0 #ff00ff, -2px 0 #00f0ff; }
+            70%  { opacity: 0; }
+            75%  { opacity: 1; transform: translate(-3px, 0) skewX(-2deg); text-shadow: -3px 0 #ff00ff, 3px 0 #00f0ff; }
+            80%  { opacity: 0; }
+            85%  { opacity: 1; transform: translate(3px, 0) skewX(2deg); text-shadow: 3px 0 #ff00ff, -3px 0 #00f0ff; }
+            95%  { opacity: 1; transform: translate(0) skewX(0); }
+            100% { opacity: 1; transform: translate(0) skewX(0); }
+        }
+
+        .logo.glitch-out { animation: glitch-out 0.5s steps(1) forwards; }
+        .logo.glitch-in  { animation: glitch-in 0.5s steps(1) forwards; }
+
+        /* animated accent line — reused under the masthead and each section head */
+        .glow-line {
+            width: 200px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00f0ff, #ff00ff, transparent);
+            margin: 1.25rem 0;
+            transform-origin: center;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        .section-head + .glow-line { margin: 0 0 2rem; }
+        .hero-content .glow-line { margin: 0.2rem auto 0.85rem; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scaleX(0.8); }
+            50% { opacity: 1; transform: scaleX(1); }
+        }
+
+        .tagline {
+            font-family: var(--mono);
+            font-size: clamp(0.72rem, 1.7vw, 0.88rem);
+            color: var(--paper);
+            margin: 0 auto;
+            max-width: 46ch;
+            letter-spacing: 0.04em;
+        }
+
+        /* Project quick-cards — compact, uniform, image-backed.
+           Swap each card's image by editing its `--img` url; a generated
+           image dropped at that path replaces the SVG placeholder. */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.85rem;
+            width: 100%;
+        }
+
+        .project-quick {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            min-height: 140px;
+            padding: 0.85rem 0.9rem;
+            border: 1px solid var(--line-strong);
+            border-radius: var(--radius);
+            overflow: hidden;
             text-decoration: none;
-            transition: all 0.3s ease;
+            color: var(--paper);
+            background-color: var(--ink-raised);
+            background-image: var(--img);
+            background-size: cover;
+            background-position: center;
+            transition: border-color 0.2s ease, transform 0.2s ease;
         }
 
-        .footer a:hover {
-            color: #aab0ba;
-            text-shadow: 0 0 5px rgba(170, 176, 186, 0.3);
+        /* legibility scrim over the artwork */
+        .project-quick::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(13,15,20,0.25) 0%, rgba(13,15,20,0.6) 55%, rgba(13,15,20,0.92) 100%);
+            z-index: 0;
+        }
+
+        .project-quick:hover,
+        .project-quick:focus-visible {
+            border-color: var(--chartreuse);
+            transform: translateY(-2px);
+            outline: none;
+        }
+
+        .pq-body { position: relative; z-index: 1; }
+
+        .pq-title {
+            font-family: var(--display);
+            font-weight: 800;
+            font-size: 1.02rem;
+            line-height: 1.1;
+            letter-spacing: -0.01em;
+            color: var(--paper);
+        }
+
+        .project-quick:hover .pq-title,
+        .project-quick:focus-visible .pq-title { color: var(--chartreuse); }
+
+        .pq-desc {
+            margin-top: 0.35rem;
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            line-height: 1.35;
+            color: #d7dae0;
+        }
+
+        /* external-domain indicator (north-east arrow) */
+        .pq-external {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.7rem;
+            z-index: 1;
+            font-size: 1.05rem;
+            line-height: 1;
+            color: var(--chartreuse);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+        }
+
+        @media (max-width: 620px) {
+            .project-grid { grid-template-columns: 1fr; }
+            .project-quick { min-height: 92px; }
+        }
+
+        /* ============================================================
+           BODY SECTIONS — changelog archetype
+           ============================================================ */
+        .section { padding: 3.5rem 0; border-bottom: 1px solid var(--line); scroll-margin-top: 1rem; }
+        /* first section: no hard line from the hero — let the photo fade in, and lift it up a hair */
+        #about { padding-top: calc(3.5rem - 25px); }
+
+        .section-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1.2rem; gap: 1rem; }
+
+        .about-text { max-width: 64ch; }
+        .about-text p { margin-bottom: 1rem; color: var(--slate); }
+        .about-text p:last-child { margin-bottom: 0; }
+        .about-text strong { color: var(--paper); font-weight: 600; }
+        .section-head h2 { font-family: var(--display); font-weight: 800; font-size: 1.5rem; letter-spacing: -0.01em; color: var(--paper); }
+        .section-head .count { font-family: var(--mono); font-size: 0.8rem; color: var(--slate); white-space: nowrap; }
+
+        .timeline { display: flex; flex-direction: column; }
+
+        .entry {
+            position: relative;
+            display: block;
+            margin-left: 6.5rem;
+            padding: 1.4rem 1rem 1.4rem 1.75rem;
+            border-left: 1px solid var(--line-strong);
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+
+        .entry:hover, .entry:focus-visible { background: var(--ink-raised); outline: none; }
+
+        .entry::before {
+            content: "";
+            position: absolute;
+            left: -5px;
+            top: 1.95rem;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--chartreuse);
+        }
+
+        .entry .date {
+            position: absolute;
+            left: -6.5rem;
+            top: 1.55rem;
+            width: 5.25rem;
+            text-align: right;
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            color: var(--slate);
+        }
+
+        .chips { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.6rem; }
+        .chip {
+            font-family: var(--mono);
+            font-size: 0.66rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--chartreuse);
+            border: 1px solid var(--chartreuse);
+            border-radius: var(--radius);
+            padding: 0.12rem 0.45rem;
+        }
+        .chip.muted { color: var(--slate); border-color: var(--line-strong); }
+
+        .entry-title { font-family: var(--display); font-weight: 800; font-size: 1.35rem; line-height: 1.2; letter-spacing: -0.01em; color: var(--paper); }
+        .entry:hover .entry-title { text-decoration: underline; text-decoration-color: var(--chartreuse); text-underline-offset: 3px; }
+        .entry-meta { font-family: var(--mono); font-size: 0.78rem; color: var(--slate); margin-top: 0.3rem; }
+        .entry-excerpt { font-size: 0.95rem; line-height: 1.65; color: var(--slate); margin-top: 0.7rem; }
+
+        .entry-thumb {
+            width: 100%;
+            max-height: 180px;
+            object-fit: cover;
+            object-position: center 25%;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            margin-top: 1rem;
+            filter: grayscale(0.2);
+        }
+
+        .entry-cta { display: inline-block; margin-top: 0.9rem; font-family: var(--mono); font-size: 0.78rem; color: var(--chartreuse); }
+
+        .entry .project-icon {
+            float: right;
+            width: 44px;
+            height: 44px;
+            margin: 0 0 0.5rem 1rem;
+            filter: grayscale(1) brightness(1.4) opacity(0.6);
+            transition: filter 0.15s ease;
+        }
+        .entry:hover .project-icon { filter: grayscale(0) opacity(1); }
+
+        /* ============================================================
+           FOOTER — holds the QR code now
+           ============================================================ */
+        .footer { padding: 3rem 0 3.5rem; }
+        .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; text-align: center; }
+
+        .qr-container { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+        .qr-code { padding: 8px; background: var(--ink); border: 1px solid var(--line-strong); border-radius: var(--radius); line-height: 0; }
+        .qr-code canvas { display: block; width: 96px; height: 96px; }
+        .qr-label { font-family: var(--mono); font-size: 0.7rem; color: var(--slate); letter-spacing: 0.1em; text-transform: uppercase; }
+
+        .footer p { font-family: var(--mono); font-size: 0.8rem; color: var(--slate); }
+        .footer a { color: var(--slate); }
+        .footer a:hover { color: var(--paper); }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 620px) {
+            body { font-size: 18px; }
+            .entry { margin-left: 0; padding-left: 1.5rem; }
+            .entry .date { position: static; width: auto; text-align: left; display: block; margin-bottom: 0.4rem; }
+            .entry::before { top: 1.5rem; }
+        }
+
+        /* ---------- Reduced motion ---------- */
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .logo, .glow-line, .rain-drop { animation: none !important; }
+            .logo::after { animation: none !important; }
+            .logo { -webkit-text-fill-color: transparent; }
+            * { transition: none !important; }
         }
     </style>
 </head>
 <body>
-    <div class="rain" id="rain"></div>
-    <div class="scanlines"></div>
-
-    <section class="hero">
+    <header class="hero" id="top">
         <div class="hero-bg"></div>
-        <div class="content">
+        <div class="rain" id="rain"></div>
+        <div class="hero-content">
+            <nav class="hero-nav">
+                <a href="#top">Home</a>
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#writing">Blog</a>
+            </nav>
+            <h1 class="logo">MYBBOR</h1>
+            <div class="glow-line"></div>
+            <p class="tagline">My name is Robby M. My handle is Mybbor.</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="section" id="about">
+            <div class="wrap">
+                <div class="section-head">
+                    <h2>About</h2>
+                </div>
+                <div class="glow-line"></div>
+                <div class="about-text">
+                    <p>Welcome to my AI lab. This is where I document <strong>AI-assisted projects and posts</strong>.</p>
+                    <p>It's deliberately separate from my main blog at <a href="https://robbymccullough.com" target="_blank" rel="noopener">robbymccullough.com</a>, the more polished, personal-brand side (business, Beaver Builder, life). Think of this place as the experimental annex: more AI, more tinkering, fewer rules.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="projects">
+            <div class="wrap">
+                <div class="section-head">
+                    <h2>Projects</h2>
+                </div>
+                <div class="glow-line"></div>
+                <div class="project-grid">
+                    <a class="project-quick" href="/petaluma-sonoma-ham-radio.html" style="--img:url('img/projects/radio-reference.webp')">
+                        <div class="pq-body">
+                            <h3 class="pq-title">Radio Reference</h3>
+                            <p class="pq-desc">128-channel North Bay frequency guide + CHIRP CSV</p>
+                        </div>
+                    </a>
+                    <a class="project-quick" href="/ham-dashboard.html" style="--img:url('img/projects/ham-dashboard.webp')">
+                        <div class="pq-body">
+                            <h3 class="pq-title">Ham Dashboard</h3>
+                            <p class="pq-desc">Live North Bay situational-awareness display</p>
+                        </div>
+                    </a>
+                    <a class="project-quick" href="https://robb.ee" target="_blank" rel="noopener" style="--img:url('img/projects/robbee.webp')">
+                        <span class="pq-external" aria-hidden="true">&#8599;</span>
+                        <div class="pq-body">
+                            <h3 class="pq-title">robb.ee</h3>
+                            <p class="pq-desc">Home to HoneyDrop, a self-hosted tool for uploading and sharing static files.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="writing">
+            <div class="wrap">
+                <div class="section-head">
+                    <h2>AI-Assisted Writing</h2>
+                </div>
+                <div class="glow-line"></div>
+                <div class="timeline" id="blog-posts"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="wrap footer-inner">
             <div class="qr-container">
                 <div class="qr-code" id="qrcode"></div>
                 <span class="qr-label">Scan to visit</span>
             </div>
-            <h1 class="logo">MYBBOR</h1>
-            <div class="glow-line"></div>
-            <p class="tagline">My name is Robby McCullough. <br />My handle is Mybbor.</p>
-            <div class="social-links">
-                <a href="https://facebook.com/mybbor" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a>
-                <a href="https://instagram.com/robbymccullough" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
-                <a href="https://twitter.com/robbymccullough" target="_blank"><i class="fab fa-x-twitter"></i> Twitter</a>
-                <a href="https://github.com/mybbor" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                <a href="https://unsplash.com/@mybbor" target="_blank"><i class="fab fa-unsplash"></i> Unsplash</a>
-                <a href="https://robbymccullough.com" target="_blank"><i class="fas fa-globe"></i> Website</a>
-                <a href="#" id="email-link"><i class="fas fa-envelope"></i> Email</a>
-            </div>
+            <p>&copy; <span id="copyright-year"></span> <a href="https://robbymccullough.com" target="_blank" rel="noopener">Robby McCullough</a> · <a href="https://github.com/RobbyMcCullough/mybbor.com" target="_blank" rel="noopener">View on GitHub</a></p>
         </div>
-    </section>
-
-    <section class="projects-section">
-        <h2>Tools &amp; Projects</h2>
-        <div class="projects-list">
-            <a href="/petaluma-sonoma-ham-radio.html" class="project-card">
-                <svg class="project-icon" viewBox="0 0 64 64" aria-hidden="true">
-                    <defs>
-                        <linearGradient id="pi-body" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#15181f"/><stop offset="100%" stop-color="#0b0d14"/></linearGradient>
-                        <linearGradient id="pi-batt" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1c1f2a"/><stop offset="100%" stop-color="#0e1018"/></linearGradient>
-                    </defs>
-                    <path d="M42 10 C43 7 45 4 47 1" fill="none" stroke="#8892a0" stroke-width="3" stroke-linecap="round"/>
-                    <rect x="38" y="8" width="8" height="8" rx="2.5" fill="#1e2030" stroke="#28304a" stroke-width="1"/>
-                    <rect x="18" y="12" width="28" height="36" rx="6" fill="url(#pi-body)" stroke="#1e2236" stroke-width="1.5"/>
-                    <rect x="16" y="44" width="32" height="10" rx="5" fill="url(#pi-batt)" stroke="#181b26" stroke-width="1.5"/>
-                    <g stroke="#1e2535" stroke-width="1.5" stroke-linecap="round">
-                        <line x1="22" y1="18" x2="42" y2="18"/>
-                        <line x1="22" y1="22" x2="42" y2="22"/>
-                    </g>
-                    <rect x="20" y="27" width="24" height="14" rx="3" fill="#000e18" stroke="#182838" stroke-width="1"/>
-                    <text x="32" y="37" text-anchor="middle" font-family="Consolas, monospace" font-size="7" fill="#00f0ff" letter-spacing="0.5">146.52</text>
-                    <rect x="12" y="30" width="7" height="12" rx="2.5" fill="#ffb800" stroke="#cc9600" stroke-width="1"/>
-                </svg>
-                <div class="project-info">
-                    <h3>Petaluma-Sonoma Radio Guide</h3>
-                    <div class="project-meta">Ham Radio &middot; North Bay, CA &middot; CHIRP Compatible</div>
-                    <p>A personal, opinionated ham radio frequency reference for Petaluma and Sonoma County. Includes a CHIRP-compatible CSV for programming most amateur radios. 128 channels: local repeaters, ACS emergency, ISS/APRS, NOAA weather, FRS/GMRS, and marine VHF.</p>
-                    <span class="project-cta">Open guide &rarr;</span>
-                </div>
-            </a>
-            <a href="/ham-dashboard.html" class="project-card">
-                <svg class="project-icon" viewBox="0 0 64 64" width="64" height="64" aria-hidden="true">
-                    <rect x="4" y="10" width="56" height="38" rx="4" fill="#0d1117" stroke="#ffb800" stroke-width="2"/>
-                    <rect x="10" y="16" width="16" height="12" rx="2" fill="#0a1a0f" stroke="#00ff88" stroke-width="1.2"/>
-                    <rect x="30" y="16" width="16" height="12" rx="2" fill="#0a1020" stroke="#00f0ff" stroke-width="1.2"/>
-                    <rect x="10" y="32" width="10" height="10" rx="2" fill="#1a1020" stroke="#ff00ff" stroke-width="1.2"/>
-                    <rect x="24" y="32" width="10" height="10" rx="2" fill="#1a1020" stroke="#00f0ff" stroke-width="1.2"/>
-                    <rect x="38" y="32" width="16" height="10" rx="2" fill="#0a1a0f" stroke="#00ff88" stroke-width="1.2"/>
-                    <line x1="50" y1="16" x2="54" y2="10" stroke="#ffb800" stroke-width="1.5" stroke-linecap="round"/>
-                    <line x1="54" y1="10" x2="58" y2="6" stroke="#ffb800" stroke-width="1.5" stroke-linecap="round"/>
-                    <rect x="20" y="48" width="24" height="4" rx="2" fill="#1a1a2e" stroke="#ffb800" stroke-width="1"/>
-                    <rect x="10" y="52" width="44" height="2" rx="1" fill="#ffb800" opacity="0.3"/>
-                </svg>
-                <div class="project-info">
-                    <h3>North Bay Ham Dashboard</h3>
-                    <div class="project-meta">KN6KVS &middot; Petaluma, CA</div>
-                    <p>A live ham radio situational awareness display for the North Bay. Rotating tiles cover local radar, GOES-18 satellite imagery, HF propagation, fire watch cams, Highway 101 traffic cameras, ISS position, space weather, lightning, and solar data — all auto-refreshing, no interaction required.</p>
-                    <span class="project-cta">Open dashboard &rarr;</span>
-                </div>
-            </a>
-        </div>
-    </section>
-
-    <section class="blog-section">
-        <h2>Thoughts and Ramblings</h2>
-        <div class="blog-posts" id="blog-posts"></div>
-        <div class="blog-post-full" id="blog-post-full">
-            <button class="back-btn" onclick="showPostList()"><i class="fas fa-arrow-left"></i> Back to Posts</button>
-            <div class="post-content" id="post-content"></div>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <p>&copy; <span id="copyright-year"></span> <a href="https://robbymccullough.com" target="_blank" rel="noopener">Robby McCullough</a> &mdash; <a href="https://github.com/RobbyMcCullough/mybbor.com" target="_blank" rel="noopener">View on GitHub</a></p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
         // Update copyright year
         document.getElementById('copyright-year').textContent = new Date().getFullYear();
 
-        // Generate rain drops
-        const rain = document.getElementById('rain');
-        const dropCount = 100;
-
-        for (let i = 0; i < dropCount; i++) {
-            const drop = document.createElement('div');
-            drop.className = 'rain-drop';
-            drop.style.left = Math.random() * 100 + '%';
-            drop.style.animationDuration = (Math.random() * 1 + 0.5) + 's';
-            drop.style.animationDelay = Math.random() * 2 + 's';
-            rain.appendChild(drop);
+        // Generate rain drops (hero only; skipped when reduced motion is preferred)
+        if (!reduceMotion) {
+            const rain = document.getElementById('rain');
+            for (let i = 0; i < 100; i++) {
+                const drop = document.createElement('div');
+                drop.className = 'rain-drop';
+                drop.style.left = Math.random() * 100 + '%';
+                drop.style.animationDuration = (Math.random() * 1 + 0.5) + 's';
+                drop.style.animationDelay = Math.random() * 2 + 's';
+                rain.appendChild(drop);
+            }
         }
 
-        // QR Code Generator (using external library)
+        // QR Code Generator — now in the footer, flat (no neon filter)
         (function() {
             const script = document.createElement('script');
             script.src = 'https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js';
             script.onload = function() {
                 const qrContainer = document.getElementById('qrcode');
-                const pageUrl = window.location.href;
                 const qr = qrcode(4, 'M');
-                qr.addData(pageUrl);
+                qr.addData(window.location.origin || 'https://mybbor.com');
                 qr.make();
-                const img = document.createElement('img');
-                img.src = qr.createDataURL(3);
-                img.style.filter = 'hue-rotate(160deg) saturate(2)';
-                qrContainer.appendChild(img);
+                // Render inverted: dark ground, light modules (predominantly dark)
+                const count = qr.getModuleCount();
+                const margin = 4, cell = 6;
+                const px = (count + margin * 2) * cell;
+                const canvas = document.createElement('canvas');
+                canvas.width = canvas.height = px;
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = '#15171B';
+                ctx.fillRect(0, 0, px, px);
+                ctx.fillStyle = '#F2F0E9';
+                for (let r = 0; r < count; r++) {
+                    for (let c = 0; c < count; c++) {
+                        if (qr.isDark(r, c)) {
+                            ctx.fillRect((c + margin) * cell, (r + margin) * cell, cell, cell);
+                        }
+                    }
+                }
+                qrContainer.appendChild(canvas);
             };
             document.head.appendChild(script);
         })();
@@ -878,6 +633,7 @@
         // Obfuscated email - assembled at runtime to prevent scraping
         (function() {
             const e = document.getElementById('email-link');
+            if (!e) return;
             const p = ['myb', 'bor', '@', 'gma', 'il.', 'com'];
             e.addEventListener('click', function(evt) {
                 evt.preventDefault();
@@ -886,159 +642,68 @@
         })();
 
         // Alternate logo between MYBBOR and ROBBYM with TV glitch effect
-        (function() {
-            const logo = document.querySelector('.logo');
-            const names = ['MYBBOR', 'ROBBYM'];
-            let current = 0;
-
-            setInterval(function() {
-                logo.classList.add('glitch-out');
-
-                setTimeout(function() {
-                    current = (current + 1) % names.length;
-                    logo.textContent = names[current];
-                    logo.classList.remove('glitch-out');
-                    logo.classList.add('glitch-in');
-
+        if (!reduceMotion) {
+            (function() {
+                const logo = document.querySelector('.logo');
+                const names = ['MYBBOR', 'ROBBYM'];
+                let current = 0;
+                setInterval(function() {
+                    logo.classList.add('glitch-out');
                     setTimeout(function() {
-                        logo.classList.remove('glitch-in');
+                        current = (current + 1) % names.length;
+                        logo.textContent = names[current];
+                        logo.classList.remove('glitch-out');
+                        logo.classList.add('glitch-in');
+                        setTimeout(function() { logo.classList.remove('glitch-in'); }, 500);
                     }, 500);
-                }, 500);
-            }, 4000);
-        })();
+                }, 4000);
+            })();
+        }
 
-        // Parallax depth on scroll
-        (function() {
-            const heroBg = document.querySelector('.hero-bg');
-            const content = document.querySelector('.content');
-            const rainEl = document.getElementById('rain');
-            let ticking = false;
+        // Parallax depth on scroll (hero photo + rain)
+        if (!reduceMotion) {
+            (function() {
+                const heroBg = document.querySelector('.hero-bg');
+                const rainEl = document.getElementById('rain');
+                let ticking = false;
+                window.addEventListener('scroll', function() {
+                    if (!ticking) {
+                        requestAnimationFrame(function() {
+                            const scrollY = window.scrollY;
+                            heroBg.style.transform = 'translate3d(0,' + scrollY * 0.4 + 'px,0)';
+                            rainEl.style.transform = 'translate3d(0,' + scrollY * -0.1 + 'px,0)';
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
+                });
+            })();
+        }
 
-            window.addEventListener('scroll', function() {
-                if (!ticking) {
-                    requestAnimationFrame(function() {
-                        const scrollY = window.scrollY;
-                        heroBg.style.transform = 'translate3d(0,' + scrollY * 0.4 + 'px,0)';
-                        content.style.transform = 'translate3d(0,' + scrollY * 0.15 + 'px,0)';
-                        rainEl.style.transform = 'translate3d(0,' + scrollY * -0.1 + 'px,0)';
-                        ticking = false;
-                    });
-                    ticking = true;
-                }
-            });
-        })();
-
-        // Blog functionality
+        // Blog index — each post links to its own standalone page
         (function() {
             const postsContainer = document.getElementById('blog-posts');
-            const postFull = document.getElementById('blog-post-full');
-            const postContent = document.getElementById('post-content');
-            const projectsSection = document.querySelector('.projects-section');
-
-            // Load post index
             fetch('posts/index.json')
                 .then(response => response.json())
                 .then(posts => {
                     posts.forEach(post => {
-                        const card = document.createElement('div');
-                        card.className = 'blog-post-card';
+                        const card = document.createElement('a');
+                        card.className = 'entry';
+                        card.href = '/posts/' + post.slug + '/';
                         card.innerHTML = `
-                            ${post.image ? `<img class="post-featured-image" src="${post.image}" alt="${post.title}">` : ''}
-                            <div class="card-body">
-                                <h3>${post.title}</h3>
-                                <div class="post-meta">${post.date}</div>
-                                <p class="post-excerpt">${post.excerpt}</p>
-                            </div>
+                            <span class="date">${post.date}</span>
+                            <div class="chips"><span class="chip">LOG</span></div>
+                            <h3 class="entry-title">${post.title}</h3>
+                            <p class="entry-excerpt">${post.excerpt}</p>
+                            ${post.image ? `<img class="entry-thumb" src="${post.image}" alt="${post.title}" loading="lazy">` : ''}
+                            <span class="entry-cta">Read →</span>
                         `;
-                        card.addEventListener('click', () => loadPost(post.file, post.image, true, post.slug));
                         postsContainer.appendChild(card);
                     });
                 })
                 .catch(err => {
-                    postsContainer.innerHTML = '<p style="color: #8892a0; text-align: center;">No posts yet.</p>';
+                    postsContainer.innerHTML = '<p style="color: var(--slate);">No posts yet.</p>';
                 });
-
-            // Update OG/Twitter meta tags dynamically
-            function setPageMeta(title, description, image, url) {
-                const abs = image ? 'https://mybbor.com' + image : null;
-                document.title = title + ' — mybbor.com';
-                document.querySelector('meta[property="og:title"]').setAttribute('content', title);
-                document.querySelector('meta[property="og:description"]').setAttribute('content', description);
-                document.querySelector('meta[property="og:url"]').setAttribute('content', url);
-                document.querySelector('meta[name="twitter:title"]').setAttribute('content', title);
-                document.querySelector('meta[name="twitter:description"]').setAttribute('content', description);
-                if (abs) {
-                    document.querySelector('meta[property="og:image"]').setAttribute('content', abs);
-                    document.querySelector('meta[name="twitter:image"]').setAttribute('content', abs);
-                }
-            }
-
-            function resetPageMeta() {
-                document.title = 'Mybbor | Robby McCullough - Entrepreneur, Photographer, Digital Nomad';
-                document.querySelector('meta[property="og:title"]').setAttribute('content', 'Mybbor | Robby McCullough');
-                document.querySelector('meta[property="og:description"]').setAttribute('content', 'Entrepreneur, photographer, and digital nomad. Co-founder of Beaver Builder.');
-                document.querySelector('meta[property="og:url"]').setAttribute('content', 'https://mybbor.com');
-                document.querySelector('meta[property="og:image"]').setAttribute('content', 'https://mybbor.com/img/Mybbor.jpg');
-                document.querySelector('meta[name="twitter:title"]').setAttribute('content', 'Mybbor | Robby McCullough');
-                document.querySelector('meta[name="twitter:description"]').setAttribute('content', 'Entrepreneur, photographer, and digital nomad. Co-founder of Beaver Builder.');
-                document.querySelector('meta[name="twitter:image"]').setAttribute('content', 'https://mybbor.com/img/Mybbor.jpg');
-            }
-
-            // Load and display a full post
-            window.loadPost = function(filename, image, pushState = true, slug = filename, excerpt = '') {
-                fetch('posts/' + filename)
-                    .then(response => response.text())
-                    .then(markdown => {
-                        // Extract title from frontmatter
-                        const titleMatch = markdown.match(/^title:\s*(.+)$/m);
-                        const postTitle = titleMatch ? titleMatch[1].trim() : 'Post';
-                        const content = markdown.replace(/^---[\s\S]*?---\n*/m, '');
-                        const featuredImg = image ? `<img src="${image}" alt="${postTitle}" style="width:100%;height:auto;border-radius:6px;margin-bottom:1.5rem;">` : '';
-                        postContent.innerHTML = featuredImg + marked.parse(content);
-                        postsContainer.style.display = 'none';
-                        projectsSection.style.display = 'none';
-                        postFull.classList.add('active');
-                        postFull.scrollIntoView({ behavior: 'smooth' });
-                        const postUrl = 'https://mybbor.com/posts/' + slug;
-                        setPageMeta(postTitle, excerpt, image, postUrl);
-                        if (pushState) {
-                            history.pushState({ filename, image, slug, excerpt }, '', '/posts/' + slug);
-                        }
-                    });
-            };
-
-            // Show post list
-            window.showPostList = function(pushState = true) {
-                postFull.classList.remove('active');
-                postsContainer.style.display = 'flex';
-                projectsSection.style.display = '';
-                resetPageMeta();
-                postsContainer.scrollIntoView({ behavior: 'smooth' });
-                if (pushState) {
-                    history.pushState(null, '', '/');
-                }
-            };
-
-            // Handle browser back/forward
-            window.addEventListener('popstate', function(e) {
-                if (e.state && e.state.filename) {
-                    loadPost(e.state.filename, e.state.image, false, e.state.slug, e.state.excerpt);
-                } else {
-                    showPostList(false);
-                }
-            });
-
-            // Load post from URL on page load (/posts/slug or ?post=slug)
-            const pathMatch = location.pathname.match(/^\/posts\/(.+)$/);
-            const postParam = pathMatch ? pathMatch[1] : new URLSearchParams(location.search).get('post');
-            if (postParam) {
-                fetch('posts/index.json')
-                    .then(r => r.json())
-                    .then(posts => {
-                        const match = posts.find(p => p.slug === postParam || p.file === postParam);
-                        if (match) loadPost(match.file, match.image, false, match.slug, match.excerpt);
-                    });
-            }
         })();
     </script>
 </body>

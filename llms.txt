@@ -1,0 +1,18 @@
+# Mybbor — Robby McCullough's AI Lab
+
+> The experimental side of Robby McCullough (co-founder of Beaver Builder): AI-assisted projects, ham radio tools, and vibe-coded experiments, mostly built with Claude Code. Distinct from his professional/personal-brand blog at robbymccullough.com.
+
+## Projects
+
+- [Petaluma-Sonoma Radio Reference](https://mybbor.com/petaluma-sonoma-ham-radio.html): A personal, opinionated ham radio frequency guide for Petaluma and Sonoma County, CA. 128 CHIRP-ready channels (repeaters, ACS emergency, APRS, NOAA weather, FRS/GMRS, marine VHF, aviation) with a downloadable CHIRP-compatible CSV.
+- [North Bay Ham Dashboard](https://mybbor.com/ham-dashboard.html): A live situational-awareness dashboard (local radar, GOES-18 satellite, APRS, fire-watch cameras, space weather, traffic cams) for the North Bay. Callsign KN6KVS.
+
+## Writing
+
+AI-assisted posts, mostly about building the projects above. Index: https://mybbor.com/#writing
+
+- [A $12 Netlify Alternative: Caddy, DigitalOcean, and One Shell Script](https://mybbor.com/posts/netlify-alternative-caddy-digitalocean/)
+- [Building a Live Ham Radio Situational Awareness Dashboard](https://mybbor.com/posts/building-a-live-ham-radio-dashboard/)
+- [Side-quest Cathedral](https://mybbor.com/posts/side-quest-cathedral/)
+- [I Just Wanted a Ham Radio Cheat Sheet](https://mybbor.com/posts/i-just-wanted-a-ham-radio-cheat-sheet/)
+- [Is WordPress Cooked?](https://mybbor.com/posts/is-wordpress-cooked/)

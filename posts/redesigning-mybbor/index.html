@@ -1,53 +1,12 @@
-#!/usr/bin/env node
-const fs = require('fs');
-const path = require('path');
-const { marked } = require('marked');
-
-function parseFrontmatter(content) {
-  const match = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-  if (!match) return { data: {}, body: content };
-  const data = {};
-  match[1].split('\n').forEach(line => {
-    const colonIdx = line.indexOf(':');
-    if (colonIdx === -1) return;
-    const key = line.slice(0, colonIdx).trim();
-    const val = line.slice(colonIdx + 1).trim().replace(/^["']|["']$/g, '');
-    if (key) data[key] = val;
-  });
-  return { data, body: match[2] };
-}
-
-function formatDate(dateString) {
-  const date = new Date(`${dateString}T00:00:00`);
-  if (Number.isNaN(date.getTime())) return dateString;
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-}
-
-function generatePage(post, data, contentHtml) {
-  const title = data.title || post.title;
-  const description = post.excerpt || '';
-  const image = post.image ? `https://mybbor.com${post.image}` : 'https://mybbor.com/img/Mybbor.jpg';
-  const url = `https://mybbor.com/posts/${post.slug}/`;
-  const postDate = data.date || post.date;
-  const displayDate = formatDate(postDate);
-  const contentWithDate = contentHtml.replace(
-    /(<h1[^>]*>[\s\S]*?<\/h1>)/,
-    `$1\n      <p class="post-date">Published ${displayDate}</p>`
-  );
-
-  return `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${title} — mybbor.com</title>
-  <meta name="description" content="${description}">
+  <title>It Was Cool Until It Was Everywhere: Redesigning Mybbor.com — mybbor.com</title>
+  <meta name="description" content="I gave mybbor.com a redesign with Claude Code: kept the cyberpunk glitch hero, gave everything else a calm editorial treatment, and reframed the whole site as an AI lab. Slide through the before and after.">
   <meta name="author" content="Robby McCullough">
-  <link rel="canonical" href="${url}">
+  <link rel="canonical" href="https://mybbor.com/posts/redesigning-mybbor/">
   <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,27 +15,27 @@ function generatePage(post, data, contentHtml) {
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Mybbor">
-  <meta property="og:title" content="${title}">
-  <meta property="og:description" content="${description}">
-  <meta property="og:url" content="${url}">
-  <meta property="og:image" content="${image}">
+  <meta property="og:title" content="It Was Cool Until It Was Everywhere: Redesigning Mybbor.com">
+  <meta property="og:description" content="I gave mybbor.com a redesign with Claude Code: kept the cyberpunk glitch hero, gave everything else a calm editorial treatment, and reframed the whole site as an AI lab. Slide through the before and after.">
+  <meta property="og:url" content="https://mybbor.com/posts/redesigning-mybbor/">
+  <meta property="og:image" content="https://mybbor.com/img/redesign-hero.jpg">
   <meta property="article:author" content="https://mybbor.com">
-  <meta property="article:published_time" content="${data.date || post.date}T00:00:00Z">
+  <meta property="article:published_time" content="2026-06-05T00:00:00Z">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@RobbyMcCullough">
   <meta name="twitter:creator" content="@RobbyMcCullough">
-  <meta name="twitter:title" content="${title}">
-  <meta name="twitter:description" content="${description}">
-  <meta name="twitter:image" content="${image}">
+  <meta name="twitter:title" content="It Was Cool Until It Was Everywhere: Redesigning Mybbor.com">
+  <meta name="twitter:description" content="I gave mybbor.com a redesign with Claude Code: kept the cyberpunk glitch hero, gave everything else a calm editorial treatment, and reframed the whole site as an AI lab. Slide through the before and after.">
+  <meta name="twitter:image" content="https://mybbor.com/img/redesign-hero.jpg">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": "${title.replace(/"/g, '\\"')}",
-    "description": "${description.replace(/"/g, '\\"')}",
-    "image": "${image}",
-    "url": "${url}",
-    "datePublished": "${data.date || post.date}",
+    "headline": "It Was Cool Until It Was Everywhere: Redesigning Mybbor.com",
+    "description": "I gave mybbor.com a redesign with Claude Code: kept the cyberpunk glitch hero, gave everything else a calm editorial treatment, and reframed the whole site as an AI lab. Slide through the before and after.",
+    "image": "https://mybbor.com/img/redesign-hero.jpg",
+    "url": "https://mybbor.com/posts/redesigning-mybbor/",
+    "datePublished": "2026-06-05",
     "author": {
       "@type": "Person",
       "name": "Robby McCullough",
@@ -180,9 +139,76 @@ function generatePage(post, data, contentHtml) {
 
   <main class="post-wrap">
     <a class="back-link" href="/#writing">← All writing</a>
-    ${post.image ? `<img class="featured-image" src="${post.image}" alt="${title}">` : ''}
+    <img class="featured-image" src="/img/redesign-hero.jpg" alt="It Was Cool Until It Was Everywhere: Redesigning Mybbor.com">
     <article class="post-content">
-      ${contentWithDate}
+      <h1>It Was Cool Until It Was Everywhere: Redesigning Mybbor.com</h1>
+      <p class="post-date">Published June 5, 2026</p>
+<p>I only put up this site a few months ago, but the pace of change in our AI-accelerated tech landscape made it look dated and sloppy already. I built the first version of mybbor.com as a vibe-coded experiment, leaned all the way into a 90s-hacker-movie aesthetic, and then kept bolting things onto it: a ham radio frequency guide, a live dashboard, a few posts.</p>
+<p>It was also, if I&#39;m honest, full of AI slop. Glowing gradient headings, neon on everything, that particular over-produced sheen you start to recognize the second you land on a page. When I first vibe-coded it, that look felt novel. It doesn&#39;t anymore. As agentic web design gets more common, people have gotten a lot faster at spotting that sheen and a lot quicker to bounce off it. The glitchy neon hero was genuinely fun. The dozen glowing headings stacked underneath it were not.</p>
+<p>So I spent an afternoon rebuilding the whole thing. Here&#39;s the before and after. Grab the handle and drag.</p>
+<style>
+.ba { position: relative; width: 100%; aspect-ratio: 8 / 5; overflow: hidden; border: 1px solid rgba(242,240,233,0.15); border-radius: 8px; margin: 1.75rem 0; background: #0d0f14; user-select: none; -webkit-user-select: none; touch-action: none; }
+.ba img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+.ba .ba-after { clip-path: inset(0 0 0 50%); }
+.ba .ba-divider { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; margin-left: -1px; background: #C3E940; box-shadow: 0 0 8px rgba(195,233,64,0.5); pointer-events: none; }
+.ba .ba-handle { position: absolute; top: 50%; left: 50%; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%; background: #15171B; border: 2px solid #C3E940; color: #C3E940; display: grid; place-items: center; font: 700 16px/1 ui-monospace, monospace; pointer-events: none; }
+.ba .ba-tag { position: absolute; bottom: 10px; padding: 4px 8px; font: 600 11px/1 ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; color: #F2F0E9; background: rgba(13,15,20,0.72); border-radius: 4px; pointer-events: none; }
+.ba .ba-tag.is-before { left: 10px; }
+.ba .ba-tag.is-after { right: 10px; }
+.ba input[type="range"] { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; padding: 0; opacity: 0; cursor: ew-resize; }
+</style>
+
+<figure class="ba">
+<img class="ba-before" src="/img/redesign-home-before.jpg" alt="The old mybbor.com homepage: a full-screen cyberpunk hero with a QR code and a row of social links over a neon graffiti photo.">
+<img class="ba-after" src="/img/redesign-home-after.jpg" alt="The redesigned mybbor.com homepage: a centered nav and glitch logo fading down into a calm, editorial About section.">
+<span class="ba-tag is-before">Before</span>
+<span class="ba-tag is-after">After</span>
+<div class="ba-divider"></div>
+<div class="ba-handle">&#8596;</div>
+<input type="range" min="0" max="100" value="50" aria-label="Drag to compare the old and new homepage">
+</figure>
+
+<p>The new direction came from a publication I&#39;m working on called <a href="https://artdirectiondaily.com">Art Direction Daily</a>. Every day a unique issue is generated, surfacing the day&#39;s most important news and stories around AI design, and each day is reimagined in a new visual style.</p>
+<p>One recent issue reimagined itself around a &quot;product changelog&quot; archetype: warm near-black backgrounds, paper-white text, one disciplined accent color, monospaced labels, a clean vertical timeline. To me, it feels like the calm, grown-up alternative to glowing-neon-everything, and I wanted to borrow that aesthetic for mybbor.com.</p>
+<p>But I couldn&#39;t bring myself to kill the glitch logo. The MYBBOR-to-ROBBYM animation over the graffiti photo is the most &quot;me&quot; thing on here. So I kept it. The new site is a hybrid: a loud neon hero up top that fades down into a calm, readable, editorial body. Cyberpunk where it&#39;s fun, quiet where it needs to be legible. Neon as a deliberate choice, not as a default setting.</p>
+<p>The bigger change is what the site is <em>for</em>. The business and personal-brand writing lives over at <a href="https://robbymccullough.com">robbymccullough.com</a>. Mybbor is now officially the experimental annex: AI-assisted projects and posts. An AI lab. Once I named it that, every other decision got easier.</p>
+<p>One thing I held onto, just moved: the QR code. The old homepage had one front and center in the hero, and the idea behind it is genuinely useful. If I&#39;m at a conference, or I just want to hand someone my contact info, I pull up the site on my phone, they point their camera at the screen, and it drops them straight onto a page with all my links. Gimmicky, sure, but it works, and it&#39;s a fun little party trick. It didn&#39;t belong in the hero anymore, so it lives down in the footer now, still one scan away. There&#39;s a dedicated <a href="https://robbymccullough.com/connect">connect page</a> on my main site too.</p>
+<p>The <a href="/petaluma-sonoma-ham-radio.html">ham radio reference</a> got the same treatment. I kept its radar command-center personality and calmed everything else down:</p>
+<figure class="ba">
+<img class="ba-before" src="/img/redesign-radio-before.jpg" alt="The old ham radio reference page with heavy neon glass panels and glowing cyan borders.">
+<img class="ba-after" src="/img/redesign-radio-after.jpg" alt="The redesigned ham radio reference page: the radar hero stays, the tables and panels are calm and legible.">
+<span class="ba-tag is-before">Before</span>
+<span class="ba-tag is-after">After</span>
+<div class="ba-divider"></div>
+<div class="ba-handle">&#8596;</div>
+<input type="range" min="0" max="100" value="50" aria-label="Drag to compare the old and new radio reference page">
+</figure>
+
+<h2>Steal the vocabulary</h2>
+<p>If I&#39;d pass along one thing, it&#39;s that getting good design out of a model is mostly a vocabulary exercise. &quot;Make it look cool&quot; gets you slop. Naming what you actually want gets you something with a point of view. Here&#39;s the shape of the brief that produced this look:</p>
+<blockquote>
+<p>Design with editorial restraint. A warm near-black ground, paper-white text, and a single disciplined accent color used only for links and labels. Monospaced metadata, generous negative space, a steady vertical rhythm. No glowing gradients, no neon on everything, no decoration that isn&#39;t doing a job. Distinctive, but quiet. Confident enough to leave things out.</p>
+</blockquote>
+<p>Swap in your own accent color and your own references, and you&#39;re most of the way there.</p>
+<p>It isn&#39;t live yet as I write this. By the time you&#39;re reading it, it is. More to come from the lab.</p>
+<script>
+(function () {
+  document.querySelectorAll('.ba').forEach(function (ba) {
+    var after = ba.querySelector('.ba-after');
+    var divider = ba.querySelector('.ba-divider');
+    var handle = ba.querySelector('.ba-handle');
+    var range = ba.querySelector('input[type="range"]');
+    function set(v) {
+      after.style.clipPath = 'inset(0 0 0 ' + v + '%)';
+      divider.style.left = v + '%';
+      handle.style.left = v + '%';
+    }
+    range.addEventListener('input', function () { set(range.value); });
+    set(range.value);
+  });
+})();
+</script>
+
     </article>
 
     <footer class="post-footer">
@@ -233,24 +259,4 @@ function generatePage(post, data, contentHtml) {
     })();
   </script>
 </body>
-</html>`;
-}
-
-const posts = JSON.parse(fs.readFileSync('posts/index.json', 'utf8'));
-
-for (const post of posts) {
-  const filePath = path.join('posts', post.file);
-  if (!fs.existsSync(filePath)) {
-    console.warn(`Skipping ${post.file} — file not found`);
-    continue;
-  }
-  const raw = fs.readFileSync(filePath, 'utf8');
-  const { data, body } = parseFrontmatter(raw);
-  const contentHtml = marked.parse(body);
-  const outDir = path.join('posts', post.slug);
-  fs.mkdirSync(outDir, { recursive: true });
-  fs.writeFileSync(path.join(outDir, 'index.html'), generatePage(post, data, contentHtml));
-  console.log(`Built: /posts/${post.slug}/`);
-}
-
-console.log(`Done — ${posts.length} posts built.`);
+</html>

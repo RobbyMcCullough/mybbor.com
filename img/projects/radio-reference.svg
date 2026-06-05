@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Radio reference placeholder">
+  <rect width="600" height="380" fill="#10131a"/>
+  <g fill="none" stroke="#00f0ff" stroke-opacity="0.45">
+    <circle cx="300" cy="190" r="56" stroke-width="2"/>
+    <circle cx="300" cy="190" r="104" stroke-width="1.5"/>
+    <circle cx="300" cy="190" r="152" stroke-width="1"/>
+    <line x1="300" y1="30" x2="300" y2="350" stroke-width="0.75"/>
+    <line x1="140" y1="190" x2="460" y2="190" stroke-width="0.75"/>
+  </g>
+  <line x1="300" y1="190" x2="408" y2="140" stroke="#00f0ff" stroke-width="3" stroke-linecap="round" opacity="0.9"/>
+  <circle cx="356" cy="163" r="6" fill="#ffb800"/>
+  <text x="300" y="338" text-anchor="middle" font-family="ui-monospace, monospace" font-size="22" fill="#ffb800" letter-spacing="4">146.520</text>
+</svg>

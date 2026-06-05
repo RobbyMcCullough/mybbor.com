@@ -1,53 +1,12 @@
-#!/usr/bin/env node
-const fs = require('fs');
-const path = require('path');
-const { marked } = require('marked');
-
-function parseFrontmatter(content) {
-  const match = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-  if (!match) return { data: {}, body: content };
-  const data = {};
-  match[1].split('\n').forEach(line => {
-    const colonIdx = line.indexOf(':');
-    if (colonIdx === -1) return;
-    const key = line.slice(0, colonIdx).trim();
-    const val = line.slice(colonIdx + 1).trim().replace(/^["']|["']$/g, '');
-    if (key) data[key] = val;
-  });
-  return { data, body: match[2] };
-}
-
-function formatDate(dateString) {
-  const date = new Date(`${dateString}T00:00:00`);
-  if (Number.isNaN(date.getTime())) return dateString;
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-}
-
-function generatePage(post, data, contentHtml) {
-  const title = data.title || post.title;
-  const description = post.excerpt || '';
-  const image = post.image ? `https://mybbor.com${post.image}` : 'https://mybbor.com/img/Mybbor.jpg';
-  const url = `https://mybbor.com/posts/${post.slug}/`;
-  const postDate = data.date || post.date;
-  const displayDate = formatDate(postDate);
-  const contentWithDate = contentHtml.replace(
-    /(<h1[^>]*>[\s\S]*?<\/h1>)/,
-    `$1\n      <p class="post-date">Published ${displayDate}</p>`
-  );
-
-  return `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${title} — mybbor.com</title>
-  <meta name="description" content="${description}">
+  <title>I Just Wanted a Ham Radio Cheat Sheet — mybbor.com</title>
+  <meta name="description" content="I had a CSV file with some radio frequencies. I wanted to put it on the internet. Four hours later I had a cyberpunk command center with animated radar sweeps and a favicon I iterated on three times because the M looked wispy.">
   <meta name="author" content="Robby McCullough">
-  <link rel="canonical" href="${url}">
+  <link rel="canonical" href="https://mybbor.com/posts/i-just-wanted-a-ham-radio-cheat-sheet/">
   <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,27 +15,27 @@ function generatePage(post, data, contentHtml) {
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Mybbor">
-  <meta property="og:title" content="${title}">
-  <meta property="og:description" content="${description}">
-  <meta property="og:url" content="${url}">
-  <meta property="og:image" content="${image}">
+  <meta property="og:title" content="I Just Wanted a Ham Radio Cheat Sheet">
+  <meta property="og:description" content="I had a CSV file with some radio frequencies. I wanted to put it on the internet. Four hours later I had a cyberpunk command center with animated radar sweeps and a favicon I iterated on three times because the M looked wispy.">
+  <meta property="og:url" content="https://mybbor.com/posts/i-just-wanted-a-ham-radio-cheat-sheet/">
+  <meta property="og:image" content="https://mybbor.com/img/petaluma-sonoma-cyberpunk.jpg">
   <meta property="article:author" content="https://mybbor.com">
-  <meta property="article:published_time" content="${data.date || post.date}T00:00:00Z">
+  <meta property="article:published_time" content="2026-03-23T00:00:00Z">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@RobbyMcCullough">
   <meta name="twitter:creator" content="@RobbyMcCullough">
-  <meta name="twitter:title" content="${title}">
-  <meta name="twitter:description" content="${description}">
-  <meta name="twitter:image" content="${image}">
+  <meta name="twitter:title" content="I Just Wanted a Ham Radio Cheat Sheet">
+  <meta name="twitter:description" content="I had a CSV file with some radio frequencies. I wanted to put it on the internet. Four hours later I had a cyberpunk command center with animated radar sweeps and a favicon I iterated on three times because the M looked wispy.">
+  <meta name="twitter:image" content="https://mybbor.com/img/petaluma-sonoma-cyberpunk.jpg">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": "${title.replace(/"/g, '\\"')}",
-    "description": "${description.replace(/"/g, '\\"')}",
-    "image": "${image}",
-    "url": "${url}",
-    "datePublished": "${data.date || post.date}",
+    "headline": "I Just Wanted a Ham Radio Cheat Sheet",
+    "description": "I had a CSV file with some radio frequencies. I wanted to put it on the internet. Four hours later I had a cyberpunk command center with animated radar sweeps and a favicon I iterated on three times because the M looked wispy.",
+    "image": "https://mybbor.com/img/petaluma-sonoma-cyberpunk.jpg",
+    "url": "https://mybbor.com/posts/i-just-wanted-a-ham-radio-cheat-sheet/",
+    "datePublished": "2026-03-23",
     "author": {
       "@type": "Person",
       "name": "Robby McCullough",
@@ -180,9 +139,38 @@ function generatePage(post, data, contentHtml) {
 
   <main class="post-wrap">
     <a class="back-link" href="/#writing">← All writing</a>
-    ${post.image ? `<img class="featured-image" src="${post.image}" alt="${title}">` : ''}
+    <img class="featured-image" src="/img/petaluma-sonoma-cyberpunk.jpg" alt="I Just Wanted a Ham Radio Cheat Sheet">
     <article class="post-content">
-      ${contentWithDate}
+      <h1>I Just Wanted a Ham Radio Cheat Sheet</h1>
+      <p class="post-date">Published March 23, 2026</p>
+<p>I had a CSV file. It had some radio frequencies in it. I wanted to put it on the internet so I could pull it up on my phone while fumbling with my Baofeng in a parking lot.</p>
+<p>That&#39;s it. That was the whole plan.</p>
+<p>Four hours later I had a cyberpunk command center with animated radar sweeps, a CRT scanline background image, a custom Baofeng UV-5R SVG illustration, a favicon I iterated on three times because the M looked &quot;wispy,&quot; and a SEO-optimized URL slug. The CSV is still there. It&#39;s also there.</p>
+<h2>How It Started</h2>
+<p>I dropped three files into my website folder — the HTML cheat sheet I&#39;d been maintaining locally, a CSV export from CHIRP, and an SVG icon I&#39;d sketched out. I told Claude Code to put them in the right places and make it work.</p>
+<p>It moved the CSV into a <code>data/</code> directory. It moved the SVG into <code>img/</code>. It updated all the paths. Took about 45 seconds.</p>
+<p>I should have stopped there.</p>
+<h2>The Theme Pass</h2>
+<p>&quot;Can you make it feel like the same site but with a distinct flavor? Like a radar, or a battleship command center?&quot;</p>
+<p>Reader, it delivered. Animated radar sweep. Phosphor amber for the channel numbers (CRT phosphor feel, apparently). Glass card effects with <code>backdrop-filter: blur</code>. A pulsing lamp indicator. Gradient border highlights on every section card. Body background built from three overlapping radial gradients.</p>
+<p>My ham radio cheat sheet now looks like the bridge of a submarine.</p>
+<h2>The Part Where I Kept Asking for More</h2>
+<p>The inline SVG radio illustration was originally a generic desktop radio. I said it should look like a Baofeng handheld. Claude redrew it: tall portrait body, whip antenna, LCD showing <code>146.520 / 2M CALL</code>, amber PTT button, keypad rows, battery pack, little radar rings off to the side. It&#39;s maybe 80 pixels wide on screen and I spent more time on it than I&#39;d like to admit.</p>
+<p>Then I asked to bump up the visual flair a little. Then a little more. Then the background image — I&#39;d generated a cyberpunk cityscape PNG that was 9.4MB — got optimized to a 207KB WebP, given a dark overlay, and a CRT scanline texture layered on top of it for good measure. We went back and forth on the image opacity. This is what I do instead of sleeping.</p>
+<h2>The Favicon Situation</h2>
+<p>The M in the favicon looked wispy at first — stroke-width 3 on a 32×32 SVG. I asked for thicker. Got thicker. Then it was too cyan and not purple enough, so we shifted the gradient midpoint from <code>#00ff88</code> to <code>#cc00ff</code>. Then I wanted it smaller with more breathing room, so the path got pulled inward and the stroke went up to 5 to compensate.</p>
+<p>Three iterations on a 32×32 icon that most people will never consciously notice. Peak web dev behavior.</p>
+<h2>The Redirect</h2>
+<p>By the end of the night the page had a proper URL (<code>/petaluma-sonoma-ham-radio.html</code>), SEO meta tags, Open Graph cards, a canonical link, and a redirect from <code>/radio</code> so I can just text people that URL without them having to spell out the whole thing.</p>
+<p>For a ham radio cheat sheet.</p>
+<h2>What I Actually Learned</h2>
+<p>The CSV changelog was the thing I was most glad we added. Every time I update frequencies I&#39;ll just drop a note in <code>data/CHANGELOG.md</code> — what changed, why, when. It&#39;s a tiny habit but it&#39;s the kind of documentation I always wish I&#39;d done when I&#39;m staring at a file six months later wondering why channel 47 is set to something weird.</p>
+<p>The other thing: when you describe what you want in terms of feeling (&quot;battleship command center,&quot; &quot;phosphor CRT,&quot; &quot;a little more volume on those effects&quot;), you get better results than when you describe it technically. The AI knows what a radar sweep looks like. It knows what phosphor amber is. Just say the vibe.</p>
+<p>The cheat sheet is live at <a href="/petaluma-sonoma-ham-radio.html">mybbor.com/radio</a>. The CSV is there too, if you want to program your own Baofeng. Or any radio, really. CHIRP works with most of them.</p>
+<ol start="73">
+<li></li>
+</ol>
+
     </article>
 
     <footer class="post-footer">
@@ -233,24 +221,4 @@ function generatePage(post, data, contentHtml) {
     })();
   </script>
 </body>
-</html>`;
-}
-
-const posts = JSON.parse(fs.readFileSync('posts/index.json', 'utf8'));
-
-for (const post of posts) {
-  const filePath = path.join('posts', post.file);
-  if (!fs.existsSync(filePath)) {
-    console.warn(`Skipping ${post.file} — file not found`);
-    continue;
-  }
-  const raw = fs.readFileSync(filePath, 'utf8');
-  const { data, body } = parseFrontmatter(raw);
-  const contentHtml = marked.parse(body);
-  const outDir = path.join('posts', post.slug);
-  fs.mkdirSync(outDir, { recursive: true });
-  fs.writeFileSync(path.join(outDir, 'index.html'), generatePage(post, data, contentHtml));
-  console.log(`Built: /posts/${post.slug}/`);
-}
-
-console.log(`Done — ${posts.length} posts built.`);
+</html>

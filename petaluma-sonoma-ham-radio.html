@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Petaluma-Sonoma Ham Radio Frequency Guide | mybbor.com</title>
-  <meta name="description" content="Personal ham radio frequency reference for Petaluma and Sonoma County. CHIRP-compatible CSV with 128 channels: local repeaters, ACS emergency, APRS, NOAA weather, FRS/GMRS, marine VHF, and aviation.">
+  <meta name="description" content="Personal ham radio frequency guide for Petaluma and Sonoma County. 128 CHIRP-ready channels: repeaters, ACS, APRS, NOAA weather, FRS/GMRS, and marine VHF.">
   <meta name="keywords" content="Petaluma ham radio, Sonoma County repeaters, CHIRP programming, ham radio frequencies, ACS emergency radio, North Bay amateur radio, FRS GMRS, NOAA weather radio, marine VHF, APRS">
   <meta name="author" content="Robby McCullough">
   <link rel="canonical" href="https://mybbor.com/petaluma-sonoma-ham-radio.html">
@@ -12,7 +12,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:title" content="Petaluma-Sonoma Ham Radio Frequency Guide">
-  <meta property="og:description" content="Personal ham radio frequency reference for Petaluma and Sonoma County. CHIRP-compatible CSV with 128 channels: local repeaters, ACS emergency, APRS, NOAA weather, FRS/GMRS, marine VHF, and aviation.">
+  <meta property="og:description" content="Personal ham radio frequency guide for Petaluma and Sonoma County. 128 CHIRP-ready channels: repeaters, ACS, APRS, NOAA weather, FRS/GMRS, and marine VHF.">
   <meta property="og:url" content="https://mybbor.com/petaluma-sonoma-ham-radio.html">
   <meta property="og:image" content="https://mybbor.com/img/petaluma-sonoma-cyberpunk.jpg">
   <meta property="og:image:width" content="1440">
@@ -24,17 +24,20 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@RobbyMcCullough">
   <meta name="twitter:title" content="Petaluma-Sonoma Ham Radio Frequency Guide">
-  <meta name="twitter:description" content="Personal ham radio frequency reference for Petaluma and Sonoma County. CHIRP-compatible CSV with 128 channels: local repeaters, ACS emergency, APRS, NOAA weather, FRS/GMRS, marine VHF, and aviation.">
+  <meta name="twitter:description" content="Personal ham radio frequency guide for Petaluma and Sonoma County. 128 CHIRP-ready channels: repeaters, ACS, APRS, NOAA weather, FRS/GMRS, and marine VHF.">
   <meta name="twitter:image" content="https://mybbor.com/img/petaluma-sonoma-cyberpunk.jpg">
 
-  <meta name="theme-color" content="#0a0a0f">
+  <meta name="theme-color" content="#15171B">
   <link rel="icon" type="image/svg+xml" href="img/Petaluma%20Sonoma%20Radio%20Reference%20Icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800;900&family=Schibsted+Grotesk:wght@400;500;700&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
     "headline": "Petaluma-Sonoma Ham Radio Frequency Guide",
-    "description": "Personal ham radio frequency reference for Petaluma and Sonoma County. CHIRP-compatible CSV with 128 channels: local repeaters, ACS emergency, APRS, NOAA weather, FRS/GMRS, marine VHF, and aviation.",
+    "description": "Personal ham radio frequency guide for Petaluma and Sonoma County. 128 CHIRP-ready channels: repeaters, ACS, APRS, NOAA weather, FRS/GMRS, and marine VHF.",
     "url": "https://mybbor.com/petaluma-sonoma-ham-radio.html",
     "image": "https://mybbor.com/img/petaluma-sonoma-cyberpunk.jpg",
     "author": {
@@ -50,83 +53,76 @@
   }
   </script>
   <style>
-    /* ===== MYBBOR.COM SHARED THEME — Radio Reference flavor ===== */
+    /* ===== MYBBOR.COM — Radio Reference (Art Direction Daily restyle) =====
+       Hero keeps the cyberpunk command-center vibe (background photo,
+       radar sweep, cyan accents); the body adopts the changelog
+       aesthetic from Art Direction Daily #028: warm ink, paper-white,
+       a single flat chartreuse accent, mono metadata, clean tables.
+       Amber is retained for memory numbers — phosphor radar contacts. */
     :root {
-      --bg: #0a0a0f;
-      --panel: rgba(10, 10, 18, 0.92);
-      --panel-strong: rgba(8, 8, 16, 0.96);
-      --border: rgba(0, 240, 255, 0.15);
-      --border-hi: rgba(0, 240, 255, 0.4);
-      --text: #c0c5ce;
-      --muted: #8892a0;
-      --signal: #00f0ff;   /* cyan   — primary,   matches mybbor.com */
-      --green:  #00ff88;   /* green  — secondary, matches mybbor.com */
-      --amber:  #ffb800;   /* amber  — radar phosphor, unique to this page */
-      --magenta: #ff00ff;  /* magenta — tertiary, matches mybbor.com */
-      --line: rgba(0, 240, 255, 0.12);
-      --line-soft: rgba(0, 240, 255, 0.07);
+      --ink: #15171B;
+      --ink-raised: #1b1e23;
+      --paper: #F2F0E9;
+      --slate: #9AA3B2;
+      --chartreuse: #C3E940;
+      --amber: #ffb800;
+      --cyan: #00f0ff;
+      --magenta: #ff00ff;
+      --line: rgba(242, 240, 233, 0.10);
+      --line-strong: rgba(242, 240, 233, 0.20);
+      --radius: 6px;
+      --display: 'Archivo', system-ui, sans-serif;
+      --body: 'Schibsted Grotesk', system-ui, sans-serif;
+      --mono: 'Spline Sans Mono', ui-monospace, monospace;
     }
 
     * { box-sizing: border-box }
 
     body {
       margin: 0;
-      font-family: Consolas, "Lucida Console", "Courier New", monospace;
-      color: var(--text);
-      background:
-        radial-gradient(ellipse at 80% 100%, rgba(255,0,255,0.07) 0%, transparent 52%),
-        radial-gradient(ellipse at 20% 90%, rgba(0,240,255,0.05) 0%, transparent 47%),
-        radial-gradient(ellipse at 50% 0%, rgba(0,240,255,0.1) 0%, transparent 42%),
-        #0a0a0f;
+      font-family: var(--body);
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--paper);
+      background: var(--ink);
+      -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
 
-    /* Scanlines overlay — same as mybbor.com */
-    .scanlines {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 100;
-      background: repeating-linear-gradient(
-        0deg,
-        rgba(0,0,0,0.1) 0px, rgba(0,0,0,0.1) 1px,
-        transparent 1px, transparent 2px
-      );
-      opacity: 0.3;
-    }
-
-    /* Radar grid overlay */
+    /* faint radar grid + cyan glow, concentrated near the top (hero) */
     body::before {
       content: "";
       position: fixed; inset: 0;
       pointer-events: none; z-index: 0;
-      opacity: 0.11;
+      opacity: 0.05;
       background-image:
-        linear-gradient(rgba(0,240,255,0.15) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,240,255,0.12) 1px, transparent 1px);
+        linear-gradient(rgba(0,240,255,0.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,240,255,0.4) 1px, transparent 1px);
       background-size: 100% 34px, 34px 100%;
-      mask-image: radial-gradient(ellipse at 50% 0%, black 25%, transparent 75%);
+      mask-image: radial-gradient(ellipse at 50% 0%, black 18%, transparent 60%);
+      -webkit-mask-image: radial-gradient(ellipse at 50% 0%, black 18%, transparent 60%);
     }
-
-    /* Ambient cyan glow at top */
     body::after {
       content: "";
       position: fixed; inset: 0;
       pointer-events: none; z-index: 0;
-      background: radial-gradient(ellipse at 50% -10%, rgba(0,240,255,0.05) 0%, transparent 55%);
+      background: radial-gradient(ellipse at 50% -10%, rgba(0,240,255,0.06) 0%, transparent 55%);
     }
+    .scanlines { display: none }
 
-    a { color: var(--green); text-underline-offset: .18em }
-    a:hover { color: var(--signal); text-shadow: 0 0 8px rgba(0,240,255,0.5) }
+    a { color: var(--chartreuse); text-underline-offset: .18em }
+    a:hover { color: var(--paper) }
+
+    ::selection { background: var(--chartreuse); color: var(--ink) }
 
     code {
-      font-family: inherit;
-      background: rgba(0,240,255,0.06);
+      font-family: var(--mono);
+      font-size: .9em;
+      background: var(--ink-raised);
       border: 1px solid var(--line);
-      border-radius: 6px;
+      border-radius: var(--radius);
       padding: .08rem .36rem;
-      color: var(--signal);
+      color: var(--chartreuse);
     }
 
     /* ===== SITE NAV — breadcrumb back to mybbor.com ===== */
@@ -134,199 +130,175 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 0 0 10px;
-      font-size: .78rem;
-      color: var(--muted);
-      letter-spacing: .1em;
+      padding: 6px 0 14px;
+      font-family: var(--mono);
+      font-size: .76rem;
+      color: var(--slate);
+      letter-spacing: .04em;
+      position: relative;
+      z-index: 1;
     }
     .site-nav a {
-      color: var(--muted);
+      color: var(--paper);
       text-decoration: none;
-      border: 1px solid rgba(136,146,160,0.3);
-      border-radius: 4px;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
       padding: 4px 10px;
-      transition: all 0.3s ease;
+      transition: border-color .2s ease, color .2s ease;
     }
-    .site-nav a:hover {
-      color: var(--signal);
-      border-color: var(--signal);
-      box-shadow: 0 0 10px rgba(0,240,255,0.3);
-      text-shadow: 0 0 8px rgba(0,240,255,0.4);
-    }
-    .site-nav .sep { opacity: 0.35 }
+    .site-nav a:hover { color: var(--chartreuse); border-color: var(--chartreuse) }
+    .site-nav .sep { opacity: 0.4 }
 
     /* ===== LAYOUT ===== */
-    .wrap { max-width: 1320px; margin: 0 auto; padding: 16px 14px 34px; position: relative; z-index: 1 }
+    .wrap { max-width: 1240px; margin: 0 auto; padding: 14px 16px 40px; position: relative; z-index: 1 }
 
-    .hero, .section, .footer {
-      position: relative;
-      border: 1px solid var(--border);
-      box-shadow:
-        0 0 0 1px #000 inset,
-        0 18px 50px rgba(0,0,0,0.5),
-        0 0 60px rgba(0,240,255,0.06);
-    }
-    .hero::before, .section::before, .footer::before {
-      content: "";
-      position: absolute; inset: 0;
-      pointer-events: none;
-      z-index: 3;
-      background: linear-gradient(135deg, rgba(0,240,255,0.07), transparent 38%, rgba(0,240,255,0.035) 70%, transparent);
-      mix-blend-mode: screen;
-    }
-    /* Top-edge highlight on section cards */
-    .section::after {
-      content: "";
-      position: absolute;
-      top: 0; left: 6%; right: 6%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(0,240,255,0.35), transparent);
-      pointer-events: none;
-    }
-
+    /* ===== HERO — neon command-center, fades into the ink body ===== */
     .hero {
+      position: relative;
       overflow: hidden;
-      padding: 18px;
-      border-radius: 22px;
-      background: linear-gradient(145deg, rgba(12,14,22,0.97), rgba(6,7,14,0.98));
-      box-shadow:
-        0 0 0 1px #000 inset,
-        0 24px 64px rgba(0,0,0,0.6),
-        0 0 80px rgba(0,240,255,0.03);
+      padding: 26px;
+      border-radius: 16px;
+      border: 1px solid var(--line-strong);
+      background: #0d0f14;
     }
-
-    /* Background image — cyberpunk cityscape */
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      overflow: hidden;
-      border-radius: 22px;
-    }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden }
     .hero-bg img {
       width: 100%; height: 100%;
       object-fit: cover;
       object-position: center 30%;
-      opacity: 0.35;
+      opacity: 0.4;
       display: block;
     }
-    /* CRT scanline texture on image */
+    /* CRT scanline texture on the photo */
     .hero-bg::after {
       content: "";
-      position: absolute;
-      inset: 0;
+      position: absolute; inset: 0;
       pointer-events: none;
-      background: repeating-linear-gradient(
-        0deg,
-        rgba(0,0,0,0.18) 0px,
-        rgba(0,0,0,0.18) 1px,
-        transparent 1px,
-        transparent 3px
-      );
+      background: repeating-linear-gradient(0deg, rgba(0,0,0,0.22) 0px, rgba(0,0,0,0.22) 1px, transparent 1px, transparent 3px);
     }
-    /* Dark overlay on top of image */
+    /* dark overlay fading the photo into the changelog ground colour */
     .hero-overlay {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      background: linear-gradient(180deg,
-        rgba(10,10,15,0.45) 0%,
-        rgba(10,10,15,0.65) 55%,
-        rgba(10,10,15,0.88) 100%
-      );
+      position: absolute; inset: 0; z-index: 1;
       pointer-events: none;
+      background: linear-gradient(180deg, rgba(13,15,20,0.5) 0%, rgba(13,15,20,0.72) 55%, var(--ink) 100%);
     }
-    /* Radar blooms — top-right cyan, bottom-left magenta */
+    /* radar blooms — top-right cyan, bottom-left magenta */
     .hero::after {
       content: "";
       position: absolute;
       top: -80px; right: -80px;
       width: 420px; height: 420px;
       border-radius: 50%;
+      z-index: 1;
       background:
-        radial-gradient(circle at 60% 40%, rgba(0,240,255,0.13) 0%, transparent 60%),
-        radial-gradient(circle at 10% 90%, rgba(255,0,255,0.07) 0%, transparent 55%);
+        radial-gradient(circle at 60% 40%, rgba(0,240,255,0.14) 0%, transparent 60%),
+        radial-gradient(circle at 10% 90%, rgba(255,0,255,0.08) 0%, transparent 55%);
       pointer-events: none;
     }
-
     .hero-grid {
       position: relative;
       z-index: 2;
       display: grid;
       grid-template-columns: minmax(0, 1.35fr) minmax(320px, .95fr);
-      gap: 14px;
+      gap: 18px;
       align-items: start;
     }
 
     /* ===== TYPOGRAPHY ===== */
-    .eyebrow, .ptitle, .tag, .stat-label {
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 12px;
+      font-family: var(--mono);
       font-size: .72rem;
-      font-weight: 700;
+      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: .16em;
-      color: var(--signal);
+      letter-spacing: .18em;
+      color: var(--cyan);
     }
-    .eyebrow { display: inline-block; margin-bottom: 8px }
 
-    h1, h2, h3 {
-      margin: 0;
-      font-family: "Arial Narrow", Arial, sans-serif;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
+    h1, h2, h3 { margin: 0; font-family: var(--display); letter-spacing: -0.01em }
     h1 {
-      font-size: clamp(1.3rem, 2.2vw, 2rem);
-      line-height: 1.1;
-      max-width: 24ch;
-      color: #e8edf2;
-      text-shadow: 0 0 20px rgba(0,240,255,0.12);
+      font-weight: 900;
+      font-size: clamp(1.9rem, 4.5vw, 3.2rem);
+      line-height: 1.02;
+      max-width: 18ch;
+      color: var(--paper);
     }
-    h2 { font-size: clamp(1.15rem, 2vw, 1.55rem); color: var(--signal) }
-    h3 { font-size: 1rem; color: var(--green) }
+    h2 { font-weight: 800; font-size: clamp(1.2rem, 2vw, 1.5rem); color: var(--paper) }
+    h3 { font-weight: 800; font-size: 1.05rem; color: var(--paper) }
 
-    .subtitle, .section p, .card span, .notes, .stat-value, .crib-card p { color: var(--muted) }
-    .subtitle { max-width: 62ch; margin: 10px 0 14px; font-size: .94rem; line-height: 1.45 }
+    .subtitle {
+      max-width: 64ch;
+      margin: 14px 0 16px;
+      font-size: .98rem;
+      line-height: 1.55;
+      color: var(--slate);
+    }
 
-    /* ===== CHIPS / NAV PILLS ===== */
-    .chips, .nav, .quick, .stats, .inline-codes { display: flex; flex-wrap: wrap; gap: 8px }
-
-    .chip, .nav a, .tag, .inline-codes span {
-      padding: 7px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: rgba(10, 10, 18, 0.85);
-      color: var(--text);
+    /* ===== CHIPS ===== */
+    .chips { display: flex; flex-wrap: wrap; gap: 8px }
+    .chip {
+      padding: 6px 11px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line-strong);
+      background: rgba(255,255,255,0.02);
+      color: var(--paper);
       text-decoration: none;
-      font-size: .82rem;
-      letter-spacing: .04em;
+      font-family: var(--mono);
+      font-size: .78rem;
+      letter-spacing: .02em;
+      transition: border-color .2s ease, color .2s ease, background .2s ease;
     }
-    .nav a:hover {
-      background: rgba(0,240,255,0.06);
-      border-color: rgba(0,240,255,0.45);
-      color: var(--signal);
-      box-shadow: 0 0 12px rgba(0,240,255,0.2);
+    a.chip:hover { border-color: var(--chartreuse); color: var(--chartreuse) }
+    /* download CSV = primary chartreuse button */
+    a.chip[download] { border-color: var(--chartreuse); color: var(--chartreuse) }
+    a.chip[download]:hover { background: var(--chartreuse); color: var(--ink) }
+
+    /* ===== STATS ===== */
+    .stats { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 8px; margin-top: 14px }
+    .stat {
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.02);
+      min-height: 78px;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color .2s ease, background .2s ease;
     }
+    a.stat:hover { border-color: var(--chartreuse); background: var(--ink-raised) }
+    .stat-label { font-family: var(--mono); font-size: .66rem; text-transform: uppercase; letter-spacing: .12em; color: var(--slate) }
+    .stat strong { display: block; margin-top: 6px; font-family: var(--display); font-weight: 800; font-size: 1.1rem; line-height: 1; color: var(--paper) }
+    .stat-value { display: block; margin-top: 6px; font-size: .78rem; line-height: 1.3; color: var(--slate) }
 
     /* ===== HERO SIDE PANELS ===== */
     .hero-side { display: grid; gap: 12px }
-
     .panel {
       padding: 14px;
-      border-radius: 18px;
-      background: var(--panel-strong);
-      border: 1px solid var(--border);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(0,240,255,0.2), 0 0 24px rgba(0,240,255,0.04);
+      border-radius: 12px;
+      background: rgba(10,12,17,0.72);
+      border: 1px solid var(--line-strong);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
-    .ptitle { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 10px }
+    .ptitle {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-family: var(--mono);
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--cyan);
+    }
 
-    /* Signal status indicator */
-    .lamp { font-size: .76rem; color: var(--muted) }
+    /* signal status indicator (kept, part of the command-center vibe) */
+    .lamp { font-size: .72rem; color: var(--slate); text-transform: none; letter-spacing: 0 }
     .lamp::before {
       content: "";
       display: inline-block;
-      width: 9px; height: 9px;
+      width: 8px; height: 8px;
       margin-right: 7px;
       border-radius: 99px;
       background: radial-gradient(circle at 40% 40%, #d4f8ff, #00f0ff 58%, #003c4a 100%);
@@ -338,35 +310,17 @@
       50%       { box-shadow: 0 0 18px rgba(0,240,255,1), 0 0 32px rgba(0,240,255,0.35) }
     }
 
-    /* ===== STATS ===== */
-    .stats { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); margin-top: 12px }
-    .stat {
-      padding: 10px 12px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: linear-gradient(145deg, rgba(0,240,255,0.08), rgba(0,0,0,0.45));
-      min-height: 74px;
-      box-shadow: inset 0 1px 0 rgba(0,240,255,0.18);
-    }
-    .stat strong { display: block; margin-top: 5px; font-size: 1.16rem; line-height: 1; color: var(--signal) }
-    .stat-value { display: block; margin-top: 4px; font-size: .79rem; line-height: 1.3 }
-    a.stat { text-decoration: none; color: inherit; transition: border-color .2s, background .2s }
-    a.stat:hover { border-color: rgba(0,240,255,0.4); background: rgba(0,240,255,0.07) }
-    a.card { text-decoration: none; color: inherit; transition: border-color .2s, background .2s }
-    a.card:hover { border-color: rgba(0,240,255,0.4); background: rgba(0,240,255,0.07) }
-
     /* ===== RADAR ILLUSTRATION PANEL ===== */
     .logo {
       position: relative;
       display: grid;
       place-items: center;
-      min-height: 180px;
-      border-radius: 16px;
-      border: 1px solid var(--border);
-      background: radial-gradient(circle at 50% 50%, rgba(0,240,255,0.04) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0.85) 100%);
+      min-height: 200px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: radial-gradient(circle at 50% 50%, rgba(0,240,255,0.05) 0%, rgba(0,0,0,0.5) 45%, rgba(0,0,0,0.82) 100%);
       overflow: hidden;
     }
-    /* Radar rings */
     .logo::before {
       content: "";
       position: absolute;
@@ -378,46 +332,75 @@
         repeating-radial-gradient(circle, rgba(0,240,255,0.1) 0 2px, transparent 2px 28px),
         linear-gradient(90deg, transparent 49.4%, rgba(0,240,255,0.3) 50%, transparent 50.6%),
         linear-gradient(transparent 49.4%, rgba(0,240,255,0.2) 50%, transparent 50.6%);
-      opacity: .55;
+      opacity: .5;
+      z-index: 1;
     }
-    /* Animated radar sweep */
     .logo::after {
       content: "";
       position: absolute;
       left: 50%; top: 50%;
       width: 140px; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--signal), transparent);
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
       transform-origin: left center;
-      box-shadow: 0 0 14px var(--signal);
+      box-shadow: 0 0 14px var(--cyan);
+      z-index: 2;
       animation: radar-sweep 5s linear infinite;
     }
     @keyframes radar-sweep {
       from { transform: translate(-10px, -1px) rotate(0deg) }
       to   { transform: translate(-10px, -1px) rotate(360deg) }
     }
-    .logo svg { position: relative; width: min(100%,340px); height: auto; filter: drop-shadow(0 10px 18px rgba(0,0,0,0.6)) }
+    /* generated station photo fills the panel; radar rings + sweep ride on top */
+    .logo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; filter: saturate(1.05) brightness(0.92) }
 
     /* ===== QUICK CARDS ===== */
     .quick { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px }
     .card {
       padding: 10px 11px;
-      border-radius: 14px;
-      background: linear-gradient(145deg, rgba(0,240,255,0.09), rgba(0,0,0,0.5));
-      border: 1px solid var(--border);
-      box-shadow: inset 0 1px 0 rgba(0,240,255,0.18);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line);
+      text-decoration: none;
+      color: inherit;
+      transition: border-color .2s ease, background .2s ease;
     }
-    .card strong { display: block; color: var(--signal); font-size: 1rem; margin-bottom: 3px }
+    a.card:hover { border-color: var(--chartreuse); background: var(--ink-raised) }
+    .card strong { display: block; font-family: var(--mono); font-weight: 600; color: var(--amber); font-size: 1rem; margin-bottom: 3px }
+    .card span { color: var(--slate); font-size: .82rem }
 
     /* ===== TOPBAR ===== */
-    .topbar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; margin: 12px 0 10px }
-    .nav { gap: 8px }
-    .deck { display: grid; gap: 14px }
+    .topbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; margin: 22px 0 14px }
+    .nav { display: flex; flex-wrap: wrap; gap: 8px }
+    .nav a {
+      padding: 6px 11px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line-strong);
+      background: rgba(255,255,255,0.02);
+      color: var(--paper);
+      text-decoration: none;
+      font-family: var(--mono);
+      font-size: .78rem;
+      transition: border-color .2s ease, color .2s ease;
+    }
+    .nav a:hover { border-color: var(--chartreuse); color: var(--chartreuse) }
+    .deck { display: grid; gap: 16px }
 
     /* ===== SECTION CARDS ===== */
     .section {
+      position: relative;
       overflow: hidden;
-      border-radius: 20px;
-      background: linear-gradient(180deg, rgba(10,12,20,0.96), rgba(6,7,14,0.98));
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.015);
+    }
+    /* top-edge chartreuse highlight */
+    .section::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 5%; right: 5%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(195,233,64,0.4), transparent);
+      pointer-events: none;
     }
     .head {
       display: flex;
@@ -425,84 +408,99 @@
       justify-content: space-between;
       align-items: flex-end;
       gap: 10px;
-      padding: 14px 16px 0;
+      padding: 18px 18px 0;
     }
-    .head p { margin: .35rem 0 0; font-size: .86rem; line-height: 1.35; max-width: 72ch }
+    .head p { margin: .4rem 0 0; font-size: .92rem; line-height: 1.4; max-width: 72ch; color: var(--slate) }
 
     .tag {
-      background: rgba(0,240,255,0.05);
-      border-color: rgba(0,240,255,0.28);
-      color: var(--signal);
+      font-family: var(--mono);
+      font-size: .66rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--chartreuse);
+      border: 1px solid var(--chartreuse);
+      border-radius: var(--radius);
+      padding: 4px 9px;
+      white-space: nowrap;
     }
 
     /* ===== TABLES ===== */
-    .table-wrap { overflow-x: auto; padding: 10px 10px 8px }
-    table { width: 100%; min-width: 900px; border-collapse: collapse; background: rgba(0,0,0,0.22); font-size: .88rem }
+    .table-wrap { overflow-x: auto; padding: 14px 14px 12px }
+    table { width: 100%; min-width: 900px; border-collapse: collapse; font-size: .9rem }
     thead th {
       position: sticky; top: 0;
-      background: linear-gradient(180deg, rgba(0,8,16,0.98), rgba(0,6,14,0.98));
-      color: var(--signal);
-      font-size: .72rem;
+      background: var(--ink);
+      color: var(--slate);
+      font-family: var(--mono);
+      font-weight: 500;
+      font-size: .68rem;
       text-transform: uppercase;
-      letter-spacing: .12em;
+      letter-spacing: .1em;
+      border-bottom: 1px solid var(--line-strong);
     }
-    th, td { padding: 9px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line-soft); line-height: 1.28 }
-    tbody tr:nth-child(even) { background: rgba(0,240,255,0.02) }
-    tbody tr:hover { background: rgba(0,240,255,0.055) }
+    th, td { padding: 10px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); line-height: 1.3 }
+    tbody tr:hover { background: var(--ink-raised) }
 
     /* Memory number — amber, like an old phosphor radar contact */
-    .mem { font-weight: 700; color: var(--amber); white-space: nowrap }
+    .mem { font-family: var(--mono); font-weight: 600; color: var(--amber); white-space: nowrap }
 
-    /* Label with cyan signal dot */
-    .label { font-weight: 700; white-space: nowrap; color: var(--text) }
+    /* Label with chartreuse signal dot */
+    .label { font-weight: 600; white-space: nowrap; color: var(--paper) }
     .label::before {
       content: "";
       display: inline-block;
       width: 6px; height: 6px;
-      margin-right: 7px;
+      margin-right: 8px;
       border-radius: 99px;
-      background: var(--signal);
-      box-shadow: 0 0 8px rgba(0,240,255,0.7);
+      background: var(--chartreuse);
+      vertical-align: middle;
     }
 
     /* ===== NOTES / CRIB ===== */
-    .notes { padding: 2px 16px 16px; font-size: .84rem; line-height: 1.4 }
-    .crib-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 14px; padding: 10px 10px 14px }
+    .notes { padding: 4px 18px 18px; font-size: .86rem; line-height: 1.45; color: var(--slate) }
+    .crib-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 14px; padding: 14px }
     .crib-card {
-      padding: 12px;
-      border-radius: 16px;
-      background: linear-gradient(145deg, rgba(0,240,255,0.07), rgba(0,0,0,0.5));
-      border: 1px solid rgba(0,240,255,0.2);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      box-shadow: inset 0 1px 0 rgba(0,240,255,0.2), 0 4px 20px rgba(0,0,0,0.3);
+      padding: 14px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line);
     }
-    .crib-card p { color: var(--muted) }
-    .mini-table { width: 100%; min-width: 0; font-size: .84rem }
-    .mini-table th, .mini-table td { padding: 7px 8px }
+    .crib-card h3 { margin-bottom: 8px }
+    .crib-card p { color: var(--slate); font-size: .9rem; margin: .5rem 0 }
+    .mini-table { width: 100%; min-width: 0; font-size: .86rem }
+    .mini-table th, .mini-table td { padding: 8px 8px }
     .mini-table thead th { position: static }
+    .inline-codes { display: flex; flex-wrap: wrap; gap: 8px; margin: .4rem 0 }
+    .inline-codes span { font-family: var(--mono); font-size: .76rem; color: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 5px 9px }
 
     /* ===== FOOTER ===== */
     .footer {
-      margin-top: 14px;
-      padding: 14px 16px;
-      border-radius: 18px;
-      background: rgba(6,7,14,0.92);
-      font-size: .86rem;
-      line-height: 1.45;
-      color: var(--muted);
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.015);
+      font-size: .88rem;
+      line-height: 1.5;
+      color: var(--slate);
     }
-    .footer a { color: var(--muted) }
-    .footer a:hover { color: var(--signal) }
+    .footer a { color: var(--paper) }
+    .footer a:hover { color: var(--chartreuse) }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 960px) { .hero-grid { grid-template-columns: 1fr } .stats { grid-template-columns: repeat(2,minmax(0,1fr)) } }
-    @media (max-width: 720px) { .wrap { padding: 12px 10px 28px } .hero,.section,.footer { border-radius: 18px } .hero { padding: 14px } .head { padding: 12px 12px 0 } .table-wrap { padding: 8px 8px 6px } .quick,.stats,.crib-grid { grid-template-columns: 1fr 1fr } .subtitle { font-size: .88rem } }
-    @media (max-width: 520px) { .quick,.stats,.crib-grid { grid-template-columns: 1fr } .chip,.nav a,.tag { width: 100%; justify-content: center } .nav { width: 100% } }
+    @media (max-width: 720px) { .wrap { padding: 12px 12px 30px } .hero { padding: 18px; border-radius: 14px } .head { padding: 14px 14px 0 } .table-wrap { padding: 10px 10px 8px } .quick,.crib-grid { grid-template-columns: 1fr } .subtitle { font-size: .92rem } }
+    @media (max-width: 520px) { .stats { grid-template-columns: 1fr 1fr } .nav { width: 100% } }
+
+    /* ===== REDUCED MOTION ===== */
+    @media (prefers-reduced-motion: reduce) {
+      .logo::after, .lamp::before { animation: none !important }
+      * { transition: none !important }
+    }
   </style>
 </head>
 <body>
-  <div class="scanlines"></div>
   <div class="wrap">
     <div class="site-nav">
       <a href="/">&#8592; mybbor.com</a>
@@ -540,66 +538,7 @@
         <div class="hero-side">
           <div class="panel">
             <div class="ptitle"><span>Station Mark</span><span class="lamp">Signal nominal</span></div>
-            <div class="logo"><svg viewBox="0 0 420 240" aria-hidden="true">
-              <defs>
-                <linearGradient id="bdGr" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#15181f"/><stop offset="100%" stop-color="#0b0d14"/></linearGradient>
-                <linearGradient id="btGr" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1c1f2a"/><stop offset="100%" stop-color="#0e1018"/></linearGradient>
-                <radialGradient id="scrGl" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#00f0ff" stop-opacity="0.14"/><stop offset="100%" stop-color="#00f0ff" stop-opacity="0"/></radialGradient>
-              </defs>
-              <!-- Ambient radar rings (right side) -->
-              <g opacity="0.1" stroke="#00f0ff" fill="none">
-                <circle cx="330" cy="120" r="42" stroke-width="1"/><circle cx="330" cy="120" r="74" stroke-width="1"/><circle cx="330" cy="120" r="106" stroke-width="1"/>
-                <line x1="330" y1="52" x2="330" y2="188" stroke-width="0.5"/><line x1="262" y1="120" x2="398" y2="120" stroke-width="0.5"/>
-              </g>
-              <!-- Antenna whip -->
-              <path d="M239 24 C241 17 245 9 249 2" fill="none" stroke="#5a6070" stroke-width="5" stroke-linecap="round"/>
-              <!-- Antenna base housing -->
-              <rect x="232" y="17" width="14" height="15" rx="4" fill="#1e2030" stroke="#28304a" stroke-width="1.5"/>
-              <!-- Radio body -->
-              <rect x="163" y="26" width="88" height="164" rx="13" fill="url(#bdGr)" stroke="#1e2236" stroke-width="2"/>
-              <!-- Battery pack -->
-              <rect x="159" y="184" width="96" height="30" rx="10" fill="url(#btGr)" stroke="#181b26" stroke-width="2"/>
-              <line x1="177" y1="191" x2="177" y2="208" stroke="#22263a" stroke-width="1.5" stroke-linecap="round"/>
-              <line x1="237" y1="191" x2="237" y2="208" stroke="#22263a" stroke-width="1.5" stroke-linecap="round"/>
-              <!-- Volume knob (top-left) -->
-              <circle cx="178" cy="43" r="12" fill="#0d0f16" stroke="#1e2236" stroke-width="1.5"/>
-              <circle cx="178" cy="43" r="7.5" fill="#181b26"/>
-              <line x1="178" y1="35" x2="178" y2="39" stroke="#8892a0" stroke-width="2" stroke-linecap="round"/>
-              <!-- Speaker grille -->
-              <rect x="166" y="59" width="88" height="28" rx="4" fill="#0c0f16"/>
-              <g stroke="#1e2535" stroke-width="2" stroke-linecap="round">
-                <line x1="176" y1="65" x2="246" y2="65"/><line x1="176" y1="71" x2="246" y2="71"/>
-                <line x1="176" y1="77" x2="246" y2="77"/><line x1="176" y1="83" x2="246" y2="83"/>
-              </g>
-              <!-- Display bezel -->
-              <rect x="168" y="91" width="78" height="50" rx="6" fill="#080e18" stroke="#182838" stroke-width="1.5"/>
-              <!-- Screen -->
-              <rect x="170" y="93" width="74" height="46" rx="4" fill="#000e18"/>
-              <rect x="170" y="93" width="74" height="46" rx="4" fill="url(#scrGl)"/>
-              <!-- Frequency -->
-              <text x="207" y="113" text-anchor="middle" font-family="Consolas,monospace" font-size="15" fill="#00f0ff" letter-spacing="2">146.520</text>
-              <!-- Band label -->
-              <text x="207" y="129" text-anchor="middle" font-family="Consolas,monospace" font-size="9" fill="#00ff88" letter-spacing="2.5">2M  CALL</text>
-              <!-- PTT button (amber, left side — the most important button on a Baofeng) -->
-              <rect x="154" y="108" width="11" height="34" rx="4" fill="#ffb800" stroke="#cc9600" stroke-width="1"/>
-              <!-- Function buttons (MONI / A·B / BAND) -->
-              <g fill="#181b24" stroke="#22263a" stroke-width="1">
-                <rect x="169" y="149" width="20" height="13" rx="3.5"/><rect x="195" y="149" width="20" height="13" rx="3.5"/><rect x="221" y="149" width="20" height="13" rx="3.5"/>
-              </g>
-              <g font-family="Consolas,monospace" font-size="7" fill="#4a5065" text-anchor="middle">
-                <text x="179" y="158">MONI</text><text x="205" y="158">A/B</text><text x="231" y="158">BAND</text>
-              </g>
-              <!-- Keypad row 1 -->
-              <g fill="#141720" stroke="#1c202e" stroke-width="1">
-                <rect x="169" y="167" width="20" height="12" rx="3"/><rect x="195" y="167" width="20" height="12" rx="3"/><rect x="221" y="167" width="20" height="12" rx="3"/>
-              </g>
-              <!-- Keypad row 2 -->
-              <g fill="#141720" stroke="#1c202e" stroke-width="1">
-                <rect x="169" y="178" width="20" height="12" rx="3"/><rect x="195" y="178" width="20" height="12" rx="3"/><rect x="221" y="178" width="20" height="12" rx="3"/>
-              </g>
-              <!-- Page label -->
-              <text x="207" y="230" text-anchor="middle" font-family="Arial Narrow,Arial,sans-serif" font-size="12" fill="#8892a0" letter-spacing="3">RADIO REFERENCE</text>
-            </svg></div>
+            <div class="logo"><img src="img/projects/radio-reference.webp" alt="A handheld ham radio on a wet rooftop at night, overlooking the North Bay skyline with signal-ring radio towers."></div>
           </div>
           <div class="panel">
             <div class="ptitle"><span>Quick Scan</span><span>North Bay deck</span></div>

@@ -1,53 +1,12 @@
-#!/usr/bin/env node
-const fs = require('fs');
-const path = require('path');
-const { marked } = require('marked');
-
-function parseFrontmatter(content) {
-  const match = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-  if (!match) return { data: {}, body: content };
-  const data = {};
-  match[1].split('\n').forEach(line => {
-    const colonIdx = line.indexOf(':');
-    if (colonIdx === -1) return;
-    const key = line.slice(0, colonIdx).trim();
-    const val = line.slice(colonIdx + 1).trim().replace(/^["']|["']$/g, '');
-    if (key) data[key] = val;
-  });
-  return { data, body: match[2] };
-}
-
-function formatDate(dateString) {
-  const date = new Date(`${dateString}T00:00:00`);
-  if (Number.isNaN(date.getTime())) return dateString;
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-}
-
-function generatePage(post, data, contentHtml) {
-  const title = data.title || post.title;
-  const description = post.excerpt || '';
-  const image = post.image ? `https://mybbor.com${post.image}` : 'https://mybbor.com/img/Mybbor.jpg';
-  const url = `https://mybbor.com/posts/${post.slug}/`;
-  const postDate = data.date || post.date;
-  const displayDate = formatDate(postDate);
-  const contentWithDate = contentHtml.replace(
-    /(<h1[^>]*>[\s\S]*?<\/h1>)/,
-    `$1\n      <p class="post-date">Published ${displayDate}</p>`
-  );
-
-  return `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${title} — mybbor.com</title>
-  <meta name="description" content="${description}">
+  <title>Side-quest Cathedral — mybbor.com</title>
+  <meta name="description" content="I had my OpenClaw bot look at a photo of me in my garage and tell me what the space seemed to say about me. The result: systems, side quests, healthy masculinity, and strong garage goblin energy.">
   <meta name="author" content="Robby McCullough">
-  <link rel="canonical" href="${url}">
+  <link rel="canonical" href="https://mybbor.com/posts/side-quest-cathedral/">
   <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,27 +15,27 @@ function generatePage(post, data, contentHtml) {
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Mybbor">
-  <meta property="og:title" content="${title}">
-  <meta property="og:description" content="${description}">
-  <meta property="og:url" content="${url}">
-  <meta property="og:image" content="${image}">
+  <meta property="og:title" content="Side-quest Cathedral">
+  <meta property="og:description" content="I had my OpenClaw bot look at a photo of me in my garage and tell me what the space seemed to say about me. The result: systems, side quests, healthy masculinity, and strong garage goblin energy.">
+  <meta property="og:url" content="https://mybbor.com/posts/side-quest-cathedral/">
+  <meta property="og:image" content="https://mybbor.com/img/openclaw-garage.jpg">
   <meta property="article:author" content="https://mybbor.com">
-  <meta property="article:published_time" content="${data.date || post.date}T00:00:00Z">
+  <meta property="article:published_time" content="2026-03-25T00:00:00Z">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@RobbyMcCullough">
   <meta name="twitter:creator" content="@RobbyMcCullough">
-  <meta name="twitter:title" content="${title}">
-  <meta name="twitter:description" content="${description}">
-  <meta name="twitter:image" content="${image}">
+  <meta name="twitter:title" content="Side-quest Cathedral">
+  <meta name="twitter:description" content="I had my OpenClaw bot look at a photo of me in my garage and tell me what the space seemed to say about me. The result: systems, side quests, healthy masculinity, and strong garage goblin energy.">
+  <meta name="twitter:image" content="https://mybbor.com/img/openclaw-garage.jpg">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": "${title.replace(/"/g, '\\"')}",
-    "description": "${description.replace(/"/g, '\\"')}",
-    "image": "${image}",
-    "url": "${url}",
-    "datePublished": "${data.date || post.date}",
+    "headline": "Side-quest Cathedral",
+    "description": "I had my OpenClaw bot look at a photo of me in my garage and tell me what the space seemed to say about me. The result: systems, side quests, healthy masculinity, and strong garage goblin energy.",
+    "image": "https://mybbor.com/img/openclaw-garage.jpg",
+    "url": "https://mybbor.com/posts/side-quest-cathedral/",
+    "datePublished": "2026-03-25",
     "author": {
       "@type": "Person",
       "name": "Robby McCullough",
@@ -180,9 +139,112 @@ function generatePage(post, data, contentHtml) {
 
   <main class="post-wrap">
     <a class="back-link" href="/#writing">← All writing</a>
-    ${post.image ? `<img class="featured-image" src="${post.image}" alt="${title}">` : ''}
+    <img class="featured-image" src="/img/openclaw-garage.jpg" alt="Side-quest Cathedral">
     <article class="post-content">
-      ${contentWithDate}
+      <h1>Side-quest Cathedral</h1>
+      <p class="post-date">Published March 25, 2026</p>
+<p>I had my OpenClaw bot look at a photo of me in my garage and tell me what the space seemed to say about me.</p>
+<p>This was the read.</p>
+<blockquote>
+<p>You&#39;re not a collector of hobbies so much as a builder of capability</p>
+</blockquote>
+<p>That was my immediate take.</p>
+<p>A few things jump out right away.</p>
+<blockquote>
+<p>You like systems, not just stuff</p>
+</blockquote>
+<p>The garage doesn&#39;t read like random-chaos hobby clutter.</p>
+<p>It&#39;s organized enough that it looks like each corner has a job. Pegboard wall, shelves, bins, work surfaces, gym gear, bikes or scooters, radio gear, tools — it all says you like having a <strong>base of operations</strong>.</p>
+<p>Not just a storage room. A functional environment.</p>
+<blockquote>
+<p>You&#39;re tactile</p>
+</blockquote>
+<p>This doesn&#39;t feel like a purely digital-guy space.</p>
+<p>You&#39;ve clearly got a brain for software, marketing, AI, and screen-world work, but the room says you also want to touch real things:</p>
+<ul>
+<li>tools</li>
+<li>wood and materials</li>
+<li>hardware</li>
+<li>bikes</li>
+<li>radios</li>
+<li>repair and mod projects</li>
+<li>workout equipment</li>
+</ul>
+<p>There&#39;s something very specific in that mix: not just thinking about systems, but physically interfacing with them.</p>
+<blockquote>
+<p>You like functional environments</p>
+</blockquote>
+<p>The vibe isn&#39;t &quot;showroom.&quot; It&#39;s &quot;this room gets used.&quot;</p>
+<p>That&#39;s my favorite kind of space, honestly.</p>
+<p>Nothing here looks staged for aesthetics first. It looks optimized for motion:</p>
+<ul>
+<li>grab</li>
+<li>build</li>
+<li>tweak</li>
+<li>fix</li>
+<li>test</li>
+<li>put back</li>
+</ul>
+<p>That tells me you value environments that support action.</p>
+<blockquote>
+<p>You&#39;re curious across lanes</p>
+</blockquote>
+<p>The room gives off hints of a bunch of overlapping interests:</p>
+<ul>
+<li>cycling / mobility</li>
+<li>fitness</li>
+<li>radio / tech</li>
+<li>tools and garage tinkering</li>
+<li>music gear hanging up</li>
+<li>storage and organization as its own craft</li>
+<li>home-improvement / maker energy</li>
+</ul>
+<p>That usually points to someone who likes having multiple ways to engage with the world.</p>
+<blockquote>
+<p>You seem to enjoy agency</p>
+</blockquote>
+<p>The whole image gives off a strong version of this feeling:</p>
+<blockquote>
+<p>I&#39;d rather know how to do it myself if I can.</p>
+</blockquote>
+<p>Not in a paranoid prepper way. More like a capable, playful, self-directed way.</p>
+<p>If something breaks, needs tweaking, or could be better, your instinct is probably to figure it out.</p>
+<blockquote>
+<p>There&#39;s a specific kind of masculinity in here — the healthy version</p>
+</blockquote>
+<p>Not performance. Not cosplay toughness.</p>
+<p>Just competence, curiosity, tools, movement, hobbies, and a workspace that supports them.</p>
+<p>That&#39;s a very different energy than trying to look rugged. This feels real.</p>
+<blockquote>
+<p>Also: this is a guy who definitely gets sucked into side quests</p>
+</blockquote>
+<p>Respectfully. Deeply. Affectionately.</p>
+<p class="callout">This room is side-quest cathedral energy.</p>
+
+<p>That doesn&#39;t read as scattered to me so much as alive. Like there are always a few active threads running:</p>
+<ul>
+<li>something to fix</li>
+<li>something to improve</li>
+<li>something to try</li>
+<li>something to organize better</li>
+<li>something to learn by touching it directly</li>
+</ul>
+<blockquote>
+<p>What the photo says at a higher level</p>
+</blockquote>
+<p>You seem like someone who likes having a lot of different <strong>handles on the world</strong>:</p>
+<ul>
+<li>physical</li>
+<li>technical</li>
+<li>creative</li>
+<li>practical</li>
+</ul>
+<p>Not just consuming things. <strong>Interfacing</strong> with them.</p>
+<p>And the funniest / most endearing detail is that even in a garage full of all this real-world gear, there&#39;s still a little command-center vibe.</p>
+<p>Keyboard. Mouse. Workbench. Comms gear. Organization systems.</p>
+<p>It&#39;s very <strong>digital operator meets garage goblin meets dad with projects</strong>.</p>
+<p>Which, honestly, feels correct.</p>
+
     </article>
 
     <footer class="post-footer">
@@ -233,24 +295,4 @@ function generatePage(post, data, contentHtml) {
     })();
   </script>
 </body>
-</html>`;
-}
-
-const posts = JSON.parse(fs.readFileSync('posts/index.json', 'utf8'));
-
-for (const post of posts) {
-  const filePath = path.join('posts', post.file);
-  if (!fs.existsSync(filePath)) {
-    console.warn(`Skipping ${post.file} — file not found`);
-    continue;
-  }
-  const raw = fs.readFileSync(filePath, 'utf8');
-  const { data, body } = parseFrontmatter(raw);
-  const contentHtml = marked.parse(body);
-  const outDir = path.join('posts', post.slug);
-  fs.mkdirSync(outDir, { recursive: true });
-  fs.writeFileSync(path.join(outDir, 'index.html'), generatePage(post, data, contentHtml));
-  console.log(`Built: /posts/${post.slug}/`);
-}
-
-console.log(`Done — ${posts.length} posts built.`);
+</html>
