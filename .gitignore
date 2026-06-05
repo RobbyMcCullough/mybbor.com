@@ -4,3 +4,6 @@
 *.yaml
 node_modules/
 data/Petaluma Sonoma County.csv
+
+# generated post pages — built on the server by build.js
+posts/*/
