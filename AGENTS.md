@@ -100,7 +100,7 @@ Hosted on a self-managed Caddy server (DigitalOcean, "Andromeda"), served from `
 Pushing to `main` triggers `.github/workflows/deploy.yml`, which SSHes into the server and runs `git pull origin main && npm ci --production && node build.js`.
 
 - The generated post pages (`posts/<slug>/index.html`) are **build artifacts**: gitignored and produced on the server by `build.js`. Do **not** commit them — doing so makes the server's `git pull` abort on untracked-file conflicts.
-- Caddy serves `index.html` as a catch-all for unknown paths. A repo `_redirects` file is inert here; URL redirects belong in the server's Caddyfile.
+- Caddy serves `index.html` as a catch-all for unknown paths. URL redirects (e.g. old `/posts/<slug>.html` → `/posts/<slug>/`) go in the server's Caddyfile via `redir ... permanent`; a Netlify-style `_redirects` file does nothing here.
 
 ## Workflow Notes
 

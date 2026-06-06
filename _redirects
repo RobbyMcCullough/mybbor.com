@@ -1,7 +1,0 @@
-# Legacy post URLs → canonical pretty URLs (301, permanent)
-/posts/is-wordpress-cooked.html                               /posts/is-wordpress-cooked/                     301
-/posts/2025-02-04-is-wordpress-cooked.html                    /posts/is-wordpress-cooked/                     301
-/posts/side-quest-cathedral.html                              /posts/side-quest-cathedral/                    301
-/posts/2026-03-25-side-quest-cathedral.html                   /posts/side-quest-cathedral/                    301
-/posts/i-just-wanted-a-ham-radio-cheat-sheet.html             /posts/i-just-wanted-a-ham-radio-cheat-sheet/   301
-/posts/2026-03-23-i-just-wanted-a-ham-radio-cheat-sheet.html  /posts/i-just-wanted-a-ham-radio-cheat-sheet/   301
