@@ -1,5 +1,13 @@
 [
     {
+        "file": "2026-06-06-honeydrop.md",
+        "slug": "honeydrop",
+        "title": "honeydrop: Open-Source Codex Sites Alternative",
+        "date": "2026-06-06",
+        "image": "/img/honeydrop-hive.jpg",
+        "excerpt": "OpenAI's Codex Sites is great, but it's locked to Business and Enterprise plans. honeydrop is an open-source, self-hosted alternative: drop a Markdown or HTML file and it's live at a clean URL on your own domain, served by Caddy on a cheap VPS."
+    },
+    {
         "file": "2026-06-05-redesigning-mybbor.md",
         "slug": "redesigning-mybbor",
         "title": "It Was Cool Until It Was Everywhere: Redesigning Mybbor.com",

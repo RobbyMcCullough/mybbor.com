@@ -34,9 +34,10 @@ function generatePage(post, data, contentHtml) {
   const url = `https://mybbor.com/posts/${post.slug}/`;
   const postDate = data.date || post.date;
   const displayDate = formatDate(postDate);
+  const author = data.author || 'Robby McCullough';
   const contentWithDate = contentHtml.replace(
     /(<h1[^>]*>[\s\S]*?<\/h1>)/,
-    `$1\n      <p class="post-date">Published ${displayDate}</p>`
+    `$1\n      <p class="post-date">By ${author} · Published ${displayDate}</p>`
   );
 
   return `<!DOCTYPE html>
