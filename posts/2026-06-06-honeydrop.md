@@ -19,7 +19,7 @@ I kept hitting the same small problem. I would finish a markdown note or some AI
 
 So I grabbed a short domain, `robb.ee`, and instead of the boring SFTP plan I first had in mind, I built a drag-and-drop upload page into the site itself.
 
-> **TL;DR:** I created an open-source, self-hosted project called [honeydrop](https://github.com/RobbyMcCullough/honeydrop) for anyone who wants to do the same. The project includes an agent.md playbook that you can hand off to an agent and have it build for you. All that's needed is a VPS (I chose [Digital Ocean](https://www.wpbeaverbuilder.com/go/digitalocean/)) and a domain.
+> **TL;DR:** I created an open-source, self-hosted project called [honeydrop](https://github.com/RobbyMcCullough/honeydrop) for anyone who wants to do the same. The project includes an agent.md playbook that you can hand off to an agent and have it build for you. All that's needed is a VPS (I chose [Digital Ocean](https://www.digitalocean.com/)) and a domain.
 
 One thing up front that is purely my taste: because the domain is `robb.ee`, I leaned into a honeybee theme. A little hive aesthetic, a wax-seal emblem, and the name honeydrop. None of that is load-bearing. The code does not care how it looks, so if you set one up you can theme it however you see fit.
 
