@@ -148,7 +148,7 @@ function generatePage(post, data, contentHtml) {
     .post-content code { font-family: var(--mono); font-size: 0.88em; background: var(--ink-raised); color: var(--chartreuse); padding: 0.12rem 0.4rem; border-radius: 4px; }
     .post-content pre { background: var(--ink-raised); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.1rem 1.2rem; overflow-x: auto; margin: 1.5rem 0; }
     .post-content pre code { background: none; padding: 0; color: var(--paper); }
-    .post-content blockquote { border-left: 2px solid var(--chartreuse); padding: 0.4rem 0 0.4rem 1.2rem; margin: 1.5rem 0; font-style: italic; font-size: 1.12rem; color: var(--paper); }
+    .post-content blockquote { background: rgba(0,0,0,0.22); border-left: 2px solid var(--chartreuse); border-radius: 0 var(--radius) var(--radius) 0; padding: 0.9rem 1.3rem; margin: 1.5rem 0; font-style: italic; font-size: 1.12rem; color: var(--paper); }
     .post-content blockquote p { margin-bottom: 0.5rem; }
     .post-content img { max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: var(--radius); }
     .post-content hr { border: none; border-top: 1px solid var(--line); margin: 2.5rem 0; }
