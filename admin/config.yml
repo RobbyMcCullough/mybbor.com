@@ -1,0 +1,65 @@
+# Sveltia CMS configuration.
+# Docs: https://sveltiacms.app/en/docs
+
+backend:
+  name: github
+  repo: RobbyMcCullough/mybbor.com
+  branch: main
+  # For this self-hosted (non-Netlify) site, sign in via either:
+  #   1. "Sign In with Token" on the login screen using a GitHub PAT (no config needed), or
+  #   2. an OAuth client — deploy https://github.com/sveltia/sveltia-cms-auth on
+  #      Cloudflare Workers and uncomment base_url below with your Worker URL.
+  # base_url: https://YOUR-WORKER.workers.dev
+
+# Uploaded images are committed to /img and referenced as /img/<file> on the site.
+media_folder: "img"
+public_folder: "/img"
+
+# Commit straight to main (which triggers the Caddy deploy). No PR workflow.
+publish_mode: simple
+
+collections:
+  - name: posts
+    label: "Blog posts"
+    label_singular: "Post"
+    folder: "posts"
+    extension: md
+    format: yaml-frontmatter
+    create: true
+    # Filename pattern: YYYY-MM-DD-<slug>.md (slug comes from the field below).
+    slug: "{{year}}-{{month}}-{{day}}-{{fields.slug}}"
+    summary: "{{date}} · {{title}}"
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: Title, widget: string }
+      - {
+          name: date,
+          label: Date,
+          widget: datetime,
+          date_format: "YYYY-MM-DD",
+          time_format: false,
+          picker_utc: false,
+        }
+      - { name: author, label: Author, widget: string, default: "Robby McCullough" }
+      - {
+          name: slug,
+          label: "URL slug",
+          widget: string,
+          pattern: ["^[a-z0-9]+(?:-[a-z0-9]+)*$", "Lowercase letters, numbers, and hyphens only."],
+          hint: "Becomes /posts/<slug>/ and the filename. e.g. building-a-thing",
+        }
+      - {
+          name: image,
+          label: "Featured image",
+          widget: image,
+          required: false,
+          hint: "Card thumbnail + social/SEO preview. Stored under /img.",
+        }
+      - {
+          name: excerpt,
+          label: Excerpt,
+          widget: string,
+          hint: "One or two sentences shown on the blog list and in social/SEO previews. Keep it to a single line.",
+        }
+      - { name: tags, label: Tags, widget: list, required: false }
+      - { name: body, label: Body, widget: markdown }

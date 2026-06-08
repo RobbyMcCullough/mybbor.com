@@ -3,6 +3,9 @@ title: "It Was Cool Until It Was Everywhere: Redesigning Mybbor.com"
 date: 2026-06-05
 author: Robby McCullough
 tags: [design, ai, agents, redesign]
+slug: redesigning-mybbor
+image: /img/redesign-hero.jpg
+excerpt: "I gave mybbor.com a redesign with Claude Code: kept the cyberpunk glitch hero, gave everything else a calm editorial treatment, and reframed the whole site as an AI lab. Slide through the before and after."
 ---
 
 # It Was Cool Until It Was Everywhere: Redesigning Mybbor.com

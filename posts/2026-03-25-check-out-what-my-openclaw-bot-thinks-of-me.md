@@ -3,6 +3,9 @@ title: Side-quest Cathedral
 date: 2026-03-25
 author: Robby McCullough
 tags: [openclaw, ai, photography, personal]
+slug: side-quest-cathedral
+image: /img/openclaw-garage.jpg
+excerpt: "I had my OpenClaw bot look at a photo of me in my garage and tell me what the space seemed to say about me. The result: systems, side quests, healthy masculinity, and strong garage goblin energy."
 ---
 
 # Side-quest Cathedral

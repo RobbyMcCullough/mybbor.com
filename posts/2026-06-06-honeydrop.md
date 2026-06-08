@@ -3,6 +3,9 @@ title: "honeydrop: Open-Source Codex Sites Alternative"
 date: 2026-06-06
 author: Robby McCullough
 tags: [open-source, self-hosted, codex-sites-alternative, caddy, ai-agents]
+slug: honeydrop
+image: /img/honeydrop-hive.jpg
+excerpt: "OpenAI's Codex Sites is great, but it's locked to Business and Enterprise plans. honeydrop is an open-source, self-hosted alternative: drop a Markdown or HTML file and it's live at a clean URL on your own domain, served by Caddy on a cheap VPS."
 ---
 
 # Building an Open-Source Tiny Publishing Hive

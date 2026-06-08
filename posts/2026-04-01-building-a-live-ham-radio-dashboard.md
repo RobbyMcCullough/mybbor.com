@@ -3,6 +3,9 @@ title: Building a Live Ham Radio Situational Awareness Dashboard
 date: 2026-04-01
 author: Robby McCullough
 tags: [ham radio, claude code, ai, web development, petaluma, sonoma county, weather, aprs]
+slug: building-a-live-ham-radio-dashboard
+image: /img/ham-dashboard-featured.jpg
+excerpt: "I wanted a single-page mission control display I could throw up on a TV and leave running. Sixteen auto-refreshing tiles, a custom APRS map, a SVG moon phase in the header, drag-and-drop layout persistence, and a WebGL surprise when I plugged in the LG."
 ---
 
 # Building a Live Ham Radio Situational Awareness Dashboard

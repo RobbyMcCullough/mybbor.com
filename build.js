@@ -237,18 +237,43 @@ function generatePage(post, data, contentHtml) {
 </html>`;
 }
 
-const posts = JSON.parse(fs.readFileSync('posts/index.json', 'utf8'));
+const POSTS_DIR = 'posts';
+
+// Derive the blog manifest from each post's frontmatter so the Markdown files
+// are the single source of truth (edited via Sveltia CMS). posts/index.json is
+// a generated artifact — see AGENTS.md.
+function buildManifest() {
+  return fs
+    .readdirSync(POSTS_DIR)
+    .filter(f => f.endsWith('.md'))
+    .map(file => {
+      const { data } = parseFrontmatter(fs.readFileSync(path.join(POSTS_DIR, file), 'utf8'));
+      if (!data.slug) {
+        console.warn(`Skipping ${file} — no "slug" in frontmatter`);
+        return null;
+      }
+      return {
+        file,
+        slug: data.slug,
+        title: data.title || data.slug,
+        date: data.date || '',
+        image: data.image || '',
+        excerpt: data.excerpt || ''
+      };
+    })
+    .filter(Boolean)
+    .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0)); // newest first
+}
+
+const posts = buildManifest();
+fs.writeFileSync(path.join(POSTS_DIR, 'index.json'), JSON.stringify(posts, null, 4) + '\n');
+console.log(`Wrote posts/index.json — ${posts.length} entries.`);
 
 for (const post of posts) {
-  const filePath = path.join('posts', post.file);
-  if (!fs.existsSync(filePath)) {
-    console.warn(`Skipping ${post.file} — file not found`);
-    continue;
-  }
-  const raw = fs.readFileSync(filePath, 'utf8');
+  const raw = fs.readFileSync(path.join(POSTS_DIR, post.file), 'utf8');
   const { data, body } = parseFrontmatter(raw);
   const contentHtml = marked.parse(body);
-  const outDir = path.join('posts', post.slug);
+  const outDir = path.join(POSTS_DIR, post.slug);
   fs.mkdirSync(outDir, { recursive: true });
   fs.writeFileSync(path.join(outDir, 'index.html'), generatePage(post, data, contentHtml));
   console.log(`Built: /posts/${post.slug}/`);

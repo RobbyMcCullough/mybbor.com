@@ -3,6 +3,9 @@ title: I Just Wanted a Ham Radio Cheat Sheet
 date: 2026-03-23
 author: Robby McCullough
 tags: [ham radio, claude code, ai, web development, baofeng]
+slug: i-just-wanted-a-ham-radio-cheat-sheet
+image: /img/petaluma-sonoma-cyberpunk.jpg
+excerpt: "I had a CSV file with some radio frequencies. I wanted to put it on the internet. Four hours later I had a cyberpunk command center with animated radar sweeps and a favicon I iterated on three times because the M looked wispy."
 ---
 
 # I Just Wanted a Ham Radio Cheat Sheet

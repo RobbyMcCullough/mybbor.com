@@ -3,6 +3,9 @@ title: "A $12 Netlify Alternative: Caddy, DigitalOcean, and One Shell Script"
 date: 2026-05-01
 author: Robby McCullough
 tags: [claude code, ai, web development, infrastructure, self-hosting, caddy, digitalocean]
+slug: netlify-alternative-caddy-digitalocean
+image: /img/andromeda-server.jpg
+excerpt: "I hit Netlify's free tier cap and decided to spin up a $12/mo DigitalOcean server running Caddy. A few hours with Claude Code later, I had a fully automated deployment pipeline, a script that migrates any site in one command, and a server named Andromeda."
 ---
 
 # A $12 Netlify Alternative: Caddy, DigitalOcean, and One Shell Script

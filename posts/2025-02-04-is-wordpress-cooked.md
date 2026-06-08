@@ -3,6 +3,9 @@ title: Is WordPress Cooked?
 date: 2025-02-04
 author: Robby McCullough
 tags: [ai, claude, wordpress, web development]
+slug: is-wordpress-cooked
+image: /img/is-wordpress-cooked.jpg
+excerpt: "This is my first Claude Code experiment. A vibe-coded personal landing page and blog, built entirely through conversation."
 ---
 
 # Is WordPress Cooked?
