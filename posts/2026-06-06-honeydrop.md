@@ -1,22 +1,25 @@
 ---
-title: "honeydrop: Open-Source Codex Sites Alternative"
+title: 'honeydrop: Open-Source Codex Sites Alternative'
 date: 2026-06-06
 author: Robby McCullough
-tags: [open-source, self-hosted, codex-sites-alternative, caddy, ai-agents]
 slug: honeydrop
 image: /img/honeydrop-hive.jpg
 excerpt: "OpenAI's Codex Sites is great, but it's locked to Business and Enterprise plans. honeydrop is an open-source, self-hosted alternative: drop a Markdown or HTML file and it's live at a clean URL on your own domain, served by Caddy on a cheap VPS."
+tags:
+  - open-source
+  - self-hosted
+  - codex-sites-alternative
+  - caddy
+  - ai-agents
 ---
 
 # Building an Open-Source Tiny Publishing Hive
 
-I kept hitting the same small problem. I would finish a Markdown note or some AI-generated document and want to hand someone a link. Not publish it. Just share it.
-
-Every option felt heavier than the task deserved. Google Docs is overkill for three paragraphs, emailing an HTML attachment is quietly embarrassing, and standing up a repo to share a single page makes you question your life choices. (OpenAI's new Codex Sites solves a version of this, but it's locked to paid business plans. More below.)
+I kept hitting the same small problem. I would finish a markdown note or some AI-generated document and want to share it with someone. (OpenAI's new Codex Sites solves a version of this, but it's locked to paid business plans. More below.) Sending raw markdown files through Slack or email isn't ideal. Converting them to HTML was a fun fad, but it makes them harder to edit, and it's more token intensive. 
 
 So I grabbed a short domain, `robb.ee`, and instead of the boring SFTP plan I first had in mind, I built a drag-and-drop upload page into the site itself.
 
-TL;DR: I created an open-source, self-hosted project called [honeydrop](https://github.com/RobbyMcCullough/honeydrop) for anyone that wants to do the same. The project includes an agent.md playbook that you can hand off to an agent and have it build for you. All that's needed is a VPS (I chose [Digital Ocean](https://www.wpbeaverbuilder.com/go/digitalocean/)) and a domain.
+TL;DR: I created an open-source, self-hosted project called [honeydrop](https://github.com/RobbyMcCullough/honeydrop) for anyone who wants to do the same. The project includes an agent.md playbook that you can hand off to an agent and have it build for you. All that's needed is a VPS (I chose [Digital Ocean](https://www.wpbeaverbuilder.com/go/digitalocean/)) and a domain.
 
 One thing up front that is purely my taste: because the domain is `robb.ee`, I leaned into a honeybee theme. A little hive aesthetic, a wax-seal emblem, and the name honeydrop. None of that is load-bearing. The code does not care how it looks, so if you set one up you can theme it however you see fit.
 
@@ -144,7 +147,7 @@ honeydrop gets you a similar, self-hosted experience with a little initial setup
 
 ## Give It a Try
 
-honeydrop is open source and up on GitHub: **[github.com/RobbyMcCullough/honeydrop](https://github.com/RobbyMcCullough/honeydrop)**.
+honeydrop is open source and up on GitHub: [**github.com/RobbyMcCullough/honeydrop**](https://github.com/RobbyMcCullough/honeydrop).
 
 If you've got a VPS running Caddy and a spare domain, you can have your own version going in an afternoon. The repo has a README, an example Caddyfile, and the little Node backend. Everything that was specific to robb.ee got pulled out into environment variables, so none of my setup is baked in.
 
