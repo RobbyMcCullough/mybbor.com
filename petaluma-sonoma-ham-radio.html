@@ -31,7 +31,8 @@
   <link rel="icon" type="image/svg+xml" href="img/Petaluma%20Sonoma%20Radio%20Reference%20Icon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800;900&family=Schibsted+Grotesk:wght@400;500;700&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Archivo:wght@800;900&family=Schibsted+Grotesk:wght@400;500;700&family=Spline+Sans+Mono:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800;900&family=Schibsted+Grotesk:wght@400;500;700&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -513,7 +514,7 @@
       <div class="hero-bg" aria-hidden="true">
         <picture>
           <source srcset="img/petaluma-sonoma-cyberpunk.webp" type="image/webp">
-          <img src="img/petaluma-sonoma-cyberpunk.jpg" alt="Petaluma-Sonoma ham radio frequency guide cyberpunk command center">
+          <img src="img/petaluma-sonoma-cyberpunk.jpg" alt="Petaluma-Sonoma ham radio frequency guide cyberpunk command center" width="1440" height="785" fetchpriority="high" decoding="async">
         </picture>
       </div>
       <div class="hero-overlay" aria-hidden="true"></div>
