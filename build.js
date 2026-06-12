@@ -27,7 +27,7 @@ function formatDate(dateString) {
   });
 }
 
-function generatePage(post, data, contentHtml) {
+function generatePage(post, data, contentHtml, olderPost, newerPost) {
   const title = data.title || post.title;
   const description = post.excerpt || '';
   const image = post.image ? `https://mybbor.com${post.image}` : 'https://mybbor.com/img/Mybbor.jpg';
@@ -35,6 +35,14 @@ function generatePage(post, data, contentHtml) {
   const postDate = data.date || post.date;
   const displayDate = formatDate(postDate);
   const author = data.author || 'Robby McCullough';
+  const shareU = encodeURIComponent(url);
+  const shareT = encodeURIComponent(title);
+  const navBack = olderPost
+    ? `<a class="post-nav-btn" href="/posts/${olderPost.slug}/" rel="prev">Back</a>`
+    : `<span class="post-nav-btn is-disabled" aria-disabled="true">Back</span>`;
+  const navNext = newerPost
+    ? `<a class="post-nav-btn" href="/posts/${newerPost.slug}/" rel="next">Next</a>`
+    : `<span class="post-nav-btn is-disabled" aria-disabled="true">Next</span>`;
   const contentWithDate = contentHtml.replace(
     /(<h1[^>]*>[\s\S]*?<\/h1>)/,
     `$1\n      <p class="post-date">By ${author} · Published ${displayDate}</p>`
@@ -131,7 +139,7 @@ function generatePage(post, data, contentHtml) {
     .logo.glitch-in { animation: glitch-in .5s steps(1) forwards; }
 
     /* ===== Article ===== */
-    .post-wrap { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; }
+    .post-wrap { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem 3rem; }
     .back-link { display: inline-block; font-family: var(--mono); font-size: 0.8rem; color: var(--slate); text-decoration: none; margin-bottom: 2rem; transition: color .2s; }
     .back-link:hover { color: var(--chartreuse); }
     .featured-image { width: 100%; height: auto; border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: 2.5rem; display: block; }
@@ -152,12 +160,48 @@ function generatePage(post, data, contentHtml) {
     .post-content blockquote p { margin-bottom: 0.5rem; }
     .post-content img { max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: var(--radius); }
     .post-content hr { border: none; border-top: 1px solid var(--line); margin: 2.5rem 0; }
-    .post-footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; font-family: var(--mono); font-size: 0.8rem; }
-    .post-footer a { color: var(--slate); text-decoration: none; }
-    .post-footer a:hover { color: var(--chartreuse); }
-    .post-footer-id { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; text-align: right; }
-    .qr-code { padding: 5px; background: var(--ink); border: 1px solid var(--line-strong); border-radius: var(--radius); line-height: 0; }
-    .qr-code canvas { display: block; width: 62px; height: 62px; }
+    .post-content .pullquote {
+      float: right;
+      width: min(46%, 320px);
+      margin: 0.5rem 0 1.2rem 2rem;
+      padding: 1.1rem 0 1.2rem;
+      border-top: 2px solid var(--chartreuse);
+      border-bottom: 1px solid var(--line);
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 1.4rem;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--paper);
+    }
+    .post-content .pullquote::before { content: "\\201C"; display: block; color: var(--chartreuse); font-size: 2.2rem; line-height: 0.6; margin-bottom: 0.5rem; }
+    @media (max-width: 560px) {
+      .post-content .pullquote { float: none; width: 100%; margin: 1.8rem 0; }
+    }
+    /* ===== Post meta footer: byline + share + prev/random/next ===== */
+    .post-meta-footer { margin-top: 3.5rem; border-top: 1px solid var(--line); padding-top: 1.6rem; }
+    .post-byline-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .post-byline { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--slate); }
+    .share-row { display: flex; align-items: center; gap: 1rem; }
+    .share-row a, .share-row button { display: inline-flex; color: var(--slate); background: none; border: none; padding: 0; cursor: pointer; transition: color .2s ease; }
+    .share-row a:hover, .share-row button:hover { color: var(--chartreuse); }
+    .share-row svg { width: 18px; height: 18px; }
+    .share-copy .icon-check { display: none; }
+    .share-copy.copied { color: var(--chartreuse); }
+    .share-copy.copied .icon-link { display: none; }
+    .share-copy.copied .icon-check { display: block; }
+    .post-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.6rem; }
+    .post-nav-btn { display: block; text-align: center; font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--paper); text-decoration: none; border: 1px solid var(--line-strong); border-radius: var(--radius); padding: 0.85rem 0.5rem; transition: color .2s ease, border-color .2s ease; }
+    a.post-nav-btn:hover { color: var(--chartreuse); border-color: var(--chartreuse); }
+    .post-nav-btn.is-disabled { color: var(--slate); opacity: 0.45; border-color: var(--line); }
+    @media (max-width: 560px) { .post-nav { gap: 0.6rem; } .post-nav-btn { font-size: 0.7rem; letter-spacing: 0.08em; padding: 0.75rem 0.25rem; } }
+
+    /* ===== Universal site footer (keep in sync with index.html) ===== */
+    .site-footer { border-top: 1px solid var(--line); padding: 3rem 0 3.5rem; }
+    .site-footer-inner { max-width: 860px; margin: 0 auto; padding: 0 1.5rem; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; text-align: center; }
+    .site-footer-meta { display: flex; flex-direction: column; gap: 0.45rem; font-family: var(--mono); font-size: 0.8rem; color: var(--slate); }
+    .site-footer a { color: var(--slate); }
+    .site-footer a:hover { color: var(--paper); }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -186,14 +230,34 @@ function generatePage(post, data, contentHtml) {
       ${contentWithDate}
     </article>
 
-    <footer class="post-footer">
-      <a href="/#writing">← All writing</a>
-      <div class="post-footer-id">
-        <div class="qr-code" id="qrcode"></div>
-        <a href="/">mybbor.com</a>
+    <footer class="post-meta-footer">
+      <div class="post-byline-row">
+        <span class="post-byline">By ${author} &middot; ${displayDate}</span>
+        <div class="share-row">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=${shareU}" target="_blank" rel="noopener" aria-label="Share on Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+          <a href="https://x.com/intent/post?url=${shareU}&amp;text=${shareT}" target="_blank" rel="noopener" aria-label="Share on X"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></a>
+          <a href="https://www.linkedin.com/sharing/share-offsite/?url=${shareU}" target="_blank" rel="noopener" aria-label="Share on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+          <a href="https://www.reddit.com/submit?url=${shareU}&amp;title=${shareT}" target="_blank" rel="noopener" aria-label="Share on Reddit"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg></a>
+          <a href="https://news.ycombinator.com/submitlink?u=${shareU}&amp;t=${shareT}" target="_blank" rel="noopener" aria-label="Share on Hacker News"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M0 24V0h24v24H0zM6.951 5.896l4.112 7.708v5.064h1.583v-4.972l4.148-7.799h-1.749l-2.457 4.875c-.372.745-.688 1.434-.688 1.434s-.297-.708-.651-1.434L8.831 5.896h-1.88z"/></svg></a>
+          <button type="button" class="share-copy" aria-label="Copy link"><svg class="icon-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></button>
+        </div>
       </div>
+      <nav class="post-nav" aria-label="Post navigation">
+        ${navBack}
+        <a class="post-nav-btn" href="/#writing" id="random-post">Random</a>
+        ${navNext}
+      </nav>
     </footer>
   </main>
+
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <div class="site-footer-meta">
+        <a href="/">&copy; <span id="copyright-year"></span> Robby McCullough</a>
+        <a href="https://robbymccullough.com" target="_blank" rel="noopener">robbymccullough.com</a>
+      </div>
+    </div>
+  </footer>
 
   <script>
     (function () {
@@ -214,25 +278,40 @@ function generatePage(post, data, contentHtml) {
     })();
   </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
   <script>
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+    // Random post: pick any other slug from the manifest
     (function () {
-      var el = document.getElementById('qrcode');
-      if (!el || typeof qrcode === 'undefined') return;
-      var qr = qrcode(4, 'M');
-      qr.addData(window.location.origin || 'https://mybbor.com');
-      qr.make();
-      var count = qr.getModuleCount(), margin = 4, cell = 5;
-      var px = (count + margin * 2) * cell;
-      var c = document.createElement('canvas');
-      c.width = c.height = px;
-      var ctx = c.getContext('2d');
-      ctx.fillStyle = '#15171B'; ctx.fillRect(0, 0, px, px);
-      ctx.fillStyle = '#F2F0E9';
-      for (var r = 0; r < count; r++) for (var col = 0; col < count; col++) if (qr.isDark(r, col)) ctx.fillRect((col + margin) * cell, (r + margin) * cell, cell, cell);
-      el.appendChild(c);
+      var btn = document.getElementById('random-post');
+      if (!btn) return;
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        fetch('/posts/index.json')
+          .then(function (r) { return r.json(); })
+          .then(function (list) {
+            var others = list.filter(function (p) { return p.slug !== '${post.slug}'; });
+            if (!others.length) { window.location.href = '/#writing'; return; }
+            var pick = others[Math.floor(Math.random() * others.length)];
+            window.location.href = '/posts/' + pick.slug + '/';
+          })
+          .catch(function () { window.location.href = '/#writing'; });
+      });
+    })();
+
+    // Copy link button
+    (function () {
+      var btn = document.querySelector('.share-copy');
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        navigator.clipboard.writeText(window.location.href).then(function () {
+          btn.classList.add('copied');
+          setTimeout(function () { btn.classList.remove('copied'); }, 1500);
+        });
+      });
     })();
   </script>
+
 </body>
 </html>`;
 }
@@ -258,6 +337,7 @@ function buildManifest() {
         title: data.title || data.slug,
         date: data.date || '',
         image: data.image || '',
+        thumb_position: data.thumb_position || '',
         excerpt: data.excerpt || ''
       };
     })
@@ -269,14 +349,17 @@ const posts = buildManifest();
 fs.writeFileSync(path.join(POSTS_DIR, 'index.json'), JSON.stringify(posts, null, 4) + '\n');
 console.log(`Wrote posts/index.json — ${posts.length} entries.`);
 
-for (const post of posts) {
+posts.forEach((post, i) => {
   const raw = fs.readFileSync(path.join(POSTS_DIR, post.file), 'utf8');
   const { data, body } = parseFrontmatter(raw);
   const contentHtml = marked.parse(body);
   const outDir = path.join(POSTS_DIR, post.slug);
+  // Posts are sorted newest first: next is the newer neighbor, back is the older one.
+  const newerPost = posts[i - 1] || null;
+  const olderPost = posts[i + 1] || null;
   fs.mkdirSync(outDir, { recursive: true });
-  fs.writeFileSync(path.join(outDir, 'index.html'), generatePage(post, data, contentHtml));
+  fs.writeFileSync(path.join(outDir, 'index.html'), generatePage(post, data, contentHtml, olderPost, newerPost));
   console.log(`Built: /posts/${post.slug}/`);
-}
+});
 
 console.log(`Done — ${posts.length} posts built.`);

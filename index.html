@@ -474,17 +474,12 @@
         /* ============================================================
            FOOTER — holds the QR code now
            ============================================================ */
-        .footer { padding: 3rem 0 3.5rem; }
-        .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; text-align: center; }
-
-        .qr-container { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
-        .qr-code { padding: 8px; background: var(--ink); border: 1px solid var(--line-strong); border-radius: var(--radius); line-height: 0; }
-        .qr-code canvas { display: block; width: 96px; height: 96px; }
-        .qr-label { font-family: var(--mono); font-size: 0.7rem; color: var(--slate); letter-spacing: 0.1em; text-transform: uppercase; }
-
-        .footer p { font-family: var(--mono); font-size: 0.8rem; color: var(--slate); }
-        .footer a { color: var(--slate); }
-        .footer a:hover { color: var(--paper); }
+        /* Universal site footer (keep in sync with build.js post template) */
+        .site-footer { border-top: 1px solid var(--line); padding: 3rem 0 3.5rem; }
+        .site-footer-inner { max-width: 860px; margin: 0 auto; padding: 0 1.5rem; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; text-align: center; }
+        .site-footer-meta { display: flex; flex-direction: column; gap: 0.45rem; font-family: var(--mono); font-size: 0.8rem; color: var(--slate); }
+        .site-footer a { color: var(--slate); }
+        .site-footer a:hover { color: var(--paper); }
 
         /* ---------- Responsive ---------- */
         @media (max-width: 620px) {
@@ -576,13 +571,12 @@
         </section>
     </main>
 
-    <footer class="footer">
-        <div class="wrap footer-inner">
-            <div class="qr-container">
-                <div class="qr-code" id="qrcode"></div>
-                <span class="qr-label">Scan to visit</span>
+    <footer class="site-footer">
+        <div class="site-footer-inner">
+            <div class="site-footer-meta">
+                <a href="/">&copy; <span id="copyright-year"></span> Robby McCullough</a>
+                <a href="https://robbymccullough.com" target="_blank" rel="noopener">robbymccullough.com</a>
             </div>
-            <p>&copy; <span id="copyright-year"></span> <a href="https://robbymccullough.com" target="_blank" rel="noopener">Robby McCullough</a> · <a href="https://github.com/RobbyMcCullough/mybbor.com" target="_blank" rel="noopener">View on GitHub</a></p>
         </div>
     </footer>
 
@@ -604,37 +598,6 @@
                 rain.appendChild(drop);
             }
         }
-
-        // QR Code Generator — now in the footer, flat (no neon filter)
-        (function() {
-            const script = document.createElement('script');
-            script.src = 'https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js';
-            script.onload = function() {
-                const qrContainer = document.getElementById('qrcode');
-                const qr = qrcode(4, 'M');
-                qr.addData(window.location.origin || 'https://mybbor.com');
-                qr.make();
-                // Render inverted: dark ground, light modules (predominantly dark)
-                const count = qr.getModuleCount();
-                const margin = 4, cell = 6;
-                const px = (count + margin * 2) * cell;
-                const canvas = document.createElement('canvas');
-                canvas.width = canvas.height = px;
-                const ctx = canvas.getContext('2d');
-                ctx.fillStyle = '#15171B';
-                ctx.fillRect(0, 0, px, px);
-                ctx.fillStyle = '#F2F0E9';
-                for (let r = 0; r < count; r++) {
-                    for (let c = 0; c < count; c++) {
-                        if (qr.isDark(r, c)) {
-                            ctx.fillRect((c + margin) * cell, (r + margin) * cell, cell, cell);
-                        }
-                    }
-                }
-                qrContainer.appendChild(canvas);
-            };
-            document.head.appendChild(script);
-        })();
 
         // Obfuscated email - assembled at runtime to prevent scraping
         (function() {
@@ -701,7 +664,7 @@
                             <div class="chips"><span class="chip">LOG</span></div>
                             <h3 class="entry-title">${post.title}</h3>
                             <p class="entry-excerpt">${post.excerpt}</p>
-                            ${post.image ? `<img class="entry-thumb" src="${post.image}" alt="${post.title}" loading="lazy">` : ''}
+                            ${post.image ? `<img class="entry-thumb" src="${post.image}" alt="${post.title}" loading="lazy"${post.thumb_position ? ` style="object-position: center ${post.thumb_position}"` : ''}>` : ''}
                             <span class="entry-cta">Read →</span>
                         `;
                         postsContainer.appendChild(card);

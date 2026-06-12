@@ -1,6 +1,6 @@
 # MYBBOR Personal Site
 
-Personal landing page with contact links, QR code, blog, and tools/projects section.
+Personal landing page with contact links, blog, and tools/projects section.
 
 ## Tech Stack
 
@@ -31,7 +31,7 @@ Personal landing page with contact links, QR code, blog, and tools/projects sect
 
 ### `index.html`
 
-- Landing page: a cyberpunk masthead (centered anchor nav + animated glitch logo) over a background photo, fading into editorial About / Projects / AI-Assisted Writing sections; QR code in the footer.
+- Landing page: a cyberpunk masthead (centered anchor nav + animated glitch logo) over a background photo, fading into editorial About / Projects / AI-Assisted Writing sections; universal site footer (copyright + personal blog link) shared with post pages.
 - Blog list loads from `posts/index.json`; each card links to its standalone page at `/posts/<slug>/`.
 - To add a project card, add an `<a class="project-quick">` entry in the `.project-grid` div.
 
@@ -72,6 +72,9 @@ the post pages and the `posts/index.json` manifest from their frontmatter.
 
    `slug` drives the URL (`/posts/<slug>/`). Keep `excerpt` on one line — `build.js` uses a
    lightweight frontmatter parser that does not handle YAML block scalars.
+   Optional: `thumb_position` (e.g. `60%`) overrides the vertical crop of the homepage
+   card thumbnail (`object-position`; the default from CSS is `25%`). The full image always
+   shows uncropped on the post page.
 3. Run `node build.js` and inspect the generated `posts/<slug>/index.html`. Do **not** edit
    `posts/index.json` by hand — it is regenerated from frontmatter (and is gitignored).
 
