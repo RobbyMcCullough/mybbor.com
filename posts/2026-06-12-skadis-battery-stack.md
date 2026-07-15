@@ -1,6 +1,7 @@
 ---
 title: How I'm Designing 3D Prints with AI (No CAD Required)
 date: 2026-06-12
+category: 3D Printing
 author: Robby McCullough
 slug: skadis-battery-stack
 image: /img/battery-stack-hero.jpg

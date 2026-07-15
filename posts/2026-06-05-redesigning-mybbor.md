@@ -1,6 +1,7 @@
 ---
 title: "It Was Cool Until It Was Everywhere: Redesigning Mybbor.com"
 date: 2026-06-05
+category: Design
 author: Robby McCullough
 tags: [design, ai, agents, redesign]
 slug: redesigning-mybbor

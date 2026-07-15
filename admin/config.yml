@@ -40,6 +40,14 @@ collections:
           time_format: false,
           picker_utc: false,
         }
+      - {
+          name: category,
+          label: Category,
+          widget: select,
+          required: true,
+          options: ["Games", "3D Printing", "Ham Radio", "Self-Hosting", "Design", "WordPress", "Personal"],
+          hint: "Label chip shown on the homepage blog card. Reuse an existing one to keep the set tidy.",
+        }
       - { name: author, label: Author, widget: string, default: "Robby McCullough" }
       - {
           name: slug,
@@ -62,4 +70,7 @@ collections:
           hint: "One or two sentences shown on the blog list and in social/SEO previews. Keep it to a single line.",
         }
       - { name: tags, label: Tags, widget: list, required: false }
-      - { name: body, label: Body, widget: markdown }
+      # Pull quotes use trusted raw HTML (<aside class="pullquote">) in Markdown.
+      # Sveltia sanitizes preview HTML by default, so disable that only for this
+      # private, trusted-author collection to match the generated post preview.
+      - { name: body, label: Body, widget: markdown, sanitize_preview: false }

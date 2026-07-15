@@ -1,6 +1,7 @@
 ---
 title: 'honeydrop: Open-Source Codex Sites Alternative'
 date: 2026-06-06
+category: Self-Hosting
 author: Robby McCullough
 slug: honeydrop
 image: /img/honeydrop-hive.jpg

@@ -6,6 +6,7 @@ Markdown straight to the `main` branch, which triggers the normal Caddy deploy.
 
 - `admin/index.html` — loads Sveltia from the CDN.
 - `admin/config.yml` — the collection schema (one entry per blog post).
+- `admin/preview.css` — mirrors the generated post styles inside Sveltia's preview pane.
 
 ## How content flows
 
@@ -19,6 +20,16 @@ Markdown straight to the `main` branch, which triggers the normal Caddy deploy.
 Each post's frontmatter carries `title`, `date`, `author`, `slug`, `image`, `excerpt`, and
 `tags`. Keep `excerpt` to a single line — `build.js` uses a lightweight frontmatter parser,
 so a multi-line/block value won't be picked up for the blog-list card.
+
+## Editor preview
+
+Sveltia's preview pane loads `admin/preview.css`, so typography, images, blockquotes, and
+`<aside class="pullquote">` elements closely match the generated post without running
+`node build.js`. The Markdown body has `sanitize_preview: false` because Sveltia otherwise
+removes the raw HTML used by pull quotes. Keep this setting limited to trusted authors.
+
+After changing `admin/config.yml` or `admin/preview.css`, reload the CMS tab. A full site
+build is still required to update the actual local post page.
 
 ## One-time sign-in setup
 

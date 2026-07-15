@@ -10,5 +10,8 @@
     <!-- Sveltia CMS — modern, Git-based successor to Decap/Netlify CMS.
          Reads config from ./config.yml. See admin/README.md for auth setup. -->
     <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+    <script>
+      CMS.registerPreviewStyle('/admin/preview.css');
+    </script>
   </body>
 </html>

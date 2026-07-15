@@ -54,14 +54,20 @@ Posts can be authored either through the CMS (see **Content Management** below) 
 The Markdown files in `posts/` are the **single source of truth**; `build.js` derives both
 the post pages and the `posts/index.json` manifest from their frontmatter.
 
+Use `WRITING-PROFILE.md` as the local pointer to Robby's writing guidance. The canonical
+writing profile lives outside this repo at
+`/Users/mybbor/Library/CloudStorage/Dropbox/AI/agent-context/robby-writing-profile/robby-writing-voice-profile-v6.yaml`.
+Do not copy that YAML into this project.
+
 1. Create a Markdown file in `posts/`, named `YYYY-MM-DD-<slug>.md`.
 2. Include full frontmatter — every field below is required for the post to appear correctly
-   on the blog list (the `slug`, `image`, and `excerpt` fields feed `posts/index.json`):
+   on the blog list (the `slug`, `image`, `excerpt`, and `category` fields feed `posts/index.json`):
 
    ```markdown
    ---
    title: "Post Title"
    date: YYYY-MM-DD
+   category: Games
    author: Robby McCullough
    slug: post-slug
    image: /img/post-image.jpg
@@ -72,11 +78,17 @@ the post pages and the `posts/index.json` manifest from their frontmatter.
 
    `slug` drives the URL (`/posts/<slug>/`). Keep `excerpt` on one line — `build.js` uses a
    lightweight frontmatter parser that does not handle YAML block scalars.
+   `category` sets the label chip on the homepage blog card (CSS uppercases it). Reuse an
+   existing category so the set stays tidy: Games, 3D Printing, Ham Radio, Self-Hosting,
+   Design, WordPress, Personal. If `category` is omitted, `build.js` falls back to `Log`.
    Optional: `thumb_position` (e.g. `60%`) overrides the vertical crop of the homepage
    card thumbnail (`object-position`; the default from CSS is `25%`). The full image always
    shows uncropped on the post page.
 3. Run `node build.js` and inspect the generated `posts/<slug>/index.html`. Do **not** edit
    `posts/index.json` by hand — it is regenerated from frontmatter (and is gitignored).
+
+For post featured images, follow `BLOG-FEATURED-IMAGES.md`. The current convention is to
+save the final image in `img/` and reference it from frontmatter with `/img/<slug>.jpg`.
 
 ## Content Management
 

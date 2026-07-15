@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@800;900&family=Schibsted+Grotesk:wght@400;500;700&family=Spline+Sans+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --ink: #15171b;
+  --ink-raised: #1b1e23;
+  --paper: #f2f0e9;
+  --slate: #9aa3b2;
+  --chartreuse: #c3e940;
+  --line: rgba(242, 240, 233, 0.1);
+  --radius: 6px;
+  --display: 'Archivo', system-ui, sans-serif;
+  --body: 'Schibsted Grotesk', system-ui, sans-serif;
+  --mono: 'Spline Sans Mono', ui-monospace, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--ink);
+}
+
+body {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--body);
+  line-height: 1.8;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--paper);
+  font-family: var(--display);
+  font-weight: 800;
+}
+
+h1 {
+  margin: 0 0 0.6rem;
+  font-size: clamp(1.9rem, 4.5vw, 2.8rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  margin: 2.5rem 0 1rem;
+  font-size: 1.6rem;
+}
+
+h3 {
+  margin: 2rem 0 0.75rem;
+  font-size: 1.25rem;
+}
+
+p {
+  margin: 0 0 1.2rem;
+}
+
+a {
+  color: var(--chartreuse);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+ul,
+ol {
+  margin: 1rem 0 1.2rem 1.5rem;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+code {
+  border-radius: 4px;
+  padding: 0.12rem 0.4rem;
+  background: var(--ink-raised);
+  color: var(--chartreuse);
+  font-family: var(--mono);
+  font-size: 0.88em;
+}
+
+blockquote {
+  margin: 1.5rem 0;
+  border-left: 2px solid var(--chartreuse);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 0.9rem 1.3rem;
+  background: rgba(0, 0, 0, 0.22);
+  color: var(--paper);
+  font-size: 1.12rem;
+  font-style: italic;
+}
+
+blockquote p {
+  margin-bottom: 0.5rem;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.pullquote {
+  float: right;
+  width: min(46%, 320px);
+  margin: 0.5rem 0 1.2rem 2rem;
+  border-top: 2px solid var(--chartreuse);
+  border-bottom: 1px solid var(--line);
+  padding: 1.1rem 0 1.2rem;
+  color: var(--paper);
+  font-family: var(--display);
+  font-size: 1.4rem;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.pullquote::before {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--chartreuse);
+  content: '\201c';
+  font-size: 2.2rem;
+  line-height: 0.6;
+}
+
+@media (max-width: 560px) {
+  .pullquote {
+    float: none;
+    width: 100%;
+    margin: 1.8rem 0;
+  }
+}

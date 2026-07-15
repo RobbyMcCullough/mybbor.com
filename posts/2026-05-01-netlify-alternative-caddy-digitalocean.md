@@ -1,6 +1,7 @@
 ---
 title: "A $12 Netlify Alternative: Caddy, DigitalOcean, and One Shell Script"
 date: 2026-05-01
+category: Self-Hosting
 author: Robby McCullough
 tags: [claude code, ai, web development, infrastructure, self-hosting, caddy, digitalocean]
 slug: netlify-alternative-caddy-digitalocean

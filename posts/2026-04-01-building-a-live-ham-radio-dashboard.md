@@ -1,6 +1,7 @@
 ---
 title: Building a Live Ham Radio Situational Awareness Dashboard
 date: 2026-04-01
+category: Ham Radio
 author: Robby McCullough
 tags: [ham radio, claude code, ai, web development, petaluma, sonoma county, weather, aprs]
 slug: building-a-live-ham-radio-dashboard

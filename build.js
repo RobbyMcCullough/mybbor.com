@@ -338,7 +338,8 @@ function buildManifest() {
         date: data.date || '',
         image: data.image || '',
         thumb_position: data.thumb_position || '',
-        excerpt: data.excerpt || ''
+        excerpt: data.excerpt || '',
+        category: data.category || 'Log'
       };
     })
     .filter(Boolean)

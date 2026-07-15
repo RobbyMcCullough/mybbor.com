@@ -1,6 +1,7 @@
 ---
 title: Is WordPress Cooked?
 date: 2025-02-04
+category: WordPress
 author: Robby McCullough
 tags: [ai, claude, wordpress, web development]
 slug: is-wordpress-cooked

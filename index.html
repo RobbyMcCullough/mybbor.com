@@ -524,8 +524,8 @@
                 </div>
                 <div class="glow-line"></div>
                 <div class="about-text">
-                    <p>Welcome to my AI lab. This is where I document <strong>AI-assisted projects and posts</strong>.</p>
-                    <p>It's deliberately separate from my main blog at <a href="https://robbymccullough.com" target="_blank" rel="noopener">robbymccullough.com</a>, the more polished, personal-brand side (business, Beaver Builder, life). Think of this place as the experimental annex: more AI, more tinkering, fewer rules.</p>
+                    <p>This is my open notebook for building things with AI. I document the projects here, and unlike my other sites, I let AI into the writing itself.</p>
+                    <p>The experiments run next door in my WordPress AI lab at <a href="https://lab.robbymccullough.com" target="_blank" rel="noopener">lab.robbymccullough.com</a>. My polished, by-hand writing lives on <a href="https://robbymccullough.com" target="_blank" rel="noopener">robbymccullough.com</a> (business, Beaver Builder, life). Mybbor is the loose space in between: more tinkering, fewer rules, and the one place where the writing is openly AI-assisted.</p>
                 </div>
             </div>
         </section>
@@ -537,6 +537,13 @@
                 </div>
                 <div class="glow-line"></div>
                 <div class="project-grid">
+                    <a class="project-quick" href="https://lab.robbymccullough.com/super-beaver-world/" target="_blank" rel="noopener" style="--img:url('img/projects/super-beaver-world.webp')">
+                        <span class="pq-external" aria-hidden="true">&#8599;</span>
+                        <div class="pq-body">
+                            <h3 class="pq-title">Super Beaver World</h3>
+                            <p class="pq-desc">Mario-style side-scroller built with AI. Bring a thumb.</p>
+                        </div>
+                    </a>
                     <a class="project-quick" href="/petaluma-sonoma-ham-radio.html" style="--img:url('img/projects/radio-reference.webp')">
                         <div class="pq-body">
                             <h3 class="pq-title">Radio Reference</h3>
@@ -661,7 +668,7 @@
                         card.href = '/posts/' + post.slug + '/';
                         card.innerHTML = `
                             <span class="date">${post.date}</span>
-                            <div class="chips"><span class="chip">LOG</span></div>
+                            <div class="chips"><span class="chip">${post.category || 'Log'}</span></div>
                             <h3 class="entry-title">${post.title}</h3>
                             <p class="entry-excerpt">${post.excerpt}</p>
                             ${post.image ? `<img class="entry-thumb" src="${post.image}" alt="${post.title}" loading="lazy"${post.thumb_position ? ` style="object-position: center ${post.thumb_position}"` : ''}>` : ''}

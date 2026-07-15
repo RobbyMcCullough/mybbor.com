@@ -1,6 +1,7 @@
 ---
 title: I Just Wanted a Ham Radio Cheat Sheet
 date: 2026-03-23
+category: Ham Radio
 author: Robby McCullough
 tags: [ham radio, claude code, ai, web development, baofeng]
 slug: i-just-wanted-a-ham-radio-cheat-sheet

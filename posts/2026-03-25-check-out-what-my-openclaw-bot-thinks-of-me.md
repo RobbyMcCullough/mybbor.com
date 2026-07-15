@@ -1,6 +1,7 @@
 ---
 title: Side-quest Cathedral
 date: 2026-03-25
+category: Personal
 author: Robby McCullough
 tags: [openclaw, ai, photography, personal]
 slug: side-quest-cathedral
