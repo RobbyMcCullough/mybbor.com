@@ -4,7 +4,7 @@
 
 ## Projects
 
-- [Petaluma-Sonoma Radio Reference](https://mybbor.com/petaluma-sonoma-ham-radio.html): A personal, opinionated ham radio frequency guide for Petaluma and Sonoma County, CA. 128 CHIRP-ready channels (repeaters, ACS emergency, APRS, NOAA weather, FRS/GMRS, marine VHF, aviation) with a downloadable CHIRP-compatible CSV.
+- [Petaluma & Sonoma Ham Radio Frequencies](https://mybbor.com/petaluma-sonoma-ham-radio.html): A personal, opinionated ham radio frequency guide for Petaluma and Sonoma County, CA. Two downloadable CHIRP-compatible CSVs (repeaters, ACS emergency, APRS, NOAA weather, FRS/GMRS, marine VHF, aviation): "All Channels" with 155 channels including AM airband, and "No AM" with 140 channels for radios that cannot receive AM, such as the Baofeng UV-5R. Tested with a UV-5R via CHIRP.
 - [North Bay Ham Dashboard](https://mybbor.com/ham-dashboard.html): A live situational-awareness dashboard (local radar, GOES-18 satellite, APRS, fire-watch cameras, space weather, traffic cams) for the North Bay. Callsign KN6KVS.
 
 ## Writing
