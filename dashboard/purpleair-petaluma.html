@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PurpleAir — Petaluma</title>
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; background: #0a0a0f; overflow: hidden; }
+
+    #wrap { position: absolute; inset: 0; overflow: hidden; }
+
+    /* The PurpleAir map is cross-origin, so its top nav and cookie banner can't be
+       removed from the DOM. Instead render it at a fixed desktop size — a tile-sized
+       viewport flips it to a cramped mobile layout — then shift the chrome out of
+       view and scale what's left to cover the tile. See fit() below. */
+    #pa {
+      position: absolute; top: 0; left: 0;
+      width: 1000px; height: 760px;
+      border: 0;
+      transform-origin: 0 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <iframe id="pa"
+      src="https://map.purpleair.com/air-quality-standards-us-epa-aqi?opt=%2F1%2Flp%2Fa10%2Fp604800%2FcC0#11/38.2324/-122.6367"
+      referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+
+  <script>
+    // Height of PurpleAir's own page chrome, in iframe pixels at the fixed size below.
+    const CHROME_TOP    = 58;   // purple nav bar
+    const CHROME_BOTTOM = 130;  // cookie / privacy banner + attribution strip
+    const IFRAME_W = 1000, IFRAME_H = 760;
+
+    const pa = document.getElementById('pa');
+
+    function fit() {
+      const visibleH = IFRAME_H - CHROME_TOP - CHROME_BOTTOM;
+      // "cover" the tile so no letterboxing shows through to the background
+      const scale = Math.max(window.innerWidth / IFRAME_W, window.innerHeight / visibleH);
+      // transform-origin is 0 0 and translate runs in the scaled coordinate space,
+      // so this lifts the nav bar off the top edge before scaling up.
+      pa.style.transform = `scale(${scale}) translateY(${-CHROME_TOP}px)`;
+    }
+
+    fit();
+    window.addEventListener('resize', fit);
+  </script>
+</body>
+</html>

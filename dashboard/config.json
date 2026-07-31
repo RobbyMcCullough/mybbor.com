@@ -32,9 +32,9 @@
      "iframe|/dashboard/cam-petaluma1.html",
      30000],
 
-    ["HF PROPAGATION",
-     "https://www.hamqsl.com/solar101vhf.php",
-     20000],
+    ["PETALUMA — PURPLEAIR PM2.5",
+     "iframe|/dashboard/purpleair-petaluma.html",
+     300000],
 
     [["GOES-18 GEOCOLOR", "GOES-18 SANDWICH"],
      ["https://cdn.star.nesdis.noaa.gov/GOES18/ABI/SECTOR/psw/GEOCOLOR/GOES18-PSW-GEOCOLOR-600x600.gif",

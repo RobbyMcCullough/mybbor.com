@@ -1528,15 +1528,17 @@ var tileDelay = ${JSON.stringify(settings.aImages.map(item => item[2]), null, 2)
       }
 
       // Case 2: Default loading chain
-      // Try config.js -> config.json -> Minimal
-      console.log("No config specified, attempting default chain: config.js -> config.json");
+      // Load dashboard/config.json directly. Do NOT probe for a dashboard/config.js
+      // first: Caddy serves index.html with a 200 for unknown paths, so the probe
+      // "succeeds", the browser parses HTML as JS, and script.onload still fires
+      // (parse errors don't trigger onerror). The fallback to config.json then never
+      // runs and the dashboard comes up empty — which is what happened in production
+      // while it kept working locally, where a real 404 triggered the fallback.
+      console.log("No config specified, loading dashboard/config.json");
 
-      loadScriptConfig("dashboard/config.js", () => {
-        console.log("config.js failed, falling back to config.json");
-        loadJsonConfig("dashboard/config.json", () => {
-          console.log("config.json failed, falling back to minimal");
-          minimalConfiguration();
-        });
+      loadJsonConfig("dashboard/config.json", () => {
+        console.log("config.json failed, falling back to minimal");
+        minimalConfiguration();
       });
     }
 
