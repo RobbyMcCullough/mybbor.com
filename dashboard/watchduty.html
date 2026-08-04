@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Watch Duty — Live Fire Map</title>
+  <style>
+    html, body {
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
+      background: #0a0a0f;
+      color: #fff;
+      font-family: "Victor Mono", monospace;
+      overflow: hidden;
+    }
+    /* Clipping window. The Watch Duty app is rendered at a desktop-sized
+       viewport inside, then scaled down and offset so only its map canvas
+       shows — its top bar and incident sidebar get cropped off. */
+    #stage {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    #wd {
+      position: absolute;
+      left: 0;
+      border: 0 none;
+      transform-origin: 0 0;
+      background: #0a0a0f;
+    }
+    #fallback {
+      position: absolute;
+      inset: 0;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 14px;
+      box-sizing: border-box;
+    }
+    #fallback.show { display: flex; }
+    /* The app's own attribution and branding sit in the cropped-off chrome,
+       so carry it here instead. */
+    #credit {
+      position: absolute;
+      left: 5px; bottom: 4px;
+      font-size: 7px;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.55);
+      text-shadow: 0 0 3px rgba(0,0,0,0.9), 0 0 6px rgba(0,0,0,0.7);
+      pointer-events: none;
+      z-index: 2;
+    }
+    #fallback .title {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: rgba(255, 100, 0, 0.85);
+      margin-bottom: 6px;
+    }
+    #fallback .msg {
+      font-size: 10px;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.6);
+    }
+    #fallback .msg b { color: rgba(0,240,255,0.75); font-weight: normal; }
+  </style>
+</head>
+<body>
+  <div id="stage">
+    <iframe id="wd" title="Watch Duty live fire map" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+  <div id="credit">WATCH DUTY · © MAPBOX · © OSM</div>
+
+  <div id="fallback">
+    <div class="title">🔥 WATCH DUTY — UNAVAILABLE</div>
+    <div class="msg">
+      This browser has no <b>WebGL</b>, which Watch Duty's map requires.<br>
+      Open <b>app.watchduty.org</b> on a phone or laptop.
+    </div>
+  </div>
+
+  <script>
+    // View is defined by the north-south extent we want to keep visible, not by
+    // a fixed zoom, so the same tile framing holds at any panel size.
+    const CENTER_LAT = 38.075;  // midpoint of Morgan Hill (37.13) and Clear Lake (39.02)
+    const CENTER_LNG = -122.05; // biased inland: open ocean carries no incidents
+    const LAT_SPAN   = 2.30;    // those two landmarks, plus ~0.2 deg of margin each way
+
+    // Measured against the live app: 64px top bar, 375px incident sidebar,
+    // both cropped. Map canvas fills the remaining width. FOOTER crops the
+    // app-store promo card that floats over the bottom of the map.
+    const HEADER  = 64;
+    const SIDEBAR = 375;
+    const FOOTER  = 95;
+    const MAP_W   = 625;  // keeps the inner viewport at 1000px, safely in the
+                          // app's desktop layout (below ~900px it goes mobile)
+
+    function hasWebGL() {
+      try {
+        const c = document.createElement('canvas');
+        return !!(c.getContext('webgl2') || c.getContext('webgl') ||
+                  c.getContext('experimental-webgl'));
+      } catch (e) {
+        return false;
+      }
+    }
+
+    // Web Mercator, in the projection's native units (-pi..pi).
+    const toMerc   = deg => Math.log(Math.tan(Math.PI / 4 + deg * Math.PI / 360));
+    const fromMerc = y   => (2 * Math.atan(Math.exp(y)) - Math.PI / 2) * 180 / Math.PI;
+
+    function layout() {
+      const tw = document.documentElement.clientWidth;
+      const th = document.documentElement.clientHeight;
+      if (!tw || !th) return;
+
+      const scale = tw / MAP_W;
+      const mapH  = th / scale;  // visible map height in the inner viewport's pixels
+
+      // Zoom that makes LAT_SPAN exactly fill the visible height. Mapbox GL
+      // serves 512px tiles, so the whole Mercator range spans 512*2^Z pixels.
+      const mercSpan = toMerc(CENTER_LAT + LAT_SPAN / 2) - toMerc(CENTER_LAT - LAT_SPAN / 2);
+      const zoom     = Math.log2(2 * Math.PI * mapH / (512 * mercSpan));
+      const z        = Math.max(4, Math.min(12, zoom));
+
+      // The app centers on its full map canvas, but FOOTER pixels of that are
+      // cropped, so the visible middle sits north of it. Push the requested
+      // center south by half the crop — in Mercator units, not degrees, or the
+      // correction lands short.
+      const pxPerMerc = 512 * Math.pow(2, z) / (2 * Math.PI);
+      const lat = fromMerc(toMerc(CENTER_LAT) - (FOOTER / 2) / pxPerMerc).toFixed(4);
+
+      const f = document.getElementById('wd');
+      f.style.width     = (MAP_W + SIDEBAR) + 'px';
+      f.style.height    = (mapH + HEADER + FOOTER) + 'px';
+      f.style.top       = (-HEADER * scale) + 'px';
+      f.style.transform = 'scale(' + scale + ')';
+
+      const src = 'https://app.watchduty.org/@' + lat + ',' + CENTER_LNG + ',' + z.toFixed(2) + 'z';
+      if (f.dataset.src !== src) {
+        f.dataset.src = src;
+        f.src = src;
+      }
+    }
+
+    if (hasWebGL()) {
+      layout();
+      let t;
+      window.addEventListener('resize', () => {
+        clearTimeout(t);
+        t = setTimeout(layout, 250);
+      });
+    } else {
+      document.getElementById('stage').style.display = 'none';
+      document.getElementById('credit').style.display = 'none';
+      document.getElementById('fallback').classList.add('show');
+    }
+  </script>
+</body>
+</html>

@@ -75,8 +75,8 @@
      "iframe|/dashboard/earthquake.html",
      300000],
 
-    ["CALFIRE — SONOMA INCIDENTS",
-     "iframe|/dashboard/calfire.html",
+    ["WATCH DUTY — LIVE FIRE MAP",
+     "iframe|/dashboard/watchduty.html",
      600000],
 
     ["SF BAY — MARINE TRAFFIC (AIS)",
